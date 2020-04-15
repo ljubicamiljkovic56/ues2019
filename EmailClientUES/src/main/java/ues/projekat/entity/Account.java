@@ -1,7 +1,7 @@
 package ues.projekat.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,177 +11,166 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity                 
+@SuppressWarnings("serial")
+@Entity                
 @Table(name="accounts")
 public class Account implements Serializable {
 	
-	@Id                                 
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="account_id", unique=true, nullable=false) 
-	private Integer id;
-	  
-	@Column(name="smtp_address", unique=false, nullable=false) 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "account_id")
+	private Long id;
+	
+	@Column(name = "smtp_address")
 	private String smtpAddress;
 	
-	@Column(name="smtp_port", unique=false, nullable=false) 
+	@Column(name = "smtp_port")
 	private Integer smtpPort;
 	
-	@Column(name="in_server_type", unique=false, nullable=false) 
-	private Integer inServerType;
-	  
-	@Column(name="in_server_address", unique=false, nullable=false) 
+	@Column(name = "inserver_type")
+	private Short inServerType;
+	
+	@Column(name = "inserver_address")
 	private String inServerAddress;
 	
-	@Column(name="in_server_port", unique=false, nullable=false) 
+	@Column(name = "inserver_port")
 	private Integer inServerPort;
 	
-	@Column(name="username", unique=false, nullable=false)
+	@Column(name = "username")
 	private String username;
-	  
-	@Column(name="pasword", unique=false, nullable=false)
+	
+	@Column(name = "password")
 	private String password;
-	  
-	@Column(name="display_name", unique=false, nullable=false)
-	private String displayName;
-
-	@Column(name="account_token",unique=true,nullable=true, length=200)
-	private String token;
-	  
-	@ManyToOne
-	@JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false)
-	private User user;
-
-	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, mappedBy="account")
-	private Set<Message> accountMessages = new HashSet<Message>();
-	  
-	  @OneToMany(cascade={ALL}, fetch=LAZY, mappedBy="account")
-	  private Set<Folder> accountFolders = new HashSet<Folder>();
-	  
+	
+	@Column(name = "displayname")
+	private String displayname;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
+	@JoinColumn(name = "account_folders", referencedColumnName = "folder_id", nullable = true)
+	private ArrayList<Folder> accountFolders;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
+	@JoinColumn(name = "account_messages", referencedColumnName = "message_id", nullable = true)
+	private ArrayList<Message> accountMessages;
+	
 	public Account() {
 		super();
 	}
-	
-	public void addMessage(Message message) {
-		if (message.getAccount() != null) {
-			message.getAccount().getAccountMessages().remove(message);
-		}
-		message.setAccount(this);
-		getAccountMessages().add(message);
+
+	public Account(Long id, String smtpAddress, Integer smtpPort, Short inServerType, String inServerAddress,
+			Integer inServerPort, String username, String password, String displayname,
+			ArrayList<Folder> accountFolders, ArrayList<Message> accountMessages) {
+		super();
+		this.id = id;
+		this.smtpAddress = smtpAddress;
+		this.smtpPort = smtpPort;
+		this.inServerType = inServerType;
+		this.inServerAddress = inServerAddress;
+		this.inServerPort = inServerPort;
+		this.username = username;
+		this.password = password;
+		this.displayname = displayname;
+		this.accountFolders = accountFolders;
+		this.accountMessages = accountMessages;
 	}
-	
-	public void addFolder(Folder folder) {
-		if (folder.getAccount() != null) {
-			folder.getAccount().getAccountFolders().remove(folder);
-		}
-		folder.setAccount(this);
-		getAccountFolders().add(folder);
-	}
-	
-	public void removeMessage(Message message) {
-		message.setAccount(null);
-		getAccountMessages().remove(message);
-	}
-	
-	public void removeFolder(Folder folder) {
-		folder.setAccount(null);
-		getAccountFolders().remove(folder);
-	}
-	
-	public Integer getId() {
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getSmtpAddress() {
 		return smtpAddress;
 	}
+
 	public void setSmtpAddress(String smtpAddress) {
 		this.smtpAddress = smtpAddress;
 	}
+
 	public Integer getSmtpPort() {
 		return smtpPort;
 	}
+
 	public void setSmtpPort(Integer smtpPort) {
 		this.smtpPort = smtpPort;
 	}
-	public Integer getInServerType() {
+
+	public Short getInServerType() {
 		return inServerType;
 	}
-	public void setInServerType(Integer inServerType) {
+
+	public void setInServerType(Short inServerType) {
 		this.inServerType = inServerType;
 	}
+
 	public String getInServerAddress() {
 		return inServerAddress;
 	}
+
 	public void setInServerAddress(String inServerAddress) {
 		this.inServerAddress = inServerAddress;
 	}
+
 	public Integer getInServerPort() {
 		return inServerPort;
 	}
+
 	public void setInServerPort(Integer inServerPort) {
 		this.inServerPort = inServerPort;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getDisplayName() {
-		return displayName;
+
+	public String getDisplayname() {
+		return displayname;
 	}
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+
+	public void setDisplayname(String displayname) {
+		this.displayname = displayname;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Set<Message> getAccountMessages() {
-		return accountMessages;
-	}
-	public void setAccountMessages(Set<Message> accountMessages) {
-		this.accountMessages = accountMessages;
-	}
-	public Set<Folder> getAccountFolders() {
+
+	public ArrayList<Folder> getAccountFolders() {
 		return accountFolders;
 	}
-	public void setAccountFolders(Set<Folder> accountFolders) {
+
+	public void setAccountFolders(ArrayList<Folder> accountFolders) {
 		this.accountFolders = accountFolders;
 	}
 
-	public String getToken() {
-		return token;
+	public ArrayList<Message> getAccountMessages() {
+		return accountMessages;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setAccountMessages(ArrayList<Message> accountMessages) {
+		this.accountMessages = accountMessages;
 	}
-	
-	public void add(Message message) {
-		if (message.getAccount() != null) {
-			message.getAccount().getAccountMessages().remove(message);
-		}
-		message.setAccount(this);
-		getAccountMessages().add(message);
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", smtpAddress=" + smtpAddress + ", smtpPort=" + smtpPort + ", inServerType="
+				+ inServerType + ", inServerAddress=" + inServerAddress + ", inServerPort=" + inServerPort
+				+ ", username=" + username + ", password=" + password + ", displayname=" + displayname
+				+ ", accountFolders=" + accountFolders + ", accountMessages=" + accountMessages + "]";
 	}
-	
-	
-	
-	 
 
 }

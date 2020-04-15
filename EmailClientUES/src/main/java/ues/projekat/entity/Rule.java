@@ -2,70 +2,83 @@ package ues.projekat.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "rules")
 public class Rule implements Serializable {
 	
-	@Id                                 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="rule_id", unique=true, nullable=false) 
-	private Integer id;
-	  	
-	@Column(name="rule_condition", unique=false, nullable=false)
-	private ConditionDTO condition;
-	  
-	@Column(name="rule_value", unique=false, nullable=true, length=100)
+	@Column(name = "rule_id")
+	private Long id;
+	
+	@Column(name = "condition")
+	private Short condition;
+	
+	@Column(name = "value")
 	private String value;
-	  
-	@Column(name="rule_operation", unique=false, nullable=false)
-	private OperationDTO operation;
-	  
-	@ManyToOne
-	@JoinColumn(name="destination_folder_id", referencedColumnName="folder_id", nullable=true)
+	
+	@Column(name = "operation")
+	private Short operation;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "destination", referencedColumnName = "folder_id", nullable = true)
 	private Folder destination;
 
 	public Rule() {
 		super();
 	}
 	
-	public Rule(ConditionDTO condition, String value, OperationDTO operation, Folder folder) {
+	
+	public Rule(Long id, Short condition, String value, Short operation, Folder destination) {
 		super();
+		this.id = id;
 		this.condition = condition;
 		this.value = value;
 		this.operation = operation;
-		this.destination = folder;
+		this.destination = destination;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public ConditionDTO getCondition() {
+	public Short getCondition() {
 		return condition;
 	}
 
-	public void setCondition(ConditionDTO condition) {
+	public void setCondition(Short condition) {
 		this.condition = condition;
 	}
 
-	public OperationDTO getOperation() {
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public Short getOperation() {
 		return operation;
 	}
 
-	public void setOperation(OperationDTO operation) {
+	public void setOperation(Short operation) {
 		this.operation = operation;
 	}
 
@@ -79,18 +92,9 @@ public class Rule implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Rule [id=" + id + ", condition=" + condition + ", value=" + ", operation=" + operation + "]";
+		return "Rule [id=" + id + ", condition=" + condition + ", value=" + value + ", operation=" + operation
+				+ ", destination=" + destination + "]";
 	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	
 	
 
 }

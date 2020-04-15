@@ -11,28 +11,35 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "tags")
-public class Tag implements Serializable {
-	
+@Table(name = "attachments")
+public class Attachment implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tag_id")
-	private Long id; 
+	@Column(name = "attachment_id")
+	private Long id;
+	
+	@Column(name = "path")
+	private String path;
+	
+	@Column(name = "mimeType")
+	private String mimeType;
 	
 	@Column(name = "name")
 	private String name;
+
 	
-	public Tag() {
+	public Attachment() {
 		super();
 	}
-
-	public Tag(Long id, String name) {
+	
+	public Attachment(Long id, String path, String mimeType, String name) {
 		super();
 		this.id = id;
+		this.path = path;
+		this.mimeType = mimeType;
 		this.name = name;
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -40,6 +47,22 @@ public class Tag implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
 	}
 
 	public String getName() {
@@ -52,10 +75,8 @@ public class Tag implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", name=" + name + "]";
+		return "Attachment [id=" + id + ", path=" + path + ", mimeType=" + mimeType + ", name=" + name + "]";
 	}
 	
 	
-	
-
 }

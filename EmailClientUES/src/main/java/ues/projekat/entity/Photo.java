@@ -9,50 +9,57 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "tags")
-public class Tag implements Serializable {
+@Entity                 
+@Table(name = "photos")
+public class Photo implements Serializable {
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "tag_id")
-	private Long id; 
+	@Column(name = "photo_id") 
+	private Long id;
 	
-	@Column(name = "name")
-	private String name;
 	
-	public Tag() {
+	@Column(name = "path")
+	private String path;
+	
+	public Photo() {
 		super();
 	}
 
-	public Tag(Long id, String name) {
+
+	public Photo(Long id, String path) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.path = path;
 	}
-	
-	
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+
+	public String getPath() {
+		return path;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+	public void setPath(String path) {
+		this.path = path;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", name=" + name + "]";
+		return "Photo [id=" + id + ", path=" + path + "]";
 	}
 	
 	

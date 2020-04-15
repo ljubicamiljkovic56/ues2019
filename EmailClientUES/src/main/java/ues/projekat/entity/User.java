@@ -1,9 +1,8 @@
 package ues.projekat.entity;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,98 +10,136 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-
 	
-	@Id                                
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id", unique=true, nullable=false) 
-	private Integer id;
-	  	
-	@Column(name="username", unique=false, nullable=false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Long id;
+	
+	@Column(name = "username")
 	private String username;
-	  
-	@Column(name="password", unique=false, nullable=false)
+	
+	@Column(name = "password")
 	private String password;
-	  
-	@Column(name="first_name", unique=false, nullable=false)
-	private String firstName;
-	  
-	@Column(name="last_name", unique=false, nullable=false)
-	private String lastName;
-	  
-	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, mappedBy="user")
-	  private Set<Account> userAccounts = new HashSet()<Account>();
-	  
-	  @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, mappedBy="userTag")
-	  private Set<Tag> userTags = new HashSet<Tag>();
-	  
-	  @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, mappedBy="user")
-	  private Set<Contact> userContacts = new HashSet<Contact>();
-
-	  public User() {
-		  super();
-	  }
-
-	public Integer getId() {
-		return id;
+	
+	@Column(name = "firstname")
+	private String firstname;
+	
+	@Column(name = "lastname")
+	private String lastname;
+	
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+	@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
+	private ArrayList<Contact> userContacts;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userTag")
+	@JoinColumn(name = "user_tags", referencedColumnName = "tag_id", nullable = true)
+	private ArrayList<Tag> userTags;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	@JoinColumn(name = "user_accounts", referencedColumnName = "account_id", nullable = true)
+	private ArrayList<Account> userAccounts;
+	
+	public User() {
+		super();
 	}
-	public void setId(Integer id) {
+
+	public User(Long id, String username, String password, String firstname, String lastname,
+			ArrayList<Contact> userContacts, ArrayList<Tag> userTags, ArrayList<Account> userAccounts) {
+		super();
 		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
 		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Set<Account> getUserAccounts() {
-		return userAccounts;
-	}
-
-	public void setUserAccounts(Set<Account> userAccounts) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.userContacts = userContacts;
+		this.userTags = userTags;
 		this.userAccounts = userAccounts;
 	}
 
-	public Set<Tag> getUserTags() {
-		return userTags;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserTags(Set<Tag> userTags) {
-		this.userTags = userTags;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Set<Contact> getUserContacts() {
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public ArrayList<Contact> getUserContacts() {
 		return userContacts;
 	}
 
-	public void setUserContacts(Set<Contact> userContacts) {
+	public void setUserContacts(ArrayList<Contact> userContacts) {
 		this.userContacts = userContacts;
 	}
+
+	public ArrayList<Tag> getUserTags() {
+		return userTags;
+	}
+
+	public void setUserTags(ArrayList<Tag> userTags) {
+		this.userTags = userTags;
+	}
+
+	public ArrayList<Account> getUserAccounts() {
+		return userAccounts;
+	}
+
+	public void setUserAccounts(ArrayList<Account> userAccounts) {
+		this.userAccounts = userAccounts;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", userContacts=" + userContacts + ", userTags=" + userTags
+				+ ", userAccounts=" + userAccounts + "]";
+	}
+
+	
+	
+	
+
 	
 	
 }
