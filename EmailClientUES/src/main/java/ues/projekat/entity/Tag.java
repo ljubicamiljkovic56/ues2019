@@ -1,12 +1,16 @@
 package ues.projekat.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -22,14 +26,20 @@ public class Tag implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "messages_tags", referencedColumnName = "message_id")
+	private ArrayList<Message> messagesOfTags;
+	
+	
 	public Tag() {
 		super();
 	}
 
-	public Tag(Long id, String name) {
+	public Tag(Long id, String name, ArrayList<Message> messagesOfTags) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.messagesOfTags = messagesOfTags;
 	}
 	
 	
@@ -50,10 +60,19 @@ public class Tag implements Serializable {
 		this.name = name;
 	}
 
+	public ArrayList<Message> getMessagesOfTags() {
+		return messagesOfTags;
+	}
+
+	public void setMessagesOfTags(ArrayList<Message> messagesOfTags) {
+		this.messagesOfTags = messagesOfTags;
+	}
+
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", name=" + name + "]";
+		return "Tag [id=" + id + ", name=" + name + ", messagesOfTags=" + messagesOfTags + "]";
 	}
+
 	
 	
 	
