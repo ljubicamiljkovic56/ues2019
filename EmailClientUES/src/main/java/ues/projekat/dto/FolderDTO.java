@@ -2,9 +2,11 @@ package ues.projekat.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import ues.projekat.entity.Folder;
 import ues.projekat.entity.Message;
+import ues.projekat.entity.Rule;
 
 @SuppressWarnings("serial")
 public class FolderDTO implements Serializable {
@@ -14,6 +16,8 @@ public class FolderDTO implements Serializable {
 	private String name;
 	private Folder parentFolder;
 	private ArrayList<Message> folderMessages;
+	private HashSet<Rule> rules;
+
 	
 	public FolderDTO() {
 		super();
@@ -21,12 +25,14 @@ public class FolderDTO implements Serializable {
 	
 	
 	
-	public FolderDTO(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages) {
+	public FolderDTO(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parentFolder = parentFolder;
 		this.folderMessages = folderMessages;
+		this.rules = rules;
+		
 	}
 
 	public FolderDTO(Folder folder) {
@@ -34,6 +40,7 @@ public class FolderDTO implements Serializable {
 		this.name = folder.getName();
 		this.parentFolder = folder.getParentFolder();
 		this.folderMessages = folder.getFolderMessages();
+		this.rules = (HashSet<Rule>) folder.getRules();
 	}
 
 
@@ -61,6 +68,13 @@ public class FolderDTO implements Serializable {
 	public void setFolderMessages(ArrayList<Message> folderMessages) {
 		this.folderMessages = folderMessages;
 	}
-	
+
+	public HashSet<Rule> getRules() {
+		return rules;
+	}
+
+	public void setRules(HashSet<Rule> rules) {
+		this.rules = rules;
+	}
 	
 }

@@ -42,13 +42,17 @@ public class Contact implements Serializable {
 	@JoinColumn(name = "photo", referencedColumnName = "photo_id", nullable = false)
 	private Photo contactPhoto;
 	
+	@OneToOne
+	@JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false)
+	private User user;
+	
 	
 	public Contact() {
 		super();
 	}
 
 	public Contact(Long id, String firstname, String lastname, String displayname, String email, String note,
-			Photo contactPhoto) {
+			Photo contactPhoto, User user) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -57,6 +61,7 @@ public class Contact implements Serializable {
 		this.email = email;
 		this.note = note;
 		this.contactPhoto = contactPhoto;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -115,11 +120,22 @@ public class Contact implements Serializable {
 		this.contactPhoto = contactPhoto;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "Contact [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", displayname="
-				+ displayname + ", email=" + email + ", note=" + note + ", contactPhoto=" + contactPhoto + "]";
+				+ displayname + ", email=" + email + ", note=" + note + ", contactPhoto=" + contactPhoto + ", user="
+				+ user + "]";
 	}
+
+	
 	
 	
 

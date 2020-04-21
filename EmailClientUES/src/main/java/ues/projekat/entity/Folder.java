@@ -2,6 +2,8 @@ package ues.projekat.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,16 +37,25 @@ public class Folder implements Serializable {
 	
 	private ArrayList<Message> folderMessages;
 	
+	@ManyToOne
+	@JoinColumn(name="account_id", referencedColumnName="account_id", nullable=false)
+	private Account account;
+	
+	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy="destination")
+	  private Set<Rule> rules = new HashSet<Rule>();
+
+	
 	public Folder() {
 		super();
 	}
 
-	public Folder(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages) {
+	public Folder(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parentFolder = parentFolder;
 		this.folderMessages = folderMessages;
+		this.rules = rules;
 	}
 
 	public Long getId() {
@@ -77,11 +90,28 @@ public class Folder implements Serializable {
 		this.folderMessages = folderMessages;
 	}
 
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Set<Rule> getRules() {
+		return rules;
+	}
+
+	public void setRules(Set<Rule> rules) {
+		this.rules = rules;
+	}
+
 	@Override
 	public String toString() {
 		return "Folder [id=" + id + ", name=" + name + ", parentFolder=" + parentFolder + ", folderMessages="
-				+ folderMessages + "]";
+				+ folderMessages + ", account=" + account + ", rules=" + rules + "]";
 	}
+
 	
 	
 }
