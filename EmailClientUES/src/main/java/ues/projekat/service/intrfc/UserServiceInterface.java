@@ -1,5 +1,7 @@
 package ues.projekat.service.intrfc;
 
+import java.util.List;
+
 import ues.projekat.entity.User;
 
 public interface UserServiceInterface {
@@ -13,5 +15,7 @@ public interface UserServiceInterface {
 	User save(User user);
 
 	User findOne(Long userId);
+
+	List<User> findAll();
 
 }

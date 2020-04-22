@@ -25,10 +25,10 @@ public class Message implements Serializable {
 	@Column(name = "message_id")
 	private Long id;
 	
-	@Column(name = "from")
+	@Column(name = "message_from")
 	private String from;
 	
-	@Column(name = "to")
+	@Column(name = "message_to")
 	private String to;
 	
 	@Column(name = "cc")
@@ -37,10 +37,10 @@ public class Message implements Serializable {
 	@Column(name = "bcc")
 	private String bcc;
 	
-	@Column(name = "date")
+	@Column(name = "message_date")
 	private Timestamp dateTime;
 	
-	@Column(name = "subject")
+	@Column(name = "message_subject")
 	private String subject;
 	
 	@Column(name = "content")

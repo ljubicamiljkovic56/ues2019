@@ -22,7 +22,7 @@ public class Attachment implements Serializable {
 	@Column(name = "path")
 	private String path;
 	
-	@Column(name = "mimeType")
+	@Column(name = "mime_type")
 	private String mimeType;
 	
 	@Column(name = "name")

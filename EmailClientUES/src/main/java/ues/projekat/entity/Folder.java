@@ -49,13 +49,14 @@ public class Folder implements Serializable {
 		super();
 	}
 
-	public Folder(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules) {
+	public Folder(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules, Account account) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parentFolder = parentFolder;
 		this.folderMessages = folderMessages;
 		this.rules = rules;
+		this.account  = account;
 	}
 
 	public Long getId() {
