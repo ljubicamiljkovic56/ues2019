@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Edit account</title>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/edit_account.js"></script>
+<link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
-
+<h3>Edit account</h3>
+<form id="accountForm">
+	<table>
+		<tr><td align="right">ID:</td><td><input type="hidden" id="idInput" value=""/></td></tr>
+		<tr><td align="right">Username:</td><td><input type="text" id="usernameInput"/></td></tr>
+		<tr><td align="right">Password:</td><td><input type="password" id="passwordInput"/></td></tr>
+		<tr><td align="right">Display name:</td><td><input type="text" id="displaynameInput"/></td></tr>
+		<tr><td align="right">User ID:</td><td><input type="hidden" id="userIdInput"/></td></tr>
+		<tr><td/><td><input type="submit" value="Edit account" id="updateSubmit"></td></tr>
+	</table>
+</form>
+<p><a href="accounts.html">Back to accounts</a></p>
+<p><a href="main.html" id="logoutLink">Log out</a></p>
 </body>
 </html>
