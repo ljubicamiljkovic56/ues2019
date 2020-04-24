@@ -1,3 +1,31 @@
+DROP schema IF EXISTS ues;
+CREATE SCHEMA ues DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE ues; 
+
+CREATE TABLE users(user_id BIGINT NOT NULL AUTO_INCREMENT,username VARCHAR(45) NOT NULL,password VARCHAR(45) NOT NULL,firstname VARCHAR(45) NOT NULL,lastname VARCHAR(45) NOT NULL, PRIMARY KEY (user_id));
+
+
+CREATE TABLE accounts (account_id BIGINT NOT NULL AUTO_INCREMENT,smtp_address VARCHAR(45),smtp_port INT NOT NULL,inserver_type INT NOT NULL,inserver_address VARCHAR(45),inserver_port INT NOT NULL,username VARCHAR(45) NOT NULL,password VARCHAR(45) NOT NULL,displayname VARCHAR(45) NOT NULL,user_id BIGINT NOT NULL,PRIMARY KEY (account_id),FOREIGN KEY (user_id) REFERENCES users(user_id));
+
+
+CREATE TABLE photos (photo_id BIGINT NOT NULL AUTO_INCREMENT,path VARCHAR(45) NOT NULL,PRIMARY KEY (photo_id));
+
+
+CREATE TABLE contacts (contact_id BIGINT NOT NULL AUTO_INCREMENT,firstname VARCHAR(45) NOT NULL,lastname VARCHAR(45) NOT NULL,displayname VARCHAR(45) NOT NULL,email VARCHAR(45) NOT NULL,note VARCHAR(30),user_id BIGINT NOT NULL,photo_id BIGINT,PRIMARY KEY (contact_id),FOREIGN KEY (user_id) REFERENCES users(user_id),FOREIGN KEY (photo_id) REFERENCES photos(photo_id));
+
+
+CREATE TABLE folders (folder_id BIGINT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,parent_folder BIGINT,account_id BIGINT NOT NULL,PRIMARY KEY (folder_id),FOREIGN KEY (account_id) REFERENCES accounts(account_id),FOREIGN KEY (parent_folder) REFERENCES folders(folder_id));
+
+
+CREATE TABLE tags (tag_id BIGINT NOT NULL AUTO_INCREMENT,name VARCHAR(45) NOT NULL,PRIMARY KEY (tag_id));
+
+
+CREATE TABLE attachments (attachment_id BIGINT NOT NULL AUTO_INCREMENT,path VARCHAR(45) NOT NULL,mime_type VARCHAR(45),name VARCHAR(45) NOT NULL,PRIMARY KEY (attachment_id));
+
+
+CREATE TABLE messages (message_id BIGINT NOT NULL AUTO_INCREMENT,message_from VARCHAR(45) NOT NULL,message_to VARCHAR(45) NOT NULL,cc VARCHAR(45),bcc VARCHAR(45),message_date TIMESTAMP NOT NULL,message_subject VARCHAR(45),content VARCHAR(45),unread BOOLEAN NOT NULL,message_tags BIGINT,message_attach BIGINT,PRIMARY KEY (message_id),FOREIGN KEY (message_tags) REFERENCES tags(tag_id),FOREIGN KEY (message_attach) REFERENCES attachments(attachment_id));
+
+
 INSERT INTO users(username, password, firstname, lastname) VALUES ('miki123', 'miki123', 'Miki', 'Mikic');
 INSERT INTO users(username, password, firstname, lastname) VALUES ('pera', 'pera', 'Pera', 'Peric');
 
@@ -15,4 +43,3 @@ INSERT INTO folders(name, parent_folder, account_id) VALUES ('Folder3', null, 3)
 
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, message_tags, message_attach) VALUES ('miki@gmail.com', 'pera@gmail.com', null, null, '2020-04-20 09:10:56', 'Zanimljivosti', 'Evo novih zanimljivosti', false, null, null);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, message_tags, message_attach) VALUES ('miki@gmail.com', 'ana@gmail.com', null, null, '2020-04-20 12:10:30', 'Zadatak', 'Domaci zadatak', true, null, null);
-
