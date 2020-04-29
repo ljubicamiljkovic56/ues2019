@@ -1,5 +1,7 @@
 package ues.projekat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,11 @@ public class UserService implements UserServiceInterface {
 	@Override
 	public User findOne(Long userId) {
 		return userRepository.findOne(userId);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 
 }
