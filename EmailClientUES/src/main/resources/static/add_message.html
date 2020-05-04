@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Create new message</title>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/add_message.js"></script>
 </head>
 <body>
+<h3>Create new message</h3>
+<form>
+	<table>
+		<tr><td align="right">From:</td><td><input type="hidden" id="idInput"/></td></tr>
+		<tr><td align="right">To:</td><td><input type="text" id="toInput"/></td></tr>
+		<tr><td align="right">Cc:</td><td><input type="text" id="ccInput"/></td></tr>
+		<tr><td align="right">Bcc:</td><td><input type="text" id="bccInput"/></td></tr>
+		<tr><td align="right">Date and time:</td><td><input type="hidden" id="dateTimeInput"/></td></tr>
+		<tr><td align="right">Subject:</td><td><input type="text" id="subjectInput"/></td></tr>
+		<tr><td align="right">Content:</td><td><input type="text" id="contentInput"/></td></tr>
+		<tr><td align="right">Tags:</td><td><input type="text" id="tagsInput"/></td></tr>
+		<tr><td align="right">Attachment:</td><td><input type="text" id="attachmentsInput"/></td></tr>
+		<tr><td/><td><input type="submit" value="Add message" id="messageSubmit"></td></tr>
+	</table>
+</form>
 
+<p><a href="messages.html">Back to messages</a></p>
+<p><a href="main.html" id="logoutLink">Log out</a></p>
 </body>
 </html>

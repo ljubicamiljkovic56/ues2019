@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Message</title>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/message.js"></script>
+<link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
+<h3>Message</h3>
+<form id="messageForm">
+		<table>
+			<tr><td align="right">ID:</td><td><input type="hidden" id="idCell"/></td></tr>
+			<tr><td align="right">From:</td><td><input type="text" id="fromCell"/></td></tr>
+			<tr><td align="right">To:</td><td><input type="text" id="toCell"/></td></tr>
+			<tr><td align="right">Cc:</td><td><input type="text" id="ccCell"/></td></tr>
+			<tr><td align="right">Bcc:</td><td><input type="text" id="bccCell"/></td></tr>
+			<tr><td align="right">Date and time:</td><td><input type="hidden" id="dateTimeCell"/></td></tr>
+			<tr><td align="right">Subject:</td><td><input type="text" id="subjectCell"/></td></tr>
+			<tr><td align="right">Content:</td><td><input type="password" id="contentCell"/></td></tr>
+			<tr><td align="right">Tags:</td><td><input type="text" id="tagsCell"/></td></tr>
+			<tr><td align="right">Attachments:</td><td><input type="text" id="attachmentsCell"/></td></tr>
+		</table>
+	</form>
 
+<p><a href="messages.html">Back to messages</a></p>
+<p><a href="main.html" id="logoutLink">Log out</a></p>
 </body>
 </html>

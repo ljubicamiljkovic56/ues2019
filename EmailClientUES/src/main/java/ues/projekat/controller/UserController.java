@@ -110,7 +110,7 @@ public class UserController {
 
 	}
 	
-	@PutMapping(value = "/addAccaunt/{username}")
+	@PutMapping(value = "/addAccount/{username}")
 	public ResponseEntity<Void> addAccaunt(@RequestBody AccountDTO accountDTO,@PathVariable("username") String username){
 		
 		User user = userServiceInterface.findByUsername(username);
