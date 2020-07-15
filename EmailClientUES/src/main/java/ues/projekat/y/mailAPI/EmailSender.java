@@ -1,23 +1,23 @@
-package ues.projekat.mailAPI;
+package ues.projekat.y.mailAPI;
+//
+//import java.util.Properties;
+//
+//import javax.mail.PasswordAuthentication;
+//import javax.mail.Session;
 
-import java.util.Properties;
-
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-
-
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
-import javax.mail.Multipart;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-import ues.projekat.entity.Attachment;
-import ues.projekat.entity.Message;
-import ues.projekat.service.intrfc.MessageServiceInterface;
+//
+//import javax.mail.Authenticator;
+//import javax.mail.BodyPart;
+//import javax.mail.Multipart;
+//import javax.mail.Transport;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeBodyPart;
+//import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMultipart;
+//
+//import ues.projekat.entity.Attachment;
+//import ues.projekat.entity.Message;
+//import ues.projekat.service.intrfc.MessageServiceInterface;
 //
 //public class EmailSender {
 //	

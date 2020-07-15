@@ -1,3 +1,4 @@
+package ues.projekat.y.search.analyzers;
 //package ues.projekat.search.analyzers;
 //
 //import org.apache.lucene.analysis.Analyzer;

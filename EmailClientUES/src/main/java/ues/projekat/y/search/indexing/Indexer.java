@@ -1,3 +1,4 @@
+package ues.projekat.y.search.indexing;
 //package ues.projekat.search.indexing;
 //
 //import java.io.File;

@@ -1,3 +1,4 @@
+package ues.projekat.y.search.model;
 //package ues.projekat.search.model;
 //
 //public class AdvancedQuery {

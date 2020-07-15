@@ -1,24 +1,25 @@
-package ues.projekat.mailAPI;
+package ues.projekat.y.mailAPI;
+//package ues.projekat.mailAPI;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.sql.Timestamp;
-import org.apache.tomcat.util.codec.binary.Base64;
-import java.util.Date;
-import java.util.Properties;
-
-import javax.mail.Folder;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
-
-import ues.projekat.entity.Account;
-import ues.projekat.entity.Attachment;
-import ues.projekat.entity.Message;
-import ues.projekat.service.intrfc.FolderServiceInterface;
-import ues.projekat.service.intrfc.MessageServiceInterface;
+//import java.io.File;
+//import java.nio.file.Files;
+//import java.sql.Timestamp;
+//import org.apache.tomcat.util.codec.binary.Base64;
+//import java.util.Date;
+//import java.util.Properties;
+//
+//import javax.mail.Folder;
+//import javax.mail.Part;
+//import javax.mail.Session;
+//import javax.mail.Store;
+//import javax.mail.internet.MimeBodyPart;
+//import javax.mail.internet.MimeMultipart;
+//
+//import ues.projekat.entity.Account;
+//import ues.projekat.entity.Attachment;
+//import ues.projekat.entity.Message;
+//import ues.projekat.service.intrfc.FolderServiceInterface;
+//import ues.projekat.service.intrfc.MessageServiceInterface;
 
 //public class EmailReceiver {
 //	
