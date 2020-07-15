@@ -20,8 +20,6 @@ import ues.projekat.entity.User;
 import ues.projekat.service.intrfc.AccountServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
 
-
-
 @RestController
 @RequestMapping(value = "api/accounts")
 public class AccountController {
@@ -93,8 +91,4 @@ public class AccountController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-	
-	
-
 }

@@ -52,32 +52,32 @@ public class UserController {
 	}
 	
 	
-//	@PostMapping(value = "user/loginUser")
-//	public ResponseEntity<Void> loginUser(@RequestParam("username") String username, @RequestParam("password") String password){
-//		System.out.println("LOGIN..........");
-//		User user = userServiceInterface.findByUsernameAndPassword(username, password);
-//		if (user == null) {
-//			System.out.println("Neuspesna prijava");
-//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//		}
-//		System.out.println(user.getUsername());
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//	}
-	
-	@PostMapping(path="user/loginUser")
-	public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
+	@PostMapping(value = "user/loginUser")
+	public ResponseEntity<Void> loginUser(@RequestParam("username") String username, @RequestParam("password") String password){
 		System.out.println("LOGIN..........");
-		System.out.println(username);
-		System.out.println(password);
 		User user = userServiceInterface.findByUsernameAndPassword(username, password);
 		if (user == null) {
 			System.out.println("Neuspesna prijava");
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 		System.out.println(user.getUsername());
-		
-		return new ResponseEntity<String>(HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+//	@PostMapping(path="user/loginUser")
+//	public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
+//		System.out.println("LOGIN..........");
+//		System.out.println(username);
+//		System.out.println(password);
+//		User user = userServiceInterface.findByUsernameAndPassword(username, password);
+//		if (user == null) {
+//			System.out.println("Neuspesna prijava");
+//			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+//		}
+//		System.out.println(user.getUsername());
+//		
+//		return new ResponseEntity<String>(HttpStatus.CREATED);
+//	}
 
 	
 	@PostMapping(value = "/getUser")
