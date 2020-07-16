@@ -28,7 +28,7 @@ public class Tag implements Serializable {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "messages_tags", referencedColumnName = "message_id")
+	@JoinColumn(name = "messages_tags")
 	private List<Message> messagesOfTags;
 	
 	

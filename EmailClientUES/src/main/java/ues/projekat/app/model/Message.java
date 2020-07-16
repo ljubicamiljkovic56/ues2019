@@ -53,11 +53,11 @@ public class Message implements Serializable {
 	private boolean unread;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "message_tag", referencedColumnName = "tag_id", nullable = true)
+	@JoinColumn(name = "message_tag", nullable = true)
 	private List<Tag> messageTags;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "message_attach", referencedColumnName = "attachment_id", nullable = true)
+	@JoinColumn(name = "message_attach", nullable = true)
 	private List<Attachment> messageAttachments;
 	
 	public Message() {
