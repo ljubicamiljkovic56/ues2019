@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "rules")
+@Table(name="rules")
 public class Rule implements Serializable {
 	
 	@Id

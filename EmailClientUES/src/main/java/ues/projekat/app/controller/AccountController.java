@@ -1,4 +1,4 @@
-package ues.projekat.controller;
+package ues.projekat.app.controller;
 
 import java.util.ArrayList;
 import java.util.List;

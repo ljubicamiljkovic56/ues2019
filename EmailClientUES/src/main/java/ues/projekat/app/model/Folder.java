@@ -3,6 +3,7 @@ package ues.projekat.app.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,29 +36,37 @@ public class Folder implements Serializable {
 	@JoinColumn(name = "parent_folder", referencedColumnName = "folder_id", nullable = true)
 	private Folder parentFolder;
 	
-	private ArrayList<Message> folderMessages;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "folder")
+	private List<Message> folderMessages;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Folder> subfolders = new ArrayList<Folder>();
 	
 	@ManyToOne
 	@JoinColumn(name="account_id", referencedColumnName="account_id", nullable=false)
 	private Account account;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy="destination")
-	  private Set<Rule> rules = new HashSet<Rule>();
+	private Set<Rule> rules = new HashSet<Rule>();
 
 	
 	public Folder() {
 		super();
 	}
 
-	public Folder(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules, Account account) {
+
+	public Folder(Long id, String name, Folder parentFolder, List<Message> folderMessages, List<Folder> subfolders,
+			Account account, Set<Rule> rules) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parentFolder = parentFolder;
 		this.folderMessages = folderMessages;
+		this.subfolders = subfolders;
+		this.account = account;
 		this.rules = rules;
-		this.account  = account;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -83,7 +92,7 @@ public class Folder implements Serializable {
 		this.parentFolder = parentFolder;
 	}
 
-	public ArrayList<Message> getFolderMessages() {
+	public List<Message> getFolderMessages() {
 		return folderMessages;
 	}
 
@@ -107,9 +116,27 @@ public class Folder implements Serializable {
 		this.rules = rules;
 	}
 
+	public List<Folder> getSubfolders() {
+		return subfolders;
+	}
+
+
+	public void setSubfolders(List<Folder> subfolders) {
+		this.subfolders = subfolders;
+	}
+
+
+	public void setFolderMessages(List<Message> folderMessages) {
+		this.folderMessages = folderMessages;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Folder [id=" + id + ", name=" + name + ", parentFolder=" + parentFolder + ", folderMessages="
-				+ folderMessages + ", account=" + account + ", rules=" + rules + "]";
+				+ folderMessages + ", subfolders=" + subfolders + ", account=" + account + ", rules=" + rules + "]";
 	}
+
+
+
 }

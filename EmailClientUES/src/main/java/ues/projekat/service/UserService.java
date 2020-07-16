@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.User;
-import ues.projekat.repository.UserRepository;
+import ues.projekat.app.repository.UserRepository;
 import ues.projekat.service.intrfc.UserServiceInterface;
 
 

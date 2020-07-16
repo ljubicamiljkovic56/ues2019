@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -28,19 +30,25 @@ public class Attachment implements Serializable {
 	
 	@Column(name = "name")
 	private String name;
+	
+	@ManyToOne
+	@JoinColumn(name="message_id", referencedColumnName="message_id", nullable=false)
+	private Message message;
 
 	
 	public Attachment() {
 		super();
 	}
 	
-	public Attachment(Long id, String path, String mimeType, String name) {
+	public Attachment(Long id, String path, String mimeType, String name, Message message) {
 		super();
 		this.id = id;
 		this.path = path;
 		this.mimeType = mimeType;
 		this.name = name;
+		this.message = message;
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -73,10 +81,19 @@ public class Attachment implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message message) {
+		this.message = message;
+	}
 
 	@Override
 	public String toString() {
-		return "Attachment [id=" + id + ", path=" + path + ", mimeType=" + mimeType + ", name=" + name + "]";
+		return "Attachment [id=" + id + ", path=" + path + ", mimeType=" + mimeType + ", name=" + name + ", message="
+				+ message + "]";
 	}
-	
+
 }

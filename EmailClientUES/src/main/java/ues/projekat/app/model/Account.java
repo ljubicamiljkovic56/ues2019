@@ -52,11 +52,11 @@ public class Account implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
 	//@JoinColumn(name = "account_folders", referencedColumnName = "folder_id", nullable = true)
-	private List<Folder> accountFolders;
+	private List<Folder> accountFolders = new ArrayList<Folder>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
 	//@JoinColumn(name = "account_messages", referencedColumnName = "message_id", nullable = true)
-	private List<Message> accountMessages;
+	private List<Message> accountMessages = new ArrayList<Message>();
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false)

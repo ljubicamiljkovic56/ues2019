@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.Message;
-import ues.projekat.repository.MessageRepository;
+import ues.projekat.app.repository.MessageRepository;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 
 @Service

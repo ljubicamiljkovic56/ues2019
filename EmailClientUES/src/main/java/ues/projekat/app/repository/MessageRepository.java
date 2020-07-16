@@ -1,4 +1,4 @@
-package ues.projekat.repository;
+package ues.projekat.app.repository;
 
 import java.util.List;
 

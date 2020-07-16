@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.Contact;
-import ues.projekat.repository.ContactRepository;
+import ues.projekat.app.repository.ContactRepository;
 import ues.projekat.service.intrfc.ContactServiceInterface;
 
 @Service

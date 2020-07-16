@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,22 +29,27 @@ public class Tag implements Serializable {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "messages_tags")
+	@JoinColumn(name = "message_tags")
 	private List<Message> messagesOfTags;
 	
+	@ManyToOne
+	@JoinColumn(name="user_id", referencedColumnName="user_id", nullable=true)
+	private User userTag;
+
 	
 	public Tag() {
 		super();
 	}
+	
 
-	public Tag(Long id, String name, ArrayList<Message> messagesOfTags) {
+	public Tag(Long id, String name, List<Message> messagesOfTags, User userTag) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.messagesOfTags = messagesOfTags;
+		this.userTag = userTag;
 	}
-	
-	
+
 
 	public Long getId() {
 		return id;
@@ -68,9 +74,22 @@ public class Tag implements Serializable {
 	public void setMessagesOfTags(ArrayList<Message> messagesOfTags) {
 		this.messagesOfTags = messagesOfTags;
 	}
+	
+	
+
+	public User getUserTag() {
+		return userTag;
+	}
+
+
+	public void setUserTag(User userTag) {
+		this.userTag = userTag;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Tag [id=" + id + ", name=" + name + ", messagesOfTags=" + messagesOfTags + "]";
+		return "Tag [id=" + id + ", name=" + name + ", messagesOfTags=" + messagesOfTags + ", userTag=" + userTag + "]";
 	}
+	
 }

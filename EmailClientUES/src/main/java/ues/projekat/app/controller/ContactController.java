@@ -1,4 +1,4 @@
-package ues.projekat.controller;
+package ues.projekat.app.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class ContactController {
 		contact.setUser(user);
 		
 		if(contactDTO.getContactPhoto() != null)
-			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath()));
+			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
 	
 		contact = contactServiceInterface.save(contact);
 		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.CREATED);	
@@ -106,7 +106,7 @@ public class ContactController {
 			contact.setNote(contactDTO.getNote());
 		
 		if(contactDTO.getContactPhoto() != null)
-			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath()));
+			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
 	
 		contact = contactServiceInterface.save(contact);
 		

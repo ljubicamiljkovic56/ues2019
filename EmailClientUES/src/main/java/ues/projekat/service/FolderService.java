@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.Account;
 import ues.projekat.app.model.Folder;
-import ues.projekat.repository.FolderRepository;
+import ues.projekat.app.repository.FolderRepository;
 import ues.projekat.service.intrfc.FolderServiceInterface;
 
 @Service
@@ -18,7 +18,7 @@ public class FolderService implements FolderServiceInterface {
 
 	@Override
 	public List<Folder> findByParent(Folder parentFolder) {
-		return folderRepository.findByParent(parentFolder);
+		return folderRepository.findByParentFolder(parentFolder);
 	}
 
 	@Override

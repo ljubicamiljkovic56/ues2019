@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -52,20 +53,32 @@ public class Message implements Serializable {
 	@Column(name = "unread")
 	private boolean unread;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "message_tag", nullable = true)
-	private List<Tag> messageTags;
+	 @ManyToOne
+	 @JoinColumn(name="folder_id", referencedColumnName="folder_id", nullable=false)
+	 private Folder folder;
+	  
+	 @ManyToOne
+	 @JoinColumn(name="account_id", referencedColumnName="account_id", nullable=false)
+	 private Account account;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "message_attach", nullable = true)
+	//@JoinColumn(name = "message_tags", nullable = true)
+	private List<Tag> messageTags;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//@JoinColumn(name = "message_attach", nullable = true)
 	private List<Attachment> messageAttachments;
 	
 	public Message() {
 		super();
 	}
 
+
+
 	public Message(Long id, String from, String to, String cc, String bcc, Timestamp dateTime, String subject,
-			String content, boolean unread, ArrayList<Tag> messageTags, ArrayList<Attachment> messageAttachments) {
+			String content, boolean unread, Folder folder, Account account, List<Tag> messageTags,
+			List<Attachment> messageAttachments) {
 		super();
 		this.id = id;
 		this.from = from;
@@ -76,9 +89,13 @@ public class Message implements Serializable {
 		this.subject = subject;
 		this.content = content;
 		this.unread = unread;
+		this.folder = folder;
+		this.account = account;
 		this.messageTags = messageTags;
 		this.messageAttachments = messageAttachments;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -167,12 +184,42 @@ public class Message implements Serializable {
 	public void setMessageAttachments(ArrayList<Attachment> messageAttachments) {
 		this.messageAttachments = messageAttachments;
 	}
+	
+	
+
+	public Folder getFolder() {
+		return folder;
+	}
+
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
+
+
+
+	public Account getAccount() {
+		return account;
+	}
+
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+
+	public void setMessageAttachments(List<Attachment> messageAttachments) {
+		this.messageAttachments = messageAttachments;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", from=" + from + ", to=" + to + ", cc=" + cc + ", bcc=" + bcc + ", dateTime="
-				+ dateTime + ", subject=" + subject + ", content=" + content + ", unread=" + unread + ", messageTags="
-				+ messageTags + ", messageAttachments=" + messageAttachments + "]";
+				+ dateTime + ", subject=" + subject + ", content=" + content + ", unread=" + unread + ", folder="
+				+ folder + ", account=" + account + ", messageTags=" + messageTags + ", messageAttachments="
+				+ messageAttachments + "]";
 	}
 	
 }

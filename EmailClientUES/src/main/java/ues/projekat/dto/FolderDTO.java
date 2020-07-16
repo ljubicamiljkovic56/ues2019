@@ -3,6 +3,7 @@ package ues.projekat.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
@@ -15,7 +16,7 @@ public class FolderDTO implements Serializable {
 	private Long id;
 	private String name;
 	private Folder parentFolder;
-	private ArrayList<Message> folderMessages;
+	private List<Message> folderMessages;
 	private HashSet<Rule> rules;
 
 	
@@ -62,7 +63,7 @@ public class FolderDTO implements Serializable {
 	public void setParentFolder(Folder parentFolder) {
 		this.parentFolder = parentFolder;
 	}
-	public ArrayList<Message> getFolderMessages() {
+	public List<Message> getFolderMessages() {
 		return folderMessages;
 	}
 	public void setFolderMessages(ArrayList<Message> folderMessages) {

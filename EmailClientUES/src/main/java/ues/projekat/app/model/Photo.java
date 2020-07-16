@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -25,15 +27,20 @@ public class Photo implements Serializable {
 	@Column(name = "path")
 	private String path;
 	
+	 @ManyToOne
+	 @JoinColumn(name="contact_id", referencedColumnName="contact_id", nullable=false)
+	 private Contact contact;
+	
 	public Photo() {
 		super();
 	}
 
 
-	public Photo(Long id, String path) {
+	public Photo(Long id, String path, Contact contact) {
 		super();
 		this.id = id;
 		this.path = path;
+		this.contact = contact;
 	}
 
 
@@ -56,9 +63,21 @@ public class Photo implements Serializable {
 		this.path = path;
 	}
 
+	
+
+	public Contact getContact() {
+		return contact;
+	}
+
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Photo [id=" + id + ", path=" + path + "]";
+		return "Photo [id=" + id + ", path=" + path + ", contact=" + contact + "]";
 	}
+
 }

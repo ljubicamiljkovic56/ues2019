@@ -1,4 +1,4 @@
-package ues.projekat.repository;
+package ues.projekat.app.repository;
 
 
 import java.util.List;
@@ -10,7 +10,7 @@ import ues.projekat.app.model.Folder;
 
 public interface FolderRepository extends JpaRepository<Folder, Long> {
 	
-	List<Folder> findByParent (Folder parentFolder);
+	List<Folder> findByParentFolder (Folder parentFolder);
 	
 	Folder findByName (String name);
 	

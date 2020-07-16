@@ -40,7 +40,7 @@ public class User implements Serializable {
 	//@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
 	private List<Contact> userContacts;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userTag")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "user_tags", referencedColumnName = "tag_id", nullable = true)
 	private List<Tag> userTags;
 	
