@@ -39,7 +39,7 @@ public class Contact implements Serializable {
 	private String note;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "photo_id", referencedColumnName = "photo_id", nullable = false)
+	@JoinColumn(name = "photo_id", referencedColumnName = "photo_id", nullable = true)
 	private Photo contactPhoto;
 	
 	@OneToOne

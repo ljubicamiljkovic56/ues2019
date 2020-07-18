@@ -20,7 +20,7 @@ public class Photo implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "photo_id") 
+	@Column(name = "photo_id", unique=true, nullable=true) 
 	private Long id;
 	
 	
@@ -28,7 +28,7 @@ public class Photo implements Serializable {
 	private String path;
 	
 	 @ManyToOne
-	 @JoinColumn(name="contact_id", referencedColumnName="contact_id", nullable=false)
+	 @JoinColumn(name="contact_id", referencedColumnName="contact_id", nullable=true)
 	 private Contact contact;
 	
 	public Photo() {

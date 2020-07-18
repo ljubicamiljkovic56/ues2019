@@ -46,6 +46,7 @@ public class FolderController {
 		return new ResponseEntity<List<FolderDTO>>(foldersDTO, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<FolderDTO> getFolder(@PathVariable("id") Long id){
 		Folder folder = folderServiceInterface.findOne(id);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
@@ -17,7 +18,7 @@ public class FolderDTO implements Serializable {
 	private String name;
 	private Folder parentFolder;
 	private List<Message> folderMessages;
-	private HashSet<Rule> rules;
+	private Set<Rule> rules;
 
 	
 	public FolderDTO() {
@@ -26,7 +27,7 @@ public class FolderDTO implements Serializable {
 	
 	
 	
-	public FolderDTO(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, HashSet<Rule> rules) {
+	public FolderDTO(Long id, String name, Folder parentFolder, ArrayList<Message> folderMessages, Set<Rule> rules) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -36,12 +37,13 @@ public class FolderDTO implements Serializable {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public FolderDTO(Folder folder) {
 		this.id = folder.getId();
 		this.name = folder.getName();
 		this.parentFolder = folder.getParentFolder();
 		this.folderMessages = folder.getFolderMessages();
-		this.rules = (HashSet<Rule>) folder.getRules();
+		this.rules = folder.getRules();
 	}
 
 
@@ -70,11 +72,11 @@ public class FolderDTO implements Serializable {
 		this.folderMessages = folderMessages;
 	}
 
-	public HashSet<Rule> getRules() {
+	public Set<Rule> getRules() {
 		return rules;
 	}
 
-	public void setRules(HashSet<Rule> rules) {
+	public void setRules(Set<Rule> rules) {
 		this.rules = rules;
 	}
 	
