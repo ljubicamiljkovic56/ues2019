@@ -38,9 +38,9 @@ INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 1', null, 
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 2', null, 3);
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 3', 2, 3);
 
-INSERT INTO tags(name, user_id) VALUES ('tag1', 1)
+INSERT INTO tags(name, user_id) VALUES ('tag1', 1);
 
-INSERT INTO rules(1, 2, 'rule1', 3, 1)
+INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destination) VALUES (1, 1, 'value1', 1, 1);
 
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'pera@gmail.com', null, null, '2020-04-20 09:10:56', 'Zanimljivosti', 'Evo novih zanimljivosti', false, 1, 1);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'ana@gmail.com', null, null, '2020-04-20 12:10:30', 'Zadatak', 'Domaci zadatak', true, 2, 2);

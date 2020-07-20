@@ -23,16 +23,13 @@ import ues.projekat.app.model.Rule;
 import ues.projekat.dto.FolderDTO;
 import ues.projekat.service.intrfc.AccountServiceInterface;
 import ues.projekat.service.intrfc.FolderServiceInterface;
-
 @RestController
 @RequestMapping(value="api/folders")
 public class FolderController {
-
 	
 	@Autowired
 	private FolderServiceInterface folderServiceInterface;
 	
-
 	@Autowired
     private AccountServiceInterface accountServiceInterface;
 	
@@ -46,9 +43,8 @@ public class FolderController {
 		return new ResponseEntity<List<FolderDTO>>(foldersDTO, HttpStatus.OK);
 	}
 	
-	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<FolderDTO> getFolder(@PathVariable("id") Long id){
+	public ResponseEntity<FolderDTO> getFolder(@PathVariable("id") Integer id){
 		Folder folder = folderServiceInterface.findOne(id);
 		if(folder == null){
 			return new ResponseEntity<FolderDTO>(HttpStatus.NOT_FOUND);
@@ -77,38 +73,39 @@ public class FolderController {
 			FolderDTO f = new FolderDTO();
 			f.setName("Drafts");
 			f.setFolderMessages(new ArrayList<>());
+			//f.setSubFolders(new ArrayList<>());
 			folders.add(f);
 		}
 		
+		//accountFolder.setSubFolders(folders);
 		
 		return new ResponseEntity<FolderDTO>(accountFolder, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/add/{parentId}/{accountUsername}", consumes="application/json")
-	public ResponseEntity<FolderDTO> saveFolder(@RequestBody FolderDTO folderDTO, @PathVariable("parentId") Long parentId, 
-			@PathVariable("accountUsername") String accountUsername){
+	public ResponseEntity<FolderDTO> saveFolder(@RequestBody FolderDTO folderDTO, @PathVariable("parentId") Long parentId, @PathVariable("accountUsername") String accountUsername){
 		Folder folder = new Folder();
 		folder.setName(folderDTO.getName());
 		
 		if(parentId != 0) {
 			Folder parentFolder = folderServiceInterface.findOne(parentId);
 			folder.setParentFolder(parentFolder);
-			//folder.setAccount(parentFolder.getAccount());
+			folder.setAccount(parentFolder.getAccount());
 		}else {
 			Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
 			folder.setAccount(account);
 		}
 		
 		
-//		Rule rule = new Rule();
+		Rule rule = new Rule();
 
-//		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
-//			rule.setCondition(((List<Message>) folderDTO.getRules()).get(0).getCondition());
-//			rule.setOperation(folderDTO.getRules().get(0).getOperation());
-//		}
-	//	folder.addRule(rule);
+		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
+			rule.setCondition(folderDTO.getRules().get(0).getCondition());
+			rule.setOperation(folderDTO.getRules().get(0).getOperation());
+		}
+		folder.addRule(rule);
 		folder.setFolderMessages(new ArrayList<Message>());
-	//	folder.setSubfolders(new ArrayList<Folder>());
+		//folder.setSubfolders(new HashSet<Folder>());
 	
 		folder = folderServiceInterface.save(folder);
 		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.CREATED);	
@@ -123,13 +120,13 @@ public class FolderController {
 		
 		folder.setName(folderDTO.getName());
 		folder.setRules(new HashSet<Rule>());
-//		Rule rule = new Rule();
-//
-//		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
-//			rule.setCondition(folderDTO.getRules().get(0).getCondition());
-//			rule.setOperation(folderDTO.getRules().get(0).getOperation());
-//		}
-//		folder.addRule(rule);
+		Rule rule = new Rule();
+
+		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
+			rule.setCondition(folderDTO.getRules().get(0).getCondition());
+			rule.setOperation(folderDTO.getRules().get(0).getOperation());
+		}
+		folder.addRule(rule);
 		
 	
 		folder = folderServiceInterface.save(folder);
@@ -146,5 +143,5 @@ public class FolderController {
 		} else {		
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
-	}	
+	}
 }

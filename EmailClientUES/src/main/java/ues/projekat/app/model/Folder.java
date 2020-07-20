@@ -32,15 +32,15 @@ public class Folder implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_folder", referencedColumnName = "folder_id", nullable = true)
 	private Folder parentFolder;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "folder")
-	private List<Message> folderMessages;
+	private List<Message> folderMessages = new ArrayList<Message>();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Folder> subfolders = new ArrayList<Folder>();
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="parentFolder")
+//	private Set<Folder> subfolders = new HashSet<Folder>();
 	
 	@ManyToOne
 	@JoinColumn(name="account_id", referencedColumnName="account_id", nullable=false)
@@ -55,14 +55,14 @@ public class Folder implements Serializable {
 	}
 
 
-	public Folder(Long id, String name, Folder parentFolder, List<Message> folderMessages, List<Folder> subfolders,
+	public Folder(Long id, String name, Folder parentFolder, List<Message> folderMessages,
 			Account account, Set<Rule> rules) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.parentFolder = parentFolder;
 		this.folderMessages = folderMessages;
-		this.subfolders = subfolders;
+		//this.subfolders = subfolders;
 		this.account = account;
 		this.rules = rules;
 	}
@@ -116,25 +116,34 @@ public class Folder implements Serializable {
 		this.rules = rules;
 	}
 
-	public List<Folder> getSubfolders() {
-		return subfolders;
-	}
-
-
-	public void setSubfolders(List<Folder> subfolders) {
-		this.subfolders = subfolders;
-	}
+//	public Set<Folder> getSubfolders() {
+//		return subfolders;
+//	}
+//
+//
+//	public void setSubfolders(Set<Folder> subfolders) {
+//		this.subfolders = subfolders;
+//	}
 
 
 	public void setFolderMessages(List<Message> folderMessages) {
 		this.folderMessages = folderMessages;
 	}
+	
+	public void addRule(Rule rule) {
+		if (rule.getDestination() != null) {
+			rule.getDestination().getRules().remove(rule);
+		}
+		rule.setDestination(this);
+		getRules().add(rule);
+	}
+	
 
 
 	@Override
 	public String toString() {
 		return "Folder [id=" + id + ", name=" + name + ", parentFolder=" + parentFolder + ", folderMessages="
-				+ folderMessages + ", subfolders=" + subfolders + ", account=" + account + ", rules=" + rules + "]";
+				+ folderMessages  + ", account=" + account + ", rules=" + rules + "]";
 	}
 
 

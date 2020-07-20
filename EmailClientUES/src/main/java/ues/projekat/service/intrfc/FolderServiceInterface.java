@@ -9,7 +9,7 @@ public interface FolderServiceInterface {
 
 	List<Folder> findByParent(Folder parentFolder);
 	
-	Folder findOne(Long folderId);
+	Folder findOne(long folderId);
 	
 	List<Folder> findAll();
 	

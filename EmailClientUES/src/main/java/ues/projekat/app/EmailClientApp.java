@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackages= {"ues.projekat.app.controller", "ues.projekat.service", "ues.projekat.app.repository"})
+@ComponentScan(basePackages= {"ues.projekat.app.controller", "ues.projekat.service", "ues.projekat.app.repository", "ues.projekat.app.model"})
 public class EmailClientApp extends SpringBootServletInitializer{
 
 	@Override

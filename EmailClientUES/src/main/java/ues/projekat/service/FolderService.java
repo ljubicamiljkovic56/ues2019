@@ -22,7 +22,7 @@ public class FolderService implements FolderServiceInterface {
 	}
 
 	@Override
-	public Folder findOne(Long folderId) {
+	public Folder findOne(long folderId) {
 		return folderRepository.findOne(folderId);
 		
 	}

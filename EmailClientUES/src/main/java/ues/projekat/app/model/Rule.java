@@ -10,44 +10,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ues.projekat.dto.ConditionDTO;
+import ues.projekat.dto.OperationDTO;
+
+
 @SuppressWarnings("serial")
-@Entity
+@Entity                 
 @Table(name="rules")
-public class Rule implements Serializable {
-	
-	@Id
+public class Rule implements Serializable{
+
+	@Id                                 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "rule_id", columnDefinition = "INT")
+	@Column(name="rule_id", unique=true, nullable=false) 
 	private Long id;
-	
-	@Column(name = "condition")
-	private Short condition;
-	
-	@Column(name = "value")
+	  	
+	@Column(name="rule_condition", unique=false, nullable=false)
+	private short condition;
+	  
+	@Column(name="rule_value", unique=false, nullable=true, length=100)
 	private String value;
-	
-	@Column(name = "operation")
-	private Short operation;
-	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "destination", referencedColumnName = "folder_id", nullable = true)
+	  
+	@Column(name="rule_operation", unique=false, nullable=false)
+	private short operation;
+	  
+	@ManyToOne
+	@JoinColumn(name="destination", referencedColumnName="folder_id", nullable=true)
 	private Folder destination;
 
 	public Rule() {
 		super();
 	}
 	
-	
-	public Rule(Long id, Short condition, String value, Short operation, Folder destination) {
+	public Rule(short condition, String value, short operation, Folder folder) {
 		super();
-		this.id = id;
 		this.condition = condition;
 		this.value = value;
 		this.operation = operation;
-		this.destination = destination;
+		this.destination = folder;
 	}
 
 	public Long getId() {
@@ -58,27 +61,19 @@ public class Rule implements Serializable {
 		this.id = id;
 	}
 
-	public Short getCondition() {
+	public short getCondition() {
 		return condition;
 	}
 
-	public void setCondition(Short condition) {
+	public void setCondition(short condition) {
 		this.condition = condition;
 	}
 
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public Short getOperation() {
+	public short getOperation() {
 		return operation;
 	}
 
-	public void setOperation(Short operation) {
+	public void setOperation(short operation) {
 		this.operation = operation;
 	}
 
@@ -90,9 +85,16 @@ public class Rule implements Serializable {
 		this.destination = destination;
 	}
 
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
 	@Override
 	public String toString() {
-		return "Rule [id=" + id + ", condition=" + condition + ", value=" + value + ", operation=" + operation
-				+ ", destination=" + destination + "]";
+		return "Rule [id=" + id + ", condition=" + condition + ", value=" + ", operation=" + operation + "]";
 	}
 }
