@@ -1,10 +1,14 @@
 package ues.projekat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Contact;
+import ues.projekat.app.model.Tag;
 import ues.projekat.app.model.User;
 import ues.projekat.app.repository.UserRepository;
 import ues.projekat.service.intrfc.UserServiceInterface;
@@ -46,4 +50,28 @@ public class UserService implements UserServiceInterface {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	
+    public User addUser(User user) {
+    	User user1 = new User();
+    	user1.setId(user.getId());
+    	user1.setUsername(user.getUsername());
+    	user1.setPassword(user.getPassword());
+    	user1.setFirstname(user.getFirstname());
+    	user1.setLastname(user.getLastname());
+    	user1.setUserAccounts((ArrayList<Account>) user.getUserAccounts());
+    	user1.setUserContacts((ArrayList<Contact>) user1.getUserContacts());
+    	user1.setUserTags((ArrayList<Tag>) user1.getUserTags());
+    	userRepository.save(user);
+		return user1;
+    }
+	
+	public boolean checkUsername(String username) {
+		User user3 = userRepository.findByUsername(username);
+		if(user3 == null) {
+		    return true;
+		}else {
+		   return false;
+		}
+	}
+
 }

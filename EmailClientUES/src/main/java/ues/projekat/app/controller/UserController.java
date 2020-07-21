@@ -24,6 +24,7 @@ import ues.projekat.app.model.Tag;
 import ues.projekat.app.model.User;
 import ues.projekat.dto.AccountDTO;
 import ues.projekat.dto.UserDTO;
+import ues.projekat.service.UserService;
 import ues.projekat.service.intrfc.AccountServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
 
@@ -39,6 +40,10 @@ public class UserController {
 	@Autowired
     private UserServiceInterface userServiceInterface;
 	
+	@Autowired
+	private UserService userService;
+	
+	//nadji sve korisnike
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		List<User> users = userServiceInterface.findAll();
@@ -49,7 +54,7 @@ public class UserController {
 		return new ResponseEntity<List<UserDTO>>(userDTO, HttpStatus.OK);
 	}
 	
-	
+	//login za korisnika
 	@PostMapping(value = "user/loginUser")
 	public ResponseEntity<Void> loginUser(@RequestParam("username") String username, @RequestParam("password") String password){
 		System.out.println("LOGIN..........");
@@ -62,20 +67,6 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-//	@PostMapping(path="user/loginUser")
-//	public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
-//		System.out.println("LOGIN..........");
-//		System.out.println(username);
-//		System.out.println(password);
-//		User user = userServiceInterface.findByUsernameAndPassword(username, password);
-//		if (user == null) {
-//			System.out.println("Neuspesna prijava");
-//			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-//		}
-//		System.out.println(user.getUsername());
-//		
-//		return new ResponseEntity<String>(HttpStatus.CREATED);
-//	}
 
 	
 	@PostMapping(value = "/getUser")
@@ -90,23 +81,57 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(new UserDTO(user) ,HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/registrationUser")
-	public ResponseEntity<Void> registrationUser(@RequestBody UserDTO userDTO){
+	//registracija korisnika (register_user)
+//	@PostMapping(value = "/registrationUser")
+//	public ResponseEntity<Void> registrationUser(@RequestParam UserDTO userDTO){
+//		User user = new User();
+//		user.setFirstname(userDTO.getFirstname());
+//		user.setLastname(userDTO.getLastname());
+//		user.setPassword(userDTO.getPassword());
+//		user.setUsername(userDTO.getUsername());
+//		user.setUserTags(new ArrayList<Tag>());
+//		user.setUserAccounts(new ArrayList<Account>());
+//		user.setUserContacts(new ArrayList<Contact>());
+//		
+//		System.out.println("REGISTRATION.....");
+//		userServiceInterface.save(user);
+//		
+//		return new ResponseEntity<Void>(HttpStatus.OK);
+//
+//	}
+	
+	@PostMapping(value = "/registerUser")
+	public ResponseEntity<User> registerUser(@RequestParam String username, @RequestParam String password, 
+			@RequestParam String firstname, @RequestParam String lastname) {
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+		System.out.println("First name: " + firstname);
+		System.out.println("Last name: " + lastname);
 		User user = new User();
-		user.setFirstname(userDTO.getFirstname());
-		user.setLastname(userDTO.getLastname());
-		user.setPassword(userDTO.getPassword());
-		user.setUsername(userDTO.getUsername());
-		user.setUserTags(new ArrayList<Tag>());
-		user.setUserAccounts(new ArrayList<Account>());
-		user.setUserContacts(new ArrayList<Contact>());
+		boolean check = userService.checkUsername(username);
+		if(check == true) {
+			System.out.println("Moguca registracija");
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setFirstname(firstname);
+			user.setLastname(lastname);
+			user.setUserAccounts(null);
+			user.setUserContacts(null);
+			user.setUserTags(null);
+			userService.addUser(user);
+			
+			System.out.println("Novi korisnik je registrovan");
+			
+			return new ResponseEntity<User>(user,HttpStatus.CREATED);
 		
-		System.out.println("REGISTRATION.....");
-		userServiceInterface.save(user);
+		}else {
+			System.out.println("Username vec postoji i ne mozete da se sa njim registrujete");
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-
+		
 	}
+	
 	
 	@PutMapping(value = "/addAccount/{username}")
 	public ResponseEntity<Void> addAccaunt(@RequestBody AccountDTO accountDTO,@PathVariable("username") String username){
