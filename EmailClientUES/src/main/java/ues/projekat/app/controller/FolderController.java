@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
@@ -82,33 +83,55 @@ public class FolderController {
 		return new ResponseEntity<FolderDTO>(accountFolder, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/add/{parentId}/{accountUsername}", consumes="application/json")
-	public ResponseEntity<FolderDTO> saveFolder(@RequestBody FolderDTO folderDTO, @PathVariable("parentId") Long parentId, @PathVariable("accountUsername") String accountUsername){
-		Folder folder = new Folder();
-		folder.setName(folderDTO.getName());
-		
-		if(parentId != 0) {
-			Folder parentFolder = folderServiceInterface.findOne(parentId);
-			folder.setParentFolder(parentFolder);
-			folder.setAccount(parentFolder.getAccount());
-		}else {
-			Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
-			folder.setAccount(account);
-		}
-		
-		
-		Rule rule = new Rule();
-
-		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
-			rule.setCondition(folderDTO.getRules().get(0).getCondition());
-			rule.setOperation(folderDTO.getRules().get(0).getOperation());
-		}
-		folder.addRule(rule);
-		folder.setFolderMessages(new ArrayList<Message>());
-		//folder.setSubfolders(new HashSet<Folder>());
+//	@PostMapping(value="/add/{parentId}/{accountUsername}", consumes="application/json")
+//	public ResponseEntity<FolderDTO> saveFolder(@RequestBody FolderDTO folderDTO, @PathVariable("parentId") Long parentId, @PathVariable("accountUsername") String accountUsername){
+//		Folder folder = new Folder();
+//		folder.setName(folderDTO.getName());
+//		
+//		if(parentId != 0) {
+//			Folder parentFolder = folderServiceInterface.findOne(parentId);
+//			folder.setParentFolder(parentFolder);
+//			folder.setAccount(parentFolder.getAccount());
+//		}else {
+//			Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
+//			folder.setAccount(account);
+//		}
+//		
+//		
+//		Rule rule = new Rule();
+//
+//		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
+//			rule.setCondition(folderDTO.getRules().get(0).getCondition());
+//			rule.setOperation(folderDTO.getRules().get(0).getOperation());
+//		}
+//		folder.addRule(rule);
+//		folder.setFolderMessages(new ArrayList<Message>());
+//		//folder.setSubfolders(new HashSet<Folder>());
+//	
+//		folder = folderServiceInterface.save(folder);
+//		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.CREATED);	
+//	}
 	
-		folder = folderServiceInterface.save(folder);
-		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.CREATED);	
+	@PostMapping(value = "/addFolder") 
+	public ResponseEntity<Void> addFolder(@RequestParam("account_username") String account_username, @RequestParam("name") String name) {
+		
+		Account account = accountServiceInterface.findByUsername(account_username);
+		
+		System.out.println("Account_username: " + account_username);
+		System.out.println("Folder name: " + name);
+		
+		Folder folder = new Folder();
+		folder.setName(name);
+		folder.setParentFolder(folder);
+		folder.setFolderMessages(new ArrayList<Message>());
+		folder.setRules(new HashSet<Rule>());
+		folder.setAccount(account);
+		
+		folderServiceInterface.save(folder);
+		
+		System.out.println("Dodat je novi folder.");
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PutMapping(value="/update/{id}", consumes="application/json")

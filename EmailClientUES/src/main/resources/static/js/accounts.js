@@ -15,7 +15,9 @@ $(document).ready(function(){
 	function getAccounts(){
 	$.get("http://localhost:8080/api/accounts/getallaccounts", function(data){
 			console.log(data);
-	
+			
+			accounts = data;
+			
 			populateTable(accounts);	
 
 		});
@@ -26,7 +28,7 @@ $(document).ready(function(){
 		
 		console.log('tabela?')
 		
-		console.log(accountsForTable);
+		//console.log(accountsForTable);
 		for(it of accountsForTable){
 			accountsTable.append(
 				'<tr>' + 

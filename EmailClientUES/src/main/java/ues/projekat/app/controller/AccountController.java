@@ -1,7 +1,9 @@
 package ues.projekat.app.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ public class AccountController {
 	@Autowired
 	private UserServiceInterface userServiceInterface;
 	
+
 	
 //	@GetMapping(value = "/getallaccounts/{username}")
 //	public ResponseEntity<List<AccountDTO>> getAllAccount(@PathVariable ){
@@ -62,12 +65,18 @@ public class AccountController {
 		List<AccountDTO> AccountDTO = new ArrayList<AccountDTO>();
 		for (Account account : accounts) {
 			
-			//if(account.getUser().getId() == user.getId()) {
 			
+			//if(account.getUser().getId() == user.getId()) {
+		//	List<Account> accountsList = new ArrayList<Account>();
+			Map<String, Object> data = new LinkedHashMap<String, Object>();
 			AccountDTO.add(new AccountDTO(account));
+			//data.put("accountsList",);
+			
 			//}
 			
 		}
+		
+		
 		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);
 	}
 	
