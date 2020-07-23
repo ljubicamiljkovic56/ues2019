@@ -57,7 +57,7 @@ public class UserController {
 	//login za korisnika
 	@PostMapping(value = "user/loginUser")
 	public ResponseEntity<Void> loginUser(@RequestParam("username") String username, @RequestParam("password") String password){
-		System.out.println("LOGIN..........");
+		System.out.println("Login...");
 		User user = userServiceInterface.findByUsernameAndPassword(username, password);
 		if (user == null) {
 			System.out.println("Neuspesna prijava");
@@ -81,25 +81,7 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(new UserDTO(user) ,HttpStatus.OK);
 	}
 	
-	//registracija korisnika (register_user)
-//	@PostMapping(value = "/registrationUser")
-//	public ResponseEntity<Void> registrationUser(@RequestParam UserDTO userDTO){
-//		User user = new User();
-//		user.setFirstname(userDTO.getFirstname());
-//		user.setLastname(userDTO.getLastname());
-//		user.setPassword(userDTO.getPassword());
-//		user.setUsername(userDTO.getUsername());
-//		user.setUserTags(new ArrayList<Tag>());
-//		user.setUserAccounts(new ArrayList<Account>());
-//		user.setUserContacts(new ArrayList<Contact>());
-//		
-//		System.out.println("REGISTRATION.....");
-//		userServiceInterface.save(user);
-//		
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//
-//	}
-	
+	//registracija korisnika
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<User> registerUser(@RequestParam String username, @RequestParam String password, 
 			@RequestParam String firstname, @RequestParam String lastname) {
@@ -115,9 +97,9 @@ public class UserController {
 			user.setPassword(password);
 			user.setFirstname(firstname);
 			user.setLastname(lastname);
-			user.setUserAccounts(null);
-			user.setUserContacts(null);
-			user.setUserTags(null);
+			user.setUserAccounts(new ArrayList<Account>());
+			user.setUserContacts(new ArrayList<Contact>());
+			user.setUserTags(new ArrayList<Tag>());
 			userService.addUser(user);
 			
 			System.out.println("Novi korisnik je registrovan");
@@ -132,32 +114,36 @@ public class UserController {
 		
 	}
 	
-	
-	@PutMapping(value = "/addAccount/{username}")
-	public ResponseEntity<Void> addAccaunt(@RequestBody AccountDTO accountDTO,@PathVariable("username") String username){
+	//dodavanje novog account-a
+	@PostMapping(value = "/addAccount")
+	public ResponseEntity<Void> addAccount(@RequestParam("user_username") String user_username, @RequestParam("username") String username, 
+			@RequestParam("password") String password, @RequestParam("displayname") String displayName) {
 		
-		User user = userServiceInterface.findByUsername(username);
+		User user = userServiceInterface.findByUsername(user_username);
 		
-		Account account=new Account();
+		System.out.println("Dodavanje novog account-a");
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+		System.out.println("Display name: "  + displayName);
+		
+		Account account = new Account();
 		account.setAccountFolders(new ArrayList<Folder>());
-		account.setDisplayname(accountDTO.getDisplayname());
-		
-		account.setInServerAddress("");
-		account.setInServerPort(2230);
-		account.setInServerType((short) 123);
+		account.setDisplayname(displayName);
+		account.setUsername(username);
+		account.setPassword(password);
+		account.setInServerAddress("InServerAddress");
+		account.setInServerPort(22);
+		account.setInServerType((short) 223);
 		account.setAccountMessages(new ArrayList<Message>());
-		account.setPassword(accountDTO.getPassword());
 		account.setSmtpAddress("smtp.gmail.com\"");
 		account.setSmtpPort(2233);
 		account.setUser(user);
-		account.setUsername(accountDTO.getUsername());
 		
 		accountServiceInterface.save(account);
 		
-		System.out.println("ACCOUNT ADDED.....");
+		System.out.println("Dodat je novi nalog");
 		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-
+		return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
 	@PutMapping(value = "/updateUser")
@@ -170,7 +156,7 @@ public class UserController {
 		user.setUsername(userDTO.getUsername());
 		
 		userServiceInterface.save(user);
-		System.out.println("PROFILE INFO CHANGED.....");
+		System.out.println("Promenjeni su korisnikovi podaci...");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		

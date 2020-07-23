@@ -43,7 +43,7 @@ $(document).ready(function(){
 			console.log('ispis...')
 			console.log(data);
 			
-			window.location.href = "messages.html";
+			window.location.href = "accounts.html";
 		});
 		console.log('slanje poruke');
 		

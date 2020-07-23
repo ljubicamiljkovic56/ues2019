@@ -31,21 +31,41 @@ public class AccountController {
 	private UserServiceInterface userServiceInterface;
 	
 	
-	@GetMapping(value = "/getallaccount/{username}")
-	public ResponseEntity<List<AccountDTO>> getAllAccount(@PathVariable("username") String username){
+//	@GetMapping(value = "/getallaccounts/{username}")
+//	public ResponseEntity<List<AccountDTO>> getAllAccount(@PathVariable ){
+//		List<Account> accounts = accountServiceInterface.findAll();
+//		
+//		if (accounts == null) {
+//			return new ResponseEntity<List<AccountDTO>>(HttpStatus.NOT_FOUND);
+//		}
+//		User user = userServiceInterface.findByUsername(username);
+//		List<AccountDTO> AccountDTO = new ArrayList<AccountDTO>();
+//		for (Account account : accounts) {
+//			
+//			if(account.getUser().getId() == user.getId()) {
+//			
+//			AccountDTO.add(new AccountDTO(account));
+//			}
+//			
+//		}
+//		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);
+//	}
+	
+	@GetMapping(value = "/getallaccounts")
+	public ResponseEntity<List<AccountDTO>> getAllAccount(){
 		List<Account> accounts = accountServiceInterface.findAll();
 		
 		if (accounts == null) {
 			return new ResponseEntity<List<AccountDTO>>(HttpStatus.NOT_FOUND);
 		}
-		User user = userServiceInterface.findByUsername(username);
+	//	User user = userServiceInterface.findByUsername(username);
 		List<AccountDTO> AccountDTO = new ArrayList<AccountDTO>();
 		for (Account account : accounts) {
 			
-			if(account.getUser().getId() == user.getId()) {
+			//if(account.getUser().getId() == user.getId()) {
 			
 			AccountDTO.add(new AccountDTO(account));
-			}
+			//}
 			
 		}
 		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);

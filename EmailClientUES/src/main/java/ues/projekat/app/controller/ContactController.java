@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Contact;
@@ -68,26 +69,54 @@ public class ContactController {
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/add/{username}", consumes="application/json")
-	public ResponseEntity<ContactDTO> saveContact(@RequestBody ContactDTO contactDTO, @PathVariable("username") String username){
-		User user = userServiceInterface.findByUsername(username);
-		if (user == null) {
-			return new ResponseEntity<ContactDTO>(HttpStatus.BAD_REQUEST);
-		}
+//	@PostMapping(value="/add/{username}", consumes="application/json")
+//	public ResponseEntity<ContactDTO> saveContact(@RequestBody ContactDTO contactDTO, @PathVariable("username") String username){
+//		User user = userServiceInterface.findByUsername(username);
+//		if (user == null) {
+//			return new ResponseEntity<ContactDTO>(HttpStatus.BAD_REQUEST);
+//		}
+//		Contact contact = new Contact();
+//		contact.setEmail(contactDTO.getEmail());
+//		contact.setFirstname(contactDTO.getFirstname());
+//		contact.setLastname(contactDTO.getLastname());
+//		contact.setDisplayname(contactDTO.getDisplayname());
+//		if(contactDTO.getNote() != null)
+//			contact.setNote(contactDTO.getNote());
+//		contact.setUser(user);
+//		
+//		if(contactDTO.getContactPhoto() != null)
+//			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
+//	
+//		contact = contactServiceInterface.save(contact);
+//		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.CREATED);	
+//	}
+	
+	@PostMapping(value="/addContact")
+	public ResponseEntity<Void> addContact(@RequestParam("user_username") String user_username, @RequestParam("firstname") String firstname,
+			@RequestParam("lastname") String lastname, @RequestParam("email") String email, @RequestParam("note") String note){
+		
+		User user = userServiceInterface.findByUsername(user_username);
+	
+		System.out.println("User username: " + user_username);
+		System.out.println("Firstname: " + firstname);
+		System.out.println("Lastname: " + lastname);
+		System.out.println("Email: " + email);
+		System.out.println("Note: " + note);
+		//System.out.println("Photo: " + photo);
+		
 		Contact contact = new Contact();
-		contact.setEmail(contactDTO.getEmail());
-		contact.setFirstname(contactDTO.getFirstname());
-		contact.setLastname(contactDTO.getLastname());
-		contact.setDisplayname(contactDTO.getDisplayname());
-		if(contactDTO.getNote() != null)
-			contact.setNote(contactDTO.getNote());
+		contact.setFirstname(firstname);
+		contact.setLastname(lastname);
+		contact.setEmail(email);
+		contact.setNote(note);
+		contact.setContactPhoto(null);
 		contact.setUser(user);
 		
-		if(contactDTO.getContactPhoto() != null)
-			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
-	
-		contact = contactServiceInterface.save(contact);
-		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.CREATED);	
+		contactServiceInterface.save(contact);
+		
+		System.out.println("Dodat je novi kontakt");
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PutMapping(value="/update/{id}", consumes="application/json")
