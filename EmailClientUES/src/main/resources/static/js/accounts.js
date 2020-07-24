@@ -34,13 +34,14 @@ $(document).ready(function(){
 				'<tr>' + 
 					'<td>' + it.smtpAddress + '</td>' +
 					'<td>' + it.smtpPort + '</td>' + 
-					'<td>' + it.inServerType + '</td>' +
+					'<td>' + new String(it.inServerType) + '</td>' +
 					'<td>' + it.inServerAddress + '</td>' +
 					'<td>' + it.inServerPort + '</td>' +
 					'<td>' + it.username + '</td>' +
 					'<td>' + it.password + '</td>' +
 					'<td>' + it.displayname + '</td>' +
 					'<td>' + it.userID + '</td>' + 
+					'<td>' +
 					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" accountID="' + it.id + '">' + 
 				'</form>' + '</td>' + 
 					'<td>' +
