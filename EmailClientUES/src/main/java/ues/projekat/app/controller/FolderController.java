@@ -34,7 +34,7 @@ public class FolderController {
 	@Autowired
     private AccountServiceInterface accountServiceInterface;
 	
-	@GetMapping
+	@GetMapping(value = "/getallfolders")
 	public ResponseEntity<List<FolderDTO>> getFolders() {
 		List<Folder> folders = folderServiceInterface.findAll();
 		List<FolderDTO> foldersDTO = new ArrayList<FolderDTO>();

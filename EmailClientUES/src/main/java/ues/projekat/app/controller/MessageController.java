@@ -40,7 +40,7 @@ public class MessageController {
     private UserServiceInterface userServiceInterface;
 	
 	
-	@GetMapping
+	@GetMapping(value = "/getallmessages")
 	public ResponseEntity<List<MessageDTO>> getAllMessages() {
 		List<Message> messages = messageServiceInterface.findAll();
 		List<MessageDTO> messagesDTO = new ArrayList<MessageDTO>();

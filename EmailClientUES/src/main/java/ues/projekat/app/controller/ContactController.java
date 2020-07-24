@@ -33,7 +33,7 @@ public class ContactController {
 	@Autowired
 	private UserServiceInterface userServiceInterface;
 	
-	@GetMapping
+	@GetMapping(value = "/getallcontacts")
 	public ResponseEntity<List<ContactDTO>> getContacts() {
 		List<Contact> contacts = contactServiceInterface.findAll();
 		List<ContactDTO> contactsDTO = new ArrayList<ContactDTO>();
@@ -93,13 +93,14 @@ public class ContactController {
 	
 	@PostMapping(value="/addContact")
 	public ResponseEntity<Void> addContact(@RequestParam("user_username") String user_username, @RequestParam("firstname") String firstname,
-			@RequestParam("lastname") String lastname, @RequestParam("email") String email, @RequestParam("note") String note){
+			@RequestParam("lastname") String lastname, @RequestParam("displayname") String displayname, @RequestParam("email") String email, @RequestParam("note") String note){
 		
 		User user = userServiceInterface.findByUsername(user_username);
 	
 		System.out.println("User username: " + user_username);
 		System.out.println("Firstname: " + firstname);
 		System.out.println("Lastname: " + lastname);
+		System.out.println("Display name: " + displayname);
 		System.out.println("Email: " + email);
 		System.out.println("Note: " + note);
 		//System.out.println("Photo: " + photo);
@@ -107,6 +108,7 @@ public class ContactController {
 		Contact contact = new Contact();
 		contact.setFirstname(firstname);
 		contact.setLastname(lastname);
+		contact.setDisplayname(displayname);
 		contact.setEmail(email);
 		contact.setNote(note);
 		contact.setContactPhoto(null);
