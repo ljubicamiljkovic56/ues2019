@@ -69,7 +69,7 @@ public class UserController {
 	
 
 	
-	@PostMapping(value = "/getUser")
+	@GetMapping(value = "/getUser")
 	public ResponseEntity<UserDTO> getUser(@RequestParam("username") String username, @RequestParam("password") String password){
 		User user = userServiceInterface.findByUsernameAndPassword(username, password);
 		
@@ -146,19 +146,42 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
-	@PutMapping(value = "/updateUser")
-	public ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
-		User user = userServiceInterface.findOne(userDTO.getId());
-		
-		user.setFirstname(userDTO.getFirstname());
-		user.setLastname(userDTO.getLastname());
-		user.setPassword(userDTO.getPassword());
-		user.setUsername(userDTO.getUsername());
-		
-		userServiceInterface.save(user);
-		System.out.println("Promenjeni su korisnikovi podaci...");
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-		
-	}
+//	@PutMapping(value = "/updateUser")
+//	public ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
+//		User user = userServiceInterface.findOne(userDTO.getId());
+//		
+//		user.setUsername(userDTO.getUsername());
+//		user.setFirstname(userDTO.getFirstname());
+//		user.setLastname(userDTO.getLastname());
+//		user.setPassword(userDTO.getPassword());
+//		user.setUsername(userDTO.getUsername());
+//		
+//		userServiceInterface.save(user);
+//		System.out.println("Promenjeni su korisnikovi podaci...");
+//		
+//		return new ResponseEntity<Void>(HttpStatus.OK);
+//		
+//	}
+	
+//	@PostMapping(value = "/updateUser")
+//	public ResponseEntity<Void> updateUser(@RequestParam("id") String , @RequestParam("username") String username,
+//			@RequestParam String password, @RequestParam String firstname, @RequestParam String lastname) {
+//		
+//
+////		Long userLongId = new Long(id);
+////		User user = userServiceInterface.findOne(userLongId);
+////		userServiceInterface.remove(userLongId);
+////		
+////		user.setId(id.longValue());
+////		user.setUsername(username);
+////		user.setPassword(password);
+////		user.setFirstname(firstname);
+////		user.setLastname(lastname);
+//		
+//		//userServiceInterface.save(user);
+//		
+//		System.out.println("Promenjeni su korisnikovi podaci");
+//		
+//		return new ResponseEntity<Void>(HttpStatus.OK);
+//	}
 }

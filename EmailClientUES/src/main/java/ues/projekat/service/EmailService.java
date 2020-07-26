@@ -1,30 +1,39 @@
 //package ues.projekat.service;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.mail.MailException;
+//import org.springframework.context.annotation.Bean;
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.stereotype.Service;
 //
-//import ues.projekat.app.model.User;
-//
-//@Service
-//public class EmailService {
-//
-//	private JavaMailSender javaMailSender;
-//	
-//	@Autowired
-//	public EmailService(JavaMailSender javaMailSender) {
-//		this.javaMailSender = javaMailSender;
-//	}
-//	
-//	public void sendEmail(User user) throws MailException {
-//		SimpleMailMessage mail = new SimpleMailMessage();
-//		mail.setTo(user.getFirstname());
-//		mail.setFrom("example@gmail.com");
-//		mail.setSubject("Primeri");
-//		mail.setText("Evo primera");
-//		
-//		javaMailSender.send(mail);
-//	}
+//@Service("emailService")
+//public class EmailService 
+//{
+//    @Autowired
+//    private JavaMailSender mailSender;
+//      
+//    @Autowired
+//    private SimpleMailMessage preConfiguredMessage;
+//  
+//    /**
+//     * This method will send compose and send the message 
+//     * */
+//    public void sendMail(String to, String subject, String body) 
+//    {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(to);
+//        message.setSubject(subject);
+//        message.setText(body);
+//        mailSender.send(message);
+//    }
+//  
+//    /**
+//     * This method will send a pre-configured message
+//     * */
+//    public void sendPreConfiguredMail(String message) 
+//    {
+//        SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
+//        mailMessage.setText(message);
+//        mailSender.send(mailMessage);
+//    }
 //}

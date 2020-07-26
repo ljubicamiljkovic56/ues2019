@@ -74,4 +74,15 @@ public class UserService implements UserServiceInterface {
 		}
 	}
 
+	@Override
+	public void remove(Long id) {
+		userRepository.delete(id);
+	}
+
+	@Override
+	public User findById(String id) {
+		return userRepository.findById(id);
+	}
+
+
 }

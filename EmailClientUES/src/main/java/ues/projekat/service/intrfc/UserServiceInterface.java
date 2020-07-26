@@ -10,6 +10,8 @@ public interface UserServiceInterface {
 
 	User findByUsernameAndPassword(String username, String password);
 	
+	User findById(String id);
+	
 	void add(User user);
 
 	User save(User user);
@@ -17,5 +19,7 @@ public interface UserServiceInterface {
 	User findOne(Long userId);
 
 	List<User> findAll();
+	
+	void remove(Long id);
 	
 }
