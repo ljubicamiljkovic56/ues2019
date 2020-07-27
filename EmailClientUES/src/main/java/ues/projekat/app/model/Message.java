@@ -54,7 +54,7 @@ public class Message implements Serializable {
 	@Column(name = "unread")
 	private boolean unread;
 	
-	 @ManyToOne
+	 @ManyToOne(cascade = CascadeType.ALL)
 	 @JoinColumn(name="folder_id", referencedColumnName="folder_id", nullable=false)
 	 private Folder folder;
 	  
