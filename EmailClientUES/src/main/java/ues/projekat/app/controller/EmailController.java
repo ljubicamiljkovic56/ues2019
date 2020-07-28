@@ -89,19 +89,24 @@ public class EmailController {
 		
 		System.out.println("Dodavaje mejla u bazu");
 		
+		
+		Folder folder = new Folder();
+		folder.setName("new folder");
+		folder.setAccount(account);
+		folder.setParentFolder(folder);
+		
 		ues.projekat.app.model.Message message = new ues.projekat.app.model.Message();
+		
 		Attachment attachment = new Attachment();
 		attachment.setMessage(message);
 		attachment.setName("attach slika");
 		attachment.setPath("C:\\Users\\Ljubica\\git\\ues2019\\EmailClientUES\\attach\\oasis.jpg");
 		attachment.setMimeType(".jpg");
+		
 		ArrayList<Attachment> messsageAttach = new ArrayList<Attachment>() ;
 		messsageAttach.add(attachment);
-		Folder folder = new Folder();
-		folder.setName("new folder");
-		folder.setAccount(account);
-		folder.setParentFolder(folder);
-		//message.setId(new Long(3));
+		
+		
 		message.setFrom(username);
 		message.setTo(to);
 		message.setCc(cc);
@@ -112,7 +117,7 @@ public class EmailController {
 		message.setUnread(true);
 		message.setAccount(account);
 		message.setMessageTags(new ArrayList<Tag>());
-		message.setMessageAttachments(messsageAttach);
+		message.setMessageAttachments(message.getMessageAttachments());
 		message.setFolder(folder);
 		
 		

@@ -8,9 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
-
-
-
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages= {"ues.projekat.app.controller", "ues.projekat.service", "ues.projekat.app.repository", "ues.projekat.app.model"})
