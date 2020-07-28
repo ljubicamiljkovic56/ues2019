@@ -51,6 +51,12 @@ public class EmailController {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
+		
+		
+		props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); //SSL Factory Clas
+//      prop.put("mail.smtp.port", "465"); //SMTP Port
+		props.put("mail.smtp.ssl.enable", "true");
 		   
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 		protected PasswordAuthentication getPasswordAuthentication() {
