@@ -3,25 +3,33 @@ package ues.projekat.app.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Flags;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.search.FlagTerm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import ues.projekat.app.model.Account;
 import ues.projekat.app.model.Attachment;
@@ -55,7 +63,6 @@ public class EmailController {
 		
 		props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); //SSL Factory Clas
-//      prop.put("mail.smtp.port", "465"); //SMTP Port
 		props.put("mail.smtp.ssl.enable", "true");
 		   
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -117,7 +124,7 @@ public class EmailController {
 		message.setUnread(true);
 		message.setAccount(account);
 		message.setMessageTags(new ArrayList<Tag>());
-		message.setMessageAttachments(message.getMessageAttachments());
+		message.setMessageAttachments(message.getMessageAttachments()); //ovde sam stavila bila prvo messageAttach, ali bila je greska
 		message.setFolder(folder);
 		
 		
@@ -126,4 +133,84 @@ public class EmailController {
 		System.out.println("Dodat je mejl u bazu.");
 		
 	}
+	
+	@RequestMapping(value = "/receivemail")
+	private void receivemail(@RequestParam String username, @RequestParam String password) {
+		
+		Account account = accountServiceInterface.findByUsername(username);
+		
+		Properties properties = new Properties();
+		properties.setProperty("mail.store.protocol", "imaps");
+		
+		Session session = Session.getDefaultInstance(properties, 
+				new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+				
+				});
+		try {
+			Store store = session.getStore("imaps");
+			store.connect("imap.gmail.com", username, password);
+			javax.mail.Folder folder = store.getFolder("INBOX");
+			folder.open(javax.mail.Folder.READ_ONLY);
+			
+			//ovo kada zelimo apsolutno sve mejlove
+//			Message message[] = folder.getMessages();
+//			for(int i = 0; i < message.length; i++) {
+//				System.out.println("received mail...");
+//				System.out.println(message[i].getSubject());
+//			}
+			
+			Message[] messages = folder.search(
+			       new FlagTerm(new Flags(Flags.Flag.SEEN), false));
+
+			    // Sort messages from recent to oldest
+			    Arrays.sort( messages, ( m1, m2 ) -> {
+			      try {
+			        return m2.getSentDate().compareTo( m1.getSentDate() );
+			      } catch ( MessagingException e ) {
+			        throw new RuntimeException( e );
+			      }
+			    } );
+
+			    
+			  //  ArrayList<ues.projekat.app.model.Message> gotMessages = new ArrayList<ues.projekat.app.model.Message>();
+			    for ( Message message : messages ) {
+			    	Address[] froms = message.getFrom();
+			      System.out.println( "from: " + froms[0].toString() + 
+					" sendDate: " + message.getSentDate()
+			          + " subject: " + message.getSubject() + " content: " + message.getContent() + " content type: " + message.getContentType());
+			      
+			      ues.projekat.app.model.Folder folder1 = new ues.projekat.app.model.Folder();
+			      folder1.setName("primljeni mejlovi");
+			      folder1.setAccount(account);
+			      folder1.setParentFolder(folder1);
+			      
+			      ues.projekat.app.model.Message message1 = new ues.projekat.app.model.Message();
+			      message1.setFrom(froms[0].toString());
+			      message1.setTo(username);
+			      message1.setCc("");
+			      message1.setBcc("");
+			      message1.setSubject(message.getSubject());
+			      message1.setContent(message.getContent().toString());
+			      message1.setDateTime(new Timestamp(0));
+			      message1.setUnread(true);
+			      message1.setAccount(account);
+			      message1.setMessageTags(new ArrayList<Tag>());
+			     // message1.setMessageAttachments(message.getMessageAttachments()); 
+			      message1.setFolder(folder1);
+			      
+			      messageServiceInterface.save(message1);
+			      
+			      System.out.println("Dobijeni mejl je dodat u bazu");
+			    }
+			folder.close(true);
+			store.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }
