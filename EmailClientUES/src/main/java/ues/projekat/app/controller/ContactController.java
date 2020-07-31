@@ -33,6 +33,9 @@ public class ContactController {
 	@Autowired
 	private UserServiceInterface userServiceInterface;
 	
+	//prikaz svih kontakata
+	//poziv u contacts.js
+	//localhost:8080/api/contacts/getallcontacts
 	@GetMapping(value = "/getallcontacts")
 	public ResponseEntity<List<ContactDTO>> getContacts() {
 		List<Contact> contacts = contactServiceInterface.findAll();
@@ -43,6 +46,9 @@ public class ContactController {
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}
 	
+	
+	//prikaz kontakta na osnovu id-a
+	//recimo localhost:8080/api/contacts/1 ili 2, 3
 	@GetMapping(value="/{id}")
 	public ResponseEntity<ContactDTO> getContact(@PathVariable("id") Long id){
 		Contact contact = contactServiceInterface.findOne(id);
@@ -53,6 +59,8 @@ public class ContactController {
 		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.OK);
 	}
 	
+	//prikaz kontakta na osnovu user username-a
+	//recimo localhost:8080/api/contacts/byUser/pera
 	@GetMapping(value="/byUser/{username}")
 	public ResponseEntity<List<ContactDTO>> getContactsByUsername(@PathVariable("username") String username) {
 		User user = userServiceInterface.findByUsername(username);
@@ -69,28 +77,8 @@ public class ContactController {
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}
 	
-//	@PostMapping(value="/add/{username}", consumes="application/json")
-//	public ResponseEntity<ContactDTO> saveContact(@RequestBody ContactDTO contactDTO, @PathVariable("username") String username){
-//		User user = userServiceInterface.findByUsername(username);
-//		if (user == null) {
-//			return new ResponseEntity<ContactDTO>(HttpStatus.BAD_REQUEST);
-//		}
-//		Contact contact = new Contact();
-//		contact.setEmail(contactDTO.getEmail());
-//		contact.setFirstname(contactDTO.getFirstname());
-//		contact.setLastname(contactDTO.getLastname());
-//		contact.setDisplayname(contactDTO.getDisplayname());
-//		if(contactDTO.getNote() != null)
-//			contact.setNote(contactDTO.getNote());
-//		contact.setUser(user);
-//		
-//		if(contactDTO.getContactPhoto() != null)
-//			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
-//	
-//		contact = contactServiceInterface.save(contact);
-//		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.CREATED);	
-//	}
-	
+	//dodavanje novog kontakta na osnovu user username-a
+	//poziv u add_contact.js
 	@PostMapping(value="/addContact")
 	public ResponseEntity<Void> addContact(@RequestParam("user_username") String user_username, @RequestParam("firstname") String firstname,
 			@RequestParam("lastname") String lastname, @RequestParam("displayname") String displayname, @RequestParam("email") String email, @RequestParam("note") String note){

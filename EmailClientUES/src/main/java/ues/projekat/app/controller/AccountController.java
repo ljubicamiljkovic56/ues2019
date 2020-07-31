@@ -32,28 +32,9 @@ public class AccountController {
 	@Autowired
 	private UserServiceInterface userServiceInterface;
 	
-
-	
-//	@GetMapping(value = "/getallaccounts/{username}")
-//	public ResponseEntity<List<AccountDTO>> getAllAccount(@PathVariable ){
-//		List<Account> accounts = accountServiceInterface.findAll();
-//		
-//		if (accounts == null) {
-//			return new ResponseEntity<List<AccountDTO>>(HttpStatus.NOT_FOUND);
-//		}
-//		User user = userServiceInterface.findByUsername(username);
-//		List<AccountDTO> AccountDTO = new ArrayList<AccountDTO>();
-//		for (Account account : accounts) {
-//			
-//			if(account.getUser().getId() == user.getId()) {
-//			
-//			AccountDTO.add(new AccountDTO(account));
-//			}
-//			
-//		}
-//		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);
-//	}
-	
+	//prikaz svih naloga
+	//poziva se u accounts.js
+	//localhost:8080/api/accounts/getallaccounts
 	@GetMapping(value = "/getallaccounts")
 	public ResponseEntity<List<AccountDTO>> getAllAccount(){
 		List<Account> accounts = accountServiceInterface.findAll();
@@ -72,15 +53,36 @@ public class AccountController {
 			AccountDTO.add(new AccountDTO(account));
 			//data.put("accountsList",);
 			
-			//}
+			//}	
+		}
+		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);
+	}
+	
+	//prikaz accounta na osnovu user username-a
+	//recimo localhost:8080/api/accounts/getallaccount/miki123
+	@GetMapping(value = "/getallaccount/{username}")
+	public ResponseEntity<List<AccountDTO>> getAllAccountByUsername(@PathVariable("username") String username){
+		List<Account> accounts = accountServiceInterface.findAll();
+		
+		if (accounts == null) {
+			return new ResponseEntity<List<AccountDTO>>(HttpStatus.NOT_FOUND);
+		}
+		User user = userServiceInterface.findByUsername(username);
+		List<AccountDTO> AccountDTO = new ArrayList<AccountDTO>();
+		for (Account account : accounts) {
+			
+			if(account.getUser().getId() == user.getId()) {
+			
+			AccountDTO.add(new AccountDTO(account));
+			}
 			
 		}
-		
-		
 		return new ResponseEntity<List<AccountDTO>>(AccountDTO, HttpStatus.OK);
 	}
 	
 	
+	//prikaz accounta na osnovu id-a
+	//recimo localhost:8080/api/accounts/1, 2, 3
 	@GetMapping(value="/{id}")
 	public ResponseEntity<AccountDTO> getAccount(@PathVariable("id") Long id){
 		Account account = accountServiceInterface.findOne(id);

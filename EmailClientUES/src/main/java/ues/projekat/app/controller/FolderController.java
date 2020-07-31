@@ -34,6 +34,9 @@ public class FolderController {
 	@Autowired
     private AccountServiceInterface accountServiceInterface;
 	
+	//za prikaz svih foldera
+	//poziv u folders.js
+	//putanja localhost:8080/api/folders/getallfolders
 	@GetMapping(value = "/getallfolders")
 	public ResponseEntity<List<FolderDTO>> getFolders() {
 		List<Folder> folders = folderServiceInterface.findAll();
@@ -44,6 +47,9 @@ public class FolderController {
 		return new ResponseEntity<List<FolderDTO>>(foldersDTO, HttpStatus.OK);
 	}
 	
+	
+	//prikaz foldera sa datim id-em
+	//localhost:8080/api/folders/1, 2, 3 recimo	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<FolderDTO> getFolder(@PathVariable("id") Integer id){
 		Folder folder = folderServiceInterface.findOne(id);
@@ -54,6 +60,7 @@ public class FolderController {
 		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.OK);
 	}
 	
+	//prikaz foldera na osnovu account id-a
 	@GetMapping(value="/byAccount/{id}")
 	public ResponseEntity<FolderDTO> getFoldersByAccountId(@PathVariable("id") Long id){
 		List<FolderDTO> folders = new ArrayList<>();
@@ -83,35 +90,9 @@ public class FolderController {
 		return new ResponseEntity<FolderDTO>(accountFolder, HttpStatus.OK);
 	}
 	
-//	@PostMapping(value="/add/{parentId}/{accountUsername}", consumes="application/json")
-//	public ResponseEntity<FolderDTO> saveFolder(@RequestBody FolderDTO folderDTO, @PathVariable("parentId") Long parentId, @PathVariable("accountUsername") String accountUsername){
-//		Folder folder = new Folder();
-//		folder.setName(folderDTO.getName());
-//		
-//		if(parentId != 0) {
-//			Folder parentFolder = folderServiceInterface.findOne(parentId);
-//			folder.setParentFolder(parentFolder);
-//			folder.setAccount(parentFolder.getAccount());
-//		}else {
-//			Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
-//			folder.setAccount(account);
-//		}
-//		
-//		
-//		Rule rule = new Rule();
-//
-//		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
-//			rule.setCondition(folderDTO.getRules().get(0).getCondition());
-//			rule.setOperation(folderDTO.getRules().get(0).getOperation());
-//		}
-//		folder.addRule(rule);
-//		folder.setFolderMessages(new ArrayList<Message>());
-//		//folder.setSubfolders(new HashSet<Folder>());
-//	
-//		folder = folderServiceInterface.save(folder);
-//		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.CREATED);	
-//	}
 	
+	//dodavanje novog foldera na osnovu ukucanog account username-a
+	//poziva se u add_folder.js
 	@PostMapping(value = "/addFolder") 
 	public ResponseEntity<Void> addFolder(@RequestParam("account_username") String account_username, @RequestParam("name") String name) {
 		

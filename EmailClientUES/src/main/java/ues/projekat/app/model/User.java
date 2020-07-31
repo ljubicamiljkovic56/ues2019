@@ -38,15 +38,15 @@ public class User implements Serializable {
 	
 	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
 	//@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
-	private List<Contact> userContacts;
+	private List<Contact> userContacts = new ArrayList<Contact>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "user_tags", referencedColumnName = "tag_id", nullable = true)
-	private List<Tag> userTags;
+	private List<Tag> userTags = new ArrayList<Tag>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	//@JoinColumn(name = "user_accounts", referencedColumnName = "account_id", nullable = true)
-	private List<Account> userAccounts;
+	private List<Account> userAccounts = new ArrayList<Account>();
 	
 	public User() {
 		super();

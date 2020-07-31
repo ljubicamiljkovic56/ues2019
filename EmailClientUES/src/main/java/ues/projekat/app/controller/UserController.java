@@ -44,17 +44,18 @@ public class UserController {
 	private UserService userService;
 	
 	//nadji sve korisnike
-	@GetMapping
-	public ResponseEntity<List<UserDTO>> getAllUsers() {
+	@GetMapping(value = "/getallusers")
+	public ResponseEntity<List<UserDTO>> getAllUsers(){
 		List<User> users = userServiceInterface.findAll();
-		List<UserDTO> userDTO = new ArrayList<UserDTO>();
-		for (User user : users) {
-			userDTO.add(new UserDTO(user));
+		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+		for (User u : users) {
+			usersDTO.add(new UserDTO(u));
 		}
-		return new ResponseEntity<List<UserDTO>>(userDTO, HttpStatus.OK);
+		return new ResponseEntity<List<UserDTO>>(usersDTO, HttpStatus.OK);
 	}
 	
 	//login za korisnika
+	//poziva se u login.js
 	@PostMapping(value = "user/loginUser")
 	public ResponseEntity<Void> loginUser(@RequestParam("username") String username, @RequestParam("password") String password){
 		System.out.println("Login...");
@@ -82,6 +83,7 @@ public class UserController {
 	}
 	
 	//registracija korisnika
+	//poziva se u register_user.js
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<User> registerUser(@RequestParam String username, @RequestParam String password, 
 			@RequestParam String firstname, @RequestParam String lastname) {
@@ -114,7 +116,8 @@ public class UserController {
 		
 	}
 	
-	//dodavanje novog account-a
+	//dodavanje novog account-a, na osnovu ukucanog user username-a
+	//poziva se u add_account.js
 	@PostMapping(value = "/addAccount")
 	public ResponseEntity<Void> addAccount(@RequestParam("user_username") String user_username, @RequestParam("username") String username, 
 			@RequestParam("password") String password, @RequestParam("displayname") String displayName) {

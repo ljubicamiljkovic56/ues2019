@@ -40,6 +40,9 @@ public class MessageController {
     private UserServiceInterface userServiceInterface;
 	
 	
+	//za prikaz svih poruka
+	//gadja se u messages.js fajlu da bi imali prikaz u messages.html
+	//localhost:8080/api/messages/getallmessages
 	@GetMapping(value = "/getallmessages")
 	public ResponseEntity<List<MessageDTO>> getAllMessages() {
 		List<Message> messages = messageServiceInterface.findAll();
@@ -50,6 +53,8 @@ public class MessageController {
 		return new ResponseEntity<List<MessageDTO>>(messagesDTO, HttpStatus.OK);
 	}
 	
+	//prikaz poruke na osnovu id-a, radi u browseru ako ukucamo 
+	//ako ukucamo u browseru localhost:8080/api/messages/1 ili 2 dobijemo poruku sa tim id-em
 	@GetMapping(value="/{id}")
 	public ResponseEntity<MessageDTO> getMessage(@PathVariable("id") Long id){
 		Message message = messageServiceInterface.findOne(id);
@@ -60,6 +65,8 @@ public class MessageController {
 		return new ResponseEntity<MessageDTO>(new MessageDTO(message), HttpStatus.OK);
 	}
 	
+	//prikazuje poruke korisnika sa datim username-om
+	//radi u browseru ako ukucamo, putanja localhost:8080/api/messages/byUser/miki123
 	@GetMapping(value="/byUser/{username}")
 	public ResponseEntity<List<MessageDTO>> getMessagesByUsername(@PathVariable("username") String username){
 		List<MessageDTO> messages = new ArrayList<>();
@@ -76,44 +83,44 @@ public class MessageController {
 		return new ResponseEntity<List<MessageDTO>>(messages, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/emails/{accountId}")
-	public ResponseEntity<List<MessageDTO>> getAllMessagesFromUser(@PathVariable("account_id") Long id){
-		//EmailReceiver emailReceiver = new EmailReceiver(messageServiceInterface, folderServiceInterface);
-		Account account = accountServiceInterface.findOne(id);
-		if (account == null) {
-			return new ResponseEntity<List<MessageDTO>>(HttpStatus.BAD_REQUEST);
-		}
+//	@GetMapping(value = "/emails/{accountId}")
+//	public ResponseEntity<List<MessageDTO>> getAllMessagesFromUser(@PathVariable("account_id") Long id){
+//		//EmailReceiver emailReceiver = new EmailReceiver(messageServiceInterface, folderServiceInterface);
+//		Account account = accountServiceInterface.findOne(id);
+//		if (account == null) {
+//			return new ResponseEntity<List<MessageDTO>>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//	//	Date date = account.getAccountMessages().stream().map(Message::getDate).max(Date::compareTo).get();
+//	//	emailReceiver.receiveEmail(account, date);
+//		List<MessageDTO> messageDTOs = new ArrayList<>();
+//		for (Message itMessage : account.getAccountMessages()) {
+//		//	if (itMessage.getFolder().getName().equals("Inbox")) {
+//				messageDTOs.add(new MessageDTO(itMessage));
+//		//	}
+//
+//		}
+//		System.out.println("id ulogovanog: "+ account.getId());
+//		System.out.println("username : "+ account.getUsername());
+//		return new ResponseEntity<List<MessageDTO>>(messageDTOs, HttpStatus.OK);
+//	}
+//	
+	
+	
+	
+	
+	
+//	@PostMapping(value = "/send/{username}", consumes="application/json")
+//	public ResponseEntity<Void> send(@RequestBody MessageDTO messageDTO, @PathVariable("username") String accountUsername){
+//		
+//		Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
+//		
+//		if (account == null) {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		
 		
-	//	Date date = account.getAccountMessages().stream().map(Message::getDate).max(Date::compareTo).get();
-	//	emailReceiver.receiveEmail(account, date);
-		List<MessageDTO> messageDTOs = new ArrayList<>();
-		for (Message itMessage : account.getAccountMessages()) {
-		//	if (itMessage.getFolder().getName().equals("Inbox")) {
-				messageDTOs.add(new MessageDTO(itMessage));
-		//	}
-
-		}
-		System.out.println("id ulogovanog: "+ account.getId());
-		System.out.println("username : "+ account.getUsername());
-		return new ResponseEntity<List<MessageDTO>>(messageDTOs, HttpStatus.OK);
-	}
-	
-	
-	
-	
-	
-	
-	@PostMapping(value = "/send/{username}", consumes="application/json")
-	public ResponseEntity<Void> send(@RequestBody MessageDTO messageDTO, @PathVariable("username") String accountUsername){
-		
-		Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
-		
-		if (account == null) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-		
-		
-		User user = account.getUser();
+//		User user = account.getUser();
 //		Folder folder = folderServiceInterface.findByNameAndAccount("Sent", account);
 //		if (folder == null) {
 //			Rule rule = new Rule(ConditionDTO.SUBJECT, "Sent", OperationDTO.MOVE, null);
@@ -175,17 +182,17 @@ public class MessageController {
 		
 //		Message message = new Message(55, account.getUsername(), "", "", "", dateTime, subject, content, unread, account, folder, attachments, tags)
 		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
-	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> deleteMessage(@PathVariable("id") Long id){
-		Message message = messageServiceInterface.findOne(id);
-		if (message != null){
-			messageServiceInterface.remove(id);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} else {		
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		}
-	}
+//		return new ResponseEntity<Void>(HttpStatus.OK);
+//	}
+//	
+//	@DeleteMapping(value="/{id}")
+//	public ResponseEntity<Void> deleteMessage(@PathVariable("id") Long id){
+//		Message message = messageServiceInterface.findOne(id);
+//		if (message != null){
+//			messageServiceInterface.remove(id);
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} else {		
+//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+//		}
+//	}
 }

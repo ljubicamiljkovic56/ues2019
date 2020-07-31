@@ -47,6 +47,7 @@ public class EmailController {
 	@Autowired
 	private AccountServiceInterface accountServiceInterface;
 	
+	//slanje mejla
 	@RequestMapping(value = "/sendemail")
 	private void sendmail(@RequestParam String username, @RequestParam String password, @RequestParam String to,
 			@RequestParam String cc, @RequestParam String bcc,
@@ -134,6 +135,7 @@ public class EmailController {
 		
 	}
 	
+	//primanje mejla
 	@RequestMapping(value = "/receivemail")
 	private void receivemail(@RequestParam String username, @RequestParam String password) {
 		
