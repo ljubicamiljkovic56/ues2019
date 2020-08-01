@@ -3,6 +3,13 @@ var contacts = []
 $(document).ready(function(){
 	var contactsTable = $('#contactsTable');
 	
+	var searchFuzzyButtonContacts = $('#searchFuzzyButtonContacts'); 
+	var resultFuzzyContacts = $('#resultFuzzyContacts');
+	var searchPhraseButtonContacts = $('#searchPhraseButtonContacts');
+	var resultPhraseContacts = $('#resultPhraseContacts');
+	var searchBooleanButtonContacts = $('#searchBooleanButtonContacts');
+	var resultBooleanContacts = $('#resultBooleanContacts');
+	
 	function getContacts(){
 	$.get("http://localhost:8080/api/contacts/getallcontacts", function(data){
 			console.log(data);
@@ -37,6 +44,65 @@ $(document).ready(function(){
 			)
 		}
 	};
+	
+
+	searchFuzzyButtonContacts.on('click',function(event){
+		
+	var term1 = $('#fuzzySearchDropdownContacts option:selected').val();
+	var searchField1 = $('#searchFuzzyInputContacts').val();
+
+	var jsonData = {
+			'term1' : term1,
+			'searchField1' : searchField1
+		}
+	alert('Dugme kliknuto');
+//	
+
+		$.ajax({
+			url : "http://localhost:8080/api/search/contacts/fuzzy",
+			type : "POST",
+			contentType : 'application/json',
+			data : JSON.stringify(jsonData),
+			//headers:{"Authorization" : "Bearer " + localStorage.getItem("token")},
+			success: function(contacts) {
+				console.log(contacts);
+				if (resultFuzzyContacts.text().length == 0) {
+					for(contact  of contacts) {
+						resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
+					}
+				}else {
+					resultFuzzyContacts.empty();
+					for(contact  of contacts) {
+						resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
+					}
+
+				}
+			},error:function(response) {
+				console.log(response);
+			}
+		})
+		event.preventDefault();
+	});
+		
+//	$.post("http://localhost:8080/api/searchcontacts/contacts/fuzzy", function (data) {
+//		
+//		alert("Usao u funkciju");
+//		
+//		if (resultFuzzyContacts.text().length == 0) {
+//			for(contact  of contacts) {
+//				resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
+//			}
+//		}else {
+//			resultFuzzyContacts.empty();
+//			for(contact  of contacts) {
+//				resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
+//			}
+//
+//		}
+//		
+//	})
+	
+	
 	
 	contactsTable.on('click', 'input.deleteSubmit', function(event){
 		alert('Brisem...');

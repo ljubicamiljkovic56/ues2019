@@ -17,15 +17,53 @@
 		<th><a>User</a></th>
 		<th><a>Photo</a></th>
 	</tr>
-<!-- 	<tr bgcolor="lightblue"> -->
-<!-- 		<td align="center"><input type="text" id="firstnameInput"/></td> -->
-<!-- 		<td align="center"><input type="text" id="lastnameInput"/></td> -->
-<!-- 		<td align="center"><input type="text" id="diplaynameInput"/></td> -->
-<!-- 		<td align="center"><input type="email" id="emailInput"/></td> -->
-<!-- 		<td align="center"><input type="text" id="userInput"/></td> -->
-<!-- 		<td align="center"><input type="text" id="photoInput"/></td> -->
-<!-- 	</tr> -->
+	<tr bgcolor="lightblue">
+		<td align="center"><input type="text" id="firstnameInput"/></td>
+		<td align="center"><input type="text" id="lastnameInput"/></td>
+		<td align="center"><input type="text" id="diplaynameInput"/></td>
+		<td align="center"><input type="email" id="emailInput"/></td>
+		<td align="center"><input type="text" id="userInput"/></td>
+		<td align="center"><input type="text" id="photoInput"/></td>
+	</tr>
 </table>
+
+<h3>Search FuzzyQuery</h3>
+<select id="fuzzySearchDropdownContacts">
+<option value="firstName">First Name</option>
+<option value="lastName">Last Name</option>
+<option value="note">Note</option>
+</select><input type="text" id="searchFuzzyInputContacts">
+<button id="searchFuzzyButtonContacts">search</button>
+<div id="resultFuzzyContacts"></div>
+
+<h3>Search BooleanQuery</h3>
+<select id="booleanSearchDropdownContacts1">
+<option value="firstName">First Name</option>
+<option value="lastName">Last Name</option>
+<option value="note">Note</option>
+</select><input type="text" id="searchBooleanInputContacts1">
+<br></br>
+<br></br>
+<select id="booleanSearchDropdownContacts2">
+<option value="firstName">First Name</option>
+<option value="lastName">Last Name</option>
+<option value="note">Note</option>
+</select><input type="text" id="searchBooleanInputContacts2">
+<select id="operations">
+<option value="AND">AND</option>
+<option value="OR">OR</option>
+</select>
+<button id="searchBooleanButtonContacts">search</button>
+<div id="resultBooleanContacts"></div>
+
+<h3>Search PhraseQuery</h3>
+<select id="phraseSearchDropdownContacts">
+<option value="firstName">First Name</option>
+<option value="lastName">Last Name</option>
+<option value="note">Note</option>
+</select><input type="text" id="searchPhraseInputContacts">
+<button id="searchPhraseButtonContacts">search</button>
+<div id="resultPhraseContacts"></div>
 
 <p><a href="add_contact.html">Add new contact</a></p>
 <p><a href="accounts.html">Back to accounts</a></p>

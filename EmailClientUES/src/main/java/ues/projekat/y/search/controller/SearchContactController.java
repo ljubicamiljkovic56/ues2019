@@ -38,17 +38,21 @@ import org.apache.lucene.search.BooleanClause;
 
 
 @RestController
-@RequestMapping(value = "api/searchcontacts")
+@RequestMapping(value = "api/search")
 @CrossOrigin
 public class SearchContactController {
 	
-	@PostMapping("/contacts/fuzzy")
+	private Directory dataDir;
+	
+	@PostMapping(value = "/contacts/fuzzy")
 	public ResponseEntity<List<FoundDocumentContact>> searchforDocumentusingFuzzy(
 			@RequestBody ResultDataFuzzyContact search) {
 		List<FoundDocumentContact> retVal = new ArrayList<FoundDocumentContact>();
+		System.out.println("usao u funkciju");
 		try {
 			 ResourceBundle rb = ResourceBundle.getBundle("application",Locale.getDefault());
-			 Directory dirOfIndexes = FSDirectory.open(new File(rb.getString("dataDir"))); 
+			Directory dirOfIndexes = FSDirectory.open(new File(rb.getString("dataDir"))); 
+			// Directory dirOfIndexes = FSDirectory.open(new File("C:\\Users\\Ljubica\\git\\ues2019\\EmailClientUES\\dataDir"));
 			 CyrillicLatinConverter converter = new CyrillicLatinConverter();
 			 Term t= new Term(search.getTerm1(),converter.cyrilicToLatin(search.getSearchField1().toLowerCase()));
 			 int editDis=2;
@@ -91,7 +95,7 @@ public class SearchContactController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Da li ima odgovora");
 		return new ResponseEntity<List<FoundDocumentContact>>(retVal, HttpStatus.OK);
 	}
 	
