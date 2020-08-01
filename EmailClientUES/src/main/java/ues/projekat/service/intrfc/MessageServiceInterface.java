@@ -2,6 +2,7 @@ package ues.projekat.service.intrfc;
 
 import java.util.List;
 
+import ues.projekat.app.model.Account;
 import ues.projekat.app.model.Message;
 
 public interface MessageServiceInterface {
@@ -15,5 +16,7 @@ public interface MessageServiceInterface {
 	void remove(Long id);
 	
 	List<Message> findBySubject(String subject);
+
+	//public List<Message> getMessages(Account account);
 
 }

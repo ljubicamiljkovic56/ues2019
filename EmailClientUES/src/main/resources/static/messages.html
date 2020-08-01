@@ -27,6 +27,75 @@
 		</tr>
 	</table>
 	
+	<h3>Search Messages</h3>
+	<div id="search">
+	<input class="form-control" type="text" id="searchInput">
+	<button id="searchButton">Search</button>
+	<br>
+	</div>
+	<div id="messages"></div>
+	
+	
+	<h3>FuzzyQuery Search</h3>
+	<select class="custom-select" id="fuzzySearchDropdown">
+		<option value="messageFrom">From</option>
+		<option value="messageTo">To</option>
+		<option value="messageBcc">Bcc</option>
+		<option value="content">Content</option>
+		<option value="subject">Subject</option>
+		<option value="folder">Folder</option>
+		<option value="accounts">Email account</option>
+		</select> <input class="form-control" type="text" id="searchFuzzyInput">
+	<button class="btn btn-dark" id="searchFuzzyButton">Search</button>
+					
+	<div id="resultFuzzyMessages"></div>
+	
+
+	<h3>BooleanQuery</h3>
+	<select class="custom-select" id="booleanSearchDropdown1">
+		<option value="messageFrom">From</option>
+		<option value="messageTo">To</option>
+		<option value="messageBcc">Bcc</option>
+		<option value="content">Content</option>
+		<option value="subject">Subject</option>
+		<option value="folder">Folder</option>
+		<option value="accounts">Email account</option>
+		</select> <input class="form-control" type="text" id="searchBooleanInput1">
+		<br> <select class="custom-select" id="booleanSearchOption">
+		<option value="AND">AND</option>
+		<option value="OR">OR</option>
+		</select> 
+		<br> <br> 
+		<select class="custom-select"id="booleanSearchDropdown2">
+			<option value="messageFrom">From</option>
+			<option value="messageTo">To</option>
+			<option value="messageBcc">Bcc</option>
+			<option value="content">Content</option>
+			<option value="subject">Subject</option>
+			<option value="folder">Folder</option>
+			<option value="accounts">Email account</option>
+			</select> <input class="form-control" type="text" id="searchBooleanInput2">
+			<button class="btn btn-dark" id="searchBooleanButton">Search</button>
+			
+		<div id="resultBooleanMessages"></div>
+	
+	
+		
+		<h3>Phrase Query</h3>
+		<select class="custom-select" id="phraseSearchDropdown">
+		<option value="messageFrom">From</option>
+		<option value="messageTo">To</option>
+		<option value="messageBcc">Bcc</option>
+		<option value="content">Content</option>
+		<option value="subject">Subject</option>
+		<option value="folder">Folder</option>
+		<option value="accounts">Email account</option>
+		</select> <input class="form-control" type="text" id="searchPhraseInput">
+		<button class="btn btn-dark" id="searchPhraseButton">Search</button>
+		
+		<div id="resultPhraseMessages"></div>
+	
+	
 	<p><a href="add_message.html">Create new message</a></p>
 	<p><a href="accounts.html">Back to accounts</a></p>
 	<p><a href="receive_mail.html">Receive mail</a></p>

@@ -34,5 +34,11 @@ public class ContactService implements ContactServiceInterface {
 	public void remove(Long id) {
 		contactRepository.delete(id);
 	}
+	
+	@Override
+	public List<Contact> findAllByUser(ues.projekat.app.model.User user) {
+		return contactRepository.findAllByUser(user);
+
+	}
 
 }

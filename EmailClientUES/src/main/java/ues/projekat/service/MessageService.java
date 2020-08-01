@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.repository.MessageRepository;
+import ues.projekat.service.intrfc.FolderServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 
 @Service
@@ -40,5 +43,6 @@ public class MessageService implements MessageServiceInterface {
 	public List<Message> findBySubject(String subject) {
 		return messageRepository.findBySubject(subject);
 	}
+
 
 }
