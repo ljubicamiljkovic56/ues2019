@@ -220,5 +220,5 @@ public class CyrillicLatinConverter {
 		}
 		return latinBuffer.toString();
 	}
-
+	
 }

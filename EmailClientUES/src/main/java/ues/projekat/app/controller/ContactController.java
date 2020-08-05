@@ -22,6 +22,8 @@ import ues.projekat.app.model.User;
 import ues.projekat.dto.ContactDTO;
 import ues.projekat.service.intrfc.ContactServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
+import ues.projekat.y.search.indexing.LuceneStart;
+import ues.projekat.y.search.misc.WriteTextFileContacts;
 
 @RestController
 @RequestMapping(value="api/contacts")
@@ -43,6 +45,10 @@ public class ContactController {
 		for (Contact c : contacts) {
 			contactsDTO.add(new ContactDTO(c));
 		}
+		
+		WriteTextFileContacts.write();
+		LuceneStart.startPoint();
+		
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}
 	

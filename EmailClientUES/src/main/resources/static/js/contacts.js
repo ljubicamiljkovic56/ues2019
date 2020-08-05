@@ -33,6 +33,7 @@ $(document).ready(function(){
 					'<td>' + it.lastname + '</td>' + 
 					'<td>' + it.displayname + '</td>' +
 					'<td>' + it.email + '</td>' +
+					'<td>' + it.note + '</td>' + 
 					'<td>' + it.userID + '</td>' +
 					'<td>' + it.photo + '</td>' +
 					'<td>' +
