@@ -34,8 +34,9 @@ $(document).ready(function(){
 					'<td>' + it.tags + '</td>' +
 					'<td>' + it.attachments + '</td>' + 
 					'<td>' +
-					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" messageID="' + it.id + '">' + 
-				'</form>' + '</td>' + 
+//					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" messageID="' + it.id + '">' + 
+//				'</form>' +
+				'</td>' + 
 					'<td>' +
 					'</td>' + 
 				'</tr>'
@@ -43,23 +44,23 @@ $(document).ready(function(){
 		}
 	};
 	
-	messagesTable.on('click', 'input.deleteSubmit', function(event){
-		alert('Brisem...');
-		var messageID = $(this).attr('messageID');
-		console.log('messageID: ' + messageID);		
-		params = {
-				'id': messageID
-		};
-		console.log(params);
-		$.post("http://localhost:8080/api/messages/{id}", params,function(data){
-		
-			alert('Obrisana poruka')
-			window.location.replace('messages.html');
-			
-		});
-		event.preventDefault();
-		return false;
-	});
+//	messagesTable.on('click', 'input.deleteSubmit', function(event){
+//		alert('Brisem...');
+//		var messageID = $(this).attr('messageID');
+//		console.log('messageID: ' + messageID);		
+//		params = {
+//				'id': messageID
+//		};
+//		console.log(params);
+//		$.post("http://localhost:8080/api/messages/{id}", params,function(data){
+//		
+//			alert('Obrisana poruka')
+//			window.location.replace('messages.html');
+//			
+//		});
+//		event.preventDefault();
+//		return false;
+//	});
 	
 
 	getMessages();

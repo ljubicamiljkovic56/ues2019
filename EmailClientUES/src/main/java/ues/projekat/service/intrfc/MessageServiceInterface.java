@@ -17,6 +17,8 @@ public interface MessageServiceInterface {
 	
 	List<Message> findBySubject(String subject);
 
+	Message findOneBySubject(String message_subject);
+
 	//public List<Message> getMessages(Account account);
 
 }

@@ -44,5 +44,10 @@ public class MessageService implements MessageServiceInterface {
 		return messageRepository.findBySubject(subject);
 	}
 
+	@Override
+	public Message findOneBySubject(String message_subject) {
+		return messageRepository.findOneBySubject(message_subject);
+	}
+
 
 }

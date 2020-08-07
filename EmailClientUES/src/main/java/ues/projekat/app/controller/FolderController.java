@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,7 +102,7 @@ public class FolderController {
 		
 		Folder folder = new Folder();
 		folder.setName(name);
-		folder.setParentFolder(folder);
+		folder.setParentFolder(null);
 		folder.setFolderMessages(new ArrayList<Message>());
 		folder.setRules(new HashSet<Rule>());
 		folder.setAccount(account);
@@ -138,14 +137,31 @@ public class FolderController {
 		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.OK);	
 	}
 	
-	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> deleteFolder(@PathVariable("id") Long id){
-		Folder folder = folderServiceInterface.findOne(id);
-		if (folder != null){
-			folderServiceInterface.remove(id);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} else {		
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+//	@DeleteMapping(value="/{id}")
+//	public ResponseEntity<Void> deleteFolder(@PathVariable("id") Long id){
+//		Folder folder = folderServiceInterface.findOne(id);
+//		if (folder != null){
+//			folderServiceInterface.remove(id);
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} else {		
+//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+//		}
+//	}
+	
+	//brisanje foldera na osnovu name-a
+	@PostMapping(value = "/deleteFolder")
+	public ResponseEntity<Void> deleteFolder(@RequestParam String name) {
+		
+		Folder folder = folderServiceInterface.findByName(name);
+		
+		if (folder == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
+		
+		folderServiceInterface.remove(folder.getId());
+		
+		System.out.println("Obrisan je folder.");
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

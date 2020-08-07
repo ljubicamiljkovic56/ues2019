@@ -17,4 +17,6 @@ public interface ContactServiceInterface {
 
 	List<Contact> findAllByUser(User user);
 	
+	Contact findContactByDisplayname(String displayname);
+	
 }

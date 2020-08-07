@@ -41,4 +41,10 @@ public class ContactService implements ContactServiceInterface {
 
 	}
 
+	@Override
+	public Contact findContactByDisplayname(String displayname) {
+		return contactRepository.findByDisplayname(displayname);
+	}
+
+
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -138,15 +137,22 @@ public class ContactController {
 		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.OK);	
 	}
 	
-	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> deleteContact(@PathVariable("id") Long id){
-		Contact contact = contactServiceInterface.findOne(id);
-		if (contact != null){
-			contactServiceInterface.remove(id);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} else {		
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+	//brisanje kontakta se radi preko displayname-a
+	@PostMapping(value = "/deleteContact")
+	public ResponseEntity<Void> deleteContact(@RequestParam String displayname) {
+		
+		Contact contact = contactServiceInterface.findContactByDisplayname(displayname);
+				
+		if (contact == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
+		
+		contactServiceInterface.remove(contact.getId());
+		
+		System.out.println("Obrisan je kontakt");
+	
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 }

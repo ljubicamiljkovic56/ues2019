@@ -42,8 +42,9 @@ $(document).ready(function(){
 					'<td>' + it.displayname + '</td>' +
 					'<td>' + it.userID + '</td>' + 
 					'<td>' +
-					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" accountID="' + it.id + '">' + 
-				'</form>' + '</td>' + 
+//					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" accountID="' + it.id + '">' + 
+//				'</form>' + 
+				'</td>' + 
 					'<td>' +
 					'</td>' + 
 				'</tr>'
@@ -51,23 +52,23 @@ $(document).ready(function(){
 		}
 	};
 	
-	accountsTable.on('click', 'input.deleteSubmit', function(event){
-		alert('Brisem...');
-		var accountID = $(this).attr('accountID');
-		console.log('accountID: ' + accountID);		
-		params = {
-				'id': accountID
-		};
-		console.log(params);
-		$.post("http://localhost:8080/api/accounts/{id}", params,function(data){
-		
-			alert('Obrisan account')
-			window.location.replace('accounts.html');
-			
-		});
-		event.preventDefault();
-		return false;
-	});
+//	accountsTable.on('click', 'input.deleteSubmit', function(event){
+//		alert('Brisem...');
+//		var accountID = $(this).attr('accountID');
+//		console.log('accountID: ' + accountID);		
+//		params = {
+//				'id': accountID
+//		};
+//		console.log(params);
+//		$.post("http://localhost:8080/api/accounts/{id}", params,function(data){
+//		
+//			alert('Obrisan account')
+//			window.location.replace('accounts.html');
+//			
+//		});
+//		event.preventDefault();
+//		return false;
+//	});
 	
 //	$('#sortSmtpAddress').on('click', function(event){
 //		alert('Sortiram...');

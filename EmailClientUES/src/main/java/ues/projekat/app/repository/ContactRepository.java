@@ -11,5 +11,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 	
 	public List<Contact> findAllByUser(User user);
 	
+	public Contact findByDisplayname(String displayname);
+	
+	
 }
-

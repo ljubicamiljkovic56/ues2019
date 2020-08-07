@@ -24,8 +24,9 @@ $(document).ready(function(){
 					'<td>' + it.parent_folder + '</td>' + 
 					'<td>' + it.account_id + '</td>' + 
 					'<td>' +
-					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" folderID="' + it.id + '">' + 
-				'</form>' + '</td>' + 
+//					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" folderID="' + it.id + '">' + 
+//				'</form>' 
+					'</td>' + 
 					'<td>' +
 					'</td>' + 
 				'</tr>'
@@ -33,23 +34,23 @@ $(document).ready(function(){
 		}
 	};
 	
-	foldersTable.on('click', 'input.deleteSubmit', function(event){
-		alert('Brisem...');
-		var folderID = $(this).attr('folderID');
-		console.log('folderID: ' + folderID);		
-		params = {
-				'id': folderID
-		};
-		console.log(params);
-		$.post("http://localhost:8080/api/folders/{id}", params,function(data){
-		
-			alert('Obrisan account')
-			window.location.replace('folders.html');
-			
-		});
-		event.preventDefault();
-		return false;
-	});
+//	foldersTable.on('click', 'input.deleteSubmit', function(event){
+//		alert('Brisem...');
+//		var folderID = $(this).attr('folderID');
+//		console.log('folderID: ' + folderID);		
+//		params = {
+//				'id': folderID
+//		};
+//		console.log(params);
+//		$.post("http://localhost:8080/api/folders/{id}", params,function(data){
+//		
+//			alert('Obrisan account')
+//			window.location.replace('folders.html');
+//			
+//		});
+//		event.preventDefault();
+//		return false;
+//	});
 	getFolders();
 	console.log('dobavljeni folderi?');
 });

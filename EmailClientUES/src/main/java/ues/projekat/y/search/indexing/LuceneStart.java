@@ -24,7 +24,7 @@ public class LuceneStart {
 		{ 
 			start = new LuceneStart(); 
 			start.createIndex(); 
-			start.search("note3"); 
+		//	start.search("note3"); 
 		} 
 		catch (IOException e) 
 		{ 

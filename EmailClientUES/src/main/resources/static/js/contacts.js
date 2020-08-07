@@ -37,8 +37,9 @@ $(document).ready(function(){
 					'<td>' + it.userID + '</td>' +
 					'<td>' + it.photo + '</td>' +
 					'<td>' +
-					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" messageID="' + it.id + '">' + 
-				'</form>' + '</td>' + 
+//					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" messageID="' + it.id + '">' + 
+//				'</form>' +
+				'</td>' + 
 					'<td>' +
 					'</td>' + 
 				'</tr>'
@@ -104,24 +105,24 @@ $(document).ready(function(){
 //	})
 	
 	
-	
-	contactsTable.on('click', 'input.deleteSubmit', function(event){
-		alert('Brisem...');
-		var contactID = $(this).attr('contactID');
-		console.log('contactID: ' + contactID);		
-		params = {
-				'id': contactID
-		};
-		console.log(params);
-		$.post("http://localhost:8080/api/contacts/{id}", params,function(data){
-		
-			alert('Obrisana poruka')
-			window.location.replace('contacts.html');
-			
-		});
-		event.preventDefault();
-		return false;
-	});
+//	
+//	contactsTable.on('click', 'input.deleteSubmit', function(event){
+//		alert('Brisem...');
+//		var contactID = $(this).attr('contactID');
+//		console.log('contactID: ' + contactID);		
+//		params = {
+//				'id': contactID
+//		};
+//		console.log(params);
+//		$.post("http://localhost:8080/api/contacts/{id}", params,function(data){
+//		
+//			alert('Obrisana poruka')
+//			window.location.replace('contacts.html');
+//			
+//		});
+//		event.preventDefault();
+//		return false;
+//	});
 	
 
 	getContacts();
