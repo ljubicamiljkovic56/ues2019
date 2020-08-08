@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 
 
 @SuppressWarnings("serial")
@@ -67,7 +69,7 @@ public class Message implements Serializable {
 	private List<Tag> messageTags;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	//@JoinColumn(name = "message_attach", nullable = true)
 	private List<Attachment> messageAttachments;
 	

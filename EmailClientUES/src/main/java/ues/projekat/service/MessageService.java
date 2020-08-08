@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.repository.MessageRepository;
@@ -48,6 +49,12 @@ public class MessageService implements MessageServiceInterface {
 	public Message findOneBySubject(String message_subject) {
 		return messageRepository.findOneBySubject(message_subject);
 	}
+
+//	@Override
+//	public void removeAttachments(Attachment attachment) {
+//		messageRepository.
+//		
+//	}
 
 
 }

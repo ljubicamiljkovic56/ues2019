@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.model.User;
 import ues.projekat.dto.MessageDTO;
 import ues.projekat.service.intrfc.AccountServiceInterface;
+
 import ues.projekat.service.intrfc.FolderServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
@@ -202,14 +204,21 @@ public class MessageController {
 		
 		Message message = messageServiceInterface.findOneBySubject(message_subject);
 		
-		if (message == null) {
+	//	Message message = messageServiceInterface.findOne(Long.parseLong(id));
+	
+		
+		if (message != null) {
+	
+			
+			messageServiceInterface.remove(message.getId());
+			
+			System.out.println("Obrisana je poruka");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
+		}		
 		
-		messageServiceInterface.remove(message.getId());
-		
-		System.out.println("Obrisana je poruka");
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

@@ -18,6 +18,10 @@
 
 --CREATE TABLE messages (message_id BIGINT NOT NULL AUTO_INCREMENT,message_from VARCHAR(45) NOT NULL,message_to VARCHAR(45) NOT NULL,cc VARCHAR(45),bcc VARCHAR(45),message_date TIMESTAMP NOT NULL,message_subject VARCHAR(45),content VARCHAR(45),unread BOOLEAN NOT NULL,message_tags BIGINT,message_attachments BIGINT,PRIMARY KEY (message_id),FOREIGN KEY (message_tags) REFERENCES tags(tag_id),FOREIGN KEY (message_attachments) REFERENCES attachments(attachment_id));
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+--SET FOREIGN_KEY_CHECKS = 1;
+
 
 INSERT INTO users(username, password, firstname, lastname) VALUES ('miki123', 'miki123', 'Miki', 'Mikic');
 INSERT INTO users(username, password, firstname, lastname) VALUES ('pera', 'pera', 'Pera', 'Peric');
