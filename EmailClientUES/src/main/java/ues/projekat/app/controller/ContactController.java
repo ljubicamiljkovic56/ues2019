@@ -9,14 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Contact;
-import ues.projekat.app.model.Photo;
 import ues.projekat.app.model.User;
 import ues.projekat.dto.ContactDTO;
 import ues.projekat.service.intrfc.ContactServiceInterface;
@@ -114,27 +112,57 @@ public class ContactController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping(value="/update/{id}", consumes="application/json")
-	public ResponseEntity<ContactDTO> updateProduct(@RequestBody ContactDTO contactDTO, @PathVariable("id") Long id){
-		Contact contact = contactServiceInterface.findOne(id); 
-		
-		if (contact == null) {
-			return new ResponseEntity<ContactDTO>(HttpStatus.BAD_REQUEST);
-		}
-		
-		contact.setEmail(contactDTO.getEmail());
-		contact.setFirstname(contactDTO.getFirstname());
-		contact.setLastname(contactDTO.getLastname());
-		contact.setDisplayname(contactDTO.getDisplayname());
-		if(contactDTO.getNote() != null)
-			contact.setNote(contactDTO.getNote());
-		
-		if(contactDTO.getContactPhoto() != null)
-			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
+//	@PutMapping(value="/update/{id}", consumes="application/json")
+//	public ResponseEntity<ContactDTO> updateProduct(@RequestBody ContactDTO contactDTO, @PathVariable("id") Long id){
+//		Contact contact = contactServiceInterface.findOne(id); 
+//		
+//		if (contact == null) {
+//			return new ResponseEntity<ContactDTO>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		contact.setEmail(contactDTO.getEmail());
+//		contact.setFirstname(contactDTO.getFirstname());
+//		contact.setLastname(contactDTO.getLastname());
+//		contact.setDisplayname(contactDTO.getDisplayname());
+//		if(contactDTO.getNote() != null)
+//			contact.setNote(contactDTO.getNote());
+//		
+//		if(contactDTO.getContactPhoto() != null)
+//			contact.setContactPhoto(new Photo(contactDTO.getContactPhoto().getId(), contactDTO.getContactPhoto().getPath(), contact));
+//	
+//		contact = contactServiceInterface.save(contact);
+//		
+//		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.OK);	
+//	}
 	
-		contact = contactServiceInterface.save(contact);
+	//izmena kontakta na osnovu displayname-a
+	@PostMapping(value = "/updateContact")
+	public ResponseEntity<Void> updateContact(@RequestParam String displayname, @RequestParam String firstname, 
+			@RequestParam String lastname, @RequestParam String new_displayname, @RequestParam String email,
+			@RequestParam String note){
 		
-		return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.OK);	
+		Contact contact = contactServiceInterface.findContactByDisplayname(displayname);
+		
+		if (contact != null) {
+			
+			contact.setFirstname(firstname);
+			contact.setLastname(lastname);
+			contact.setDisplayname(new_displayname);
+			contact.setEmail(email);
+			contact.setNote(note);
+			contact.setUser(contact.getUser());
+			contact.setContactPhoto(contact.getContactPhoto());
+			
+			contact = contactServiceInterface.save(contact);
+			
+			
+			System.out.println("Izmena kontakta");
+		
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//brisanje kontakta se radi preko displayname-a

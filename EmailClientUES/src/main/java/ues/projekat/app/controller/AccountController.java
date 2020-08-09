@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Folder;
+import ues.projekat.app.model.Message;
 import ues.projekat.app.model.User;
 import ues.projekat.dto.AccountDTO;
 import ues.projekat.service.intrfc.AccountServiceInterface;
@@ -95,21 +97,55 @@ public class AccountController {
 	}
 	
 	
-	@PutMapping(value="/update", consumes="application/json")
-	public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountDTO accountDTO){
-		Account account = accountServiceInterface.findOne(accountDTO.getId());
-		if (account == null) {
-			return new ResponseEntity<AccountDTO>(HttpStatus.BAD_REQUEST);
+//	@PutMapping(value="/update", consumes="application/json")
+//	public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountDTO accountDTO){
+//		Account account = accountServiceInterface.findOne(accountDTO.getId());
+//		if (account == null) {
+//			return new ResponseEntity<AccountDTO>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		account.setDisplayname(accountDTO.getDisplayname());
+//		account.setPassword(accountDTO.getPassword());
+//		account.setUsername(accountDTO.getUsername());
+//		
+//		account = accountServiceInterface.save(account);
+//		System.out.println("ACCOUNT CHANGED.....");
+//		
+//		return new ResponseEntity<AccountDTO>(new AccountDTO(account), HttpStatus.OK);	
+//	}
+	
+	@PostMapping(value = "/updateAccount")
+	public ResponseEntity<Void> updateAccount(@RequestParam String username, @RequestParam String new_username, 
+			@RequestParam String password, @RequestParam String displayname){
+		
+		Account account = accountServiceInterface.findByUsername(username);
+		
+		if(account != null) {
+			
+
+			account.setUsername(new_username);
+			account.setPassword(password);
+			account.setDisplayname(displayname);
+			
+			
+			account.setSmtpAddress(account.getSmtpAddress());
+			account.setSmtpPort(account.getSmtpPort());
+			account.setInServerType(account.getInServerType());
+			account.setInServerAddress(account.getInServerAddress());
+			account.setInServerPort(account.getInServerPort());
+			
+		//	account.setAccountFolders((ArrayList<Folder>) account.getAccountFolders());
+		//	account.setAccountMessages((ArrayList<Message>) account.getAccountMessages());
+			account.setUser(account.getUser());
+			
+			account = accountServiceInterface.save(account);
+			
+			System.out.println("Izmena naloga");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
-		
-		account.setDisplayname(accountDTO.getDisplayname());
-		account.setPassword(accountDTO.getPassword());
-		account.setUsername(accountDTO.getUsername());
-		
-		account = accountServiceInterface.save(account);
-		System.out.println("ACCOUNT CHANGED.....");
-		
-		return new ResponseEntity<AccountDTO>(new AccountDTO(account), HttpStatus.OK);	
 	}
 	
 	//brisanje naloga na osnovu username-a

@@ -1,54 +1,46 @@
 $(document).ready(function(){
-	var urlParams = new URLSearchParams(window.location.search);
-	$('#idInput').val(urlParams.get('id'));
-
-	var idInput = $('#idInput');
-	var usernameInput = $('#usernameInput');
-	var passwordInput = $('#passwordInput');
-    var firstnameInput = $('#firstnameInput');
-    var lastnameInput = $('#lastnameInput');
 	
- 	
- 	function getUserData() {
- 		$.get("http://localhost:8080/api/users/getUser", function(data) {
- 			console.log(data);
+	var displaynameInput = $('#displaynameInput');
+	var firstnameInput = $('#firstnameInput');
+	var lastnameInput = $('#lastnameInput');
+	var new_displaynameInput = $('#new_displaynameInput');
+	var emailInput = $('#emailInput');
+ 	var noteInput = $('#noteInput');
 
- 			$('#updateSubmit').on('click', function(event) {
- 				var id = idInput.val();
- 				var username = usernameInput.val();
- 				var password = passwordInput.val();
- 				var fistname = firstnameInput.val();
- 				var lastname = lastnameInput.val();
- 				console.log('id: ' + id);
- 				console.log('username: ' + username);
- 				console.log('password: ' + password);
- 				console.log('firstname: ' + firstname);
- 				console.log('lastname: ' + lastname);
-
- 						
- 				params = {
- 					'id': id, 
- 					'username': username,
- 					'password': password,
- 					'firstname': firstname,
- 					'lastname': lastname
- 				};
- 				console.log(params);
- 				$.post("http://localhost:8080/api/users/updateUser", params, function(data) {
- 	
- 					
- 					window.location.replace('user.html');
- 			
- 				});
-
- 				event.preventDefault();
- 				return false;
- 				});
-
- 				
- 			}
- 		);
- 	}
- 	
- 	getUserData();
+	$('#updateSubmit').on('click', function(event){
+		var displayname = displaynameInput.val();
+		var firstname = firstnameInput.val();
+		var lastname = lastnameInput.val();
+		var new_displayname = new_displaynameInput.val();
+		var email = emailInput.val();
+		var note = noteInput.val();
+		console.log('displayname: ' + displayname)
+		console.log('firstname: ' + firstname);
+		console.log('lastname: ' + lastname);
+		console.log('new_displayname: ' + new_displayname);
+		console.log('email: ' + email);
+		console.log('note: ' + note);
+		
+		
+		
+		var params = {
+			'displayname': displayname,
+			'firstname': firstname,
+			'lastname': lastname,
+			'new_displayname': new_displayname,
+			'email': email,
+			'note': note
+		}
+		$.post("http://localhost:8080/api/contacts/updateContact/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena kontakta')
+			
+			window.location.href = "contacts.html";
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
 });

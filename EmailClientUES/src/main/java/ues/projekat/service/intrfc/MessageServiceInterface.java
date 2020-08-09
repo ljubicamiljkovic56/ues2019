@@ -2,8 +2,6 @@ package ues.projekat.service.intrfc;
 
 import java.util.List;
 
-import ues.projekat.app.model.Account;
-import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Message;
 
 public interface MessageServiceInterface {
@@ -20,7 +18,6 @@ public interface MessageServiceInterface {
 
 	Message findOneBySubject(String message_subject);
 
-//	void removeAttachments(Attachment attachment);
-	//public List<Message> getMessages(Account account);
+	Message findOneByAccountUsername(String from);
 
 }

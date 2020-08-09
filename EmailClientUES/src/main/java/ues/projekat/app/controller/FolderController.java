@@ -114,39 +114,53 @@ public class FolderController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping(value="/update/{id}", consumes="application/json")
-	public ResponseEntity<FolderDTO> updateFolder(@RequestBody FolderDTO folderDTO, @PathVariable("id") Long id){
-		Folder folder = folderServiceInterface.findOne(id); 
-		if (folder == null) {
-			return new ResponseEntity<FolderDTO>(HttpStatus.BAD_REQUEST);
-		}
-		
-		folder.setName(folderDTO.getName());
-		folder.setRules(new HashSet<Rule>());
-		Rule rule = new Rule();
-
-		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
-			rule.setCondition(folderDTO.getRules().get(0).getCondition());
-			rule.setOperation(folderDTO.getRules().get(0).getOperation());
-		}
-		folder.addRule(rule);
-		
-	
-		folder = folderServiceInterface.save(folder);
-		
-		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.OK);	
-	}
-	
-//	@DeleteMapping(value="/{id}")
-//	public ResponseEntity<Void> deleteFolder(@PathVariable("id") Long id){
-//		Folder folder = folderServiceInterface.findOne(id);
-//		if (folder != null){
-//			folderServiceInterface.remove(id);
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		} else {		
-//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+//	@PutMapping(value="/update/{id}", consumes="application/json")
+//	public ResponseEntity<FolderDTO> updateFolder(@RequestBody FolderDTO folderDTO, @PathVariable("id") Long id){
+//		Folder folder = folderServiceInterface.findOne(id); 
+//		if (folder == null) {
+//			return new ResponseEntity<FolderDTO>(HttpStatus.BAD_REQUEST);
 //		}
+//		
+//		folder.setName(folderDTO.getName());
+//		folder.setRules(new HashSet<Rule>());
+//		Rule rule = new Rule();
+//
+//		if(folderDTO.getRules() != null && !folderDTO.getRules().isEmpty()) {
+//			rule.setCondition(folderDTO.getRules().get(0).getCondition());
+//			rule.setOperation(folderDTO.getRules().get(0).getOperation());
+//		}
+//		folder.addRule(rule);
+//		
+//	
+//		folder = folderServiceInterface.save(folder);
+//		
+//		return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.OK);	
 //	}
+//	
+	
+	//izmena foldera (tj. imena)
+	@PostMapping(value = "/updateFolder")
+	public ResponseEntity<Void> updateFolder(@RequestParam("name") String name, @RequestParam String newname){
+		
+		Folder folder = folderServiceInterface.findByName(name);
+		
+		if (folder != null) {
+			
+			folder.setName(newname);
+			folder.setParentFolder(folder.getParentFolder());
+			folder.setFolderMessages(folder.getFolderMessages());
+			folder.setRules(folder.getRules());
+			folder.setAccount(folder.getAccount());
+			
+			folder = folderServiceInterface.save(folder);
+			
+			System.out.println("Izmena foldera");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 	//brisanje foldera na osnovu name-a
 	@PostMapping(value = "/deleteFolder")

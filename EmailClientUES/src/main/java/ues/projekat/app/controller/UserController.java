@@ -149,4 +149,19 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
+	@PostMapping(value = "/deleteUser")
+	public ResponseEntity<Void> deleteUser(@RequestParam String user_username){
+		
+		User user = userServiceInterface.findByUsername(user_username);
+		
+		if (user != null) {
+			
+			userServiceInterface.remove(user.getId());
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+			
+	}
 }

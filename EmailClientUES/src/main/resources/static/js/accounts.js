@@ -1,13 +1,4 @@
 var accounts = []
-//var sortSmtpAddress = 1;
-//var sortSmtpPort = 1;
-//var sortInServerType = 1
-//var sortInServerAddress = 1;
-//var sortInServerPort = 1;
-//var sortUsername = 1;
-//var sortPassword = 1;
-//var sortDisplayName = 1;
-//var sortUserID = 1;
 
 $(document).ready(function(){
 	var accountsTable = $('#accountsTable');
@@ -24,11 +15,9 @@ $(document).ready(function(){
 	}
 	
 	function populateTable(accountsForTable){
-		//accountsTable.find('tr:gt(1)').remove();
 		
 		console.log('tabela?')
-		
-		//console.log(accountsForTable);
+	
 		for(it of accountsForTable){
 			accountsTable.append(
 				'<tr>' + 
@@ -70,43 +59,6 @@ $(document).ready(function(){
 //		return false;
 //	});
 	
-//	$('#sortSmtpAddress').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('smtpAddress');
-//	});
-//	$('#sortSmtpPort').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('smtpPort');
-//	});
-//	$('#sortInServerType').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('inServerType');
-//	});
-//	
-//	$('#sortInServerAddress').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('inServerAddress');
-//	});
-//	$('#sortInServerPort').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('inServerPort');
-//	});
-//	$('#sortUsername').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('username');
-//	});
-//	$('#sortPassword').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('password');
-//	});
-//	$('#sortDisplayName').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('displayName');
-//	});
-//	$('#sortUserID').on('click', function(event){
-//		alert('Sortiram...');
-//		sortiraj('userID');
-//	});
 //	
 //	function sortiraj(sort){
 //		let sortedAccounts = accounts;

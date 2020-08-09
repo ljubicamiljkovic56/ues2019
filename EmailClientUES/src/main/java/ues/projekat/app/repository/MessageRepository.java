@@ -12,6 +12,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
 	Message findOneBySubject(String message_subject);
 	
+	Message findOneByAccountUsername(String from);
 	
 
 }

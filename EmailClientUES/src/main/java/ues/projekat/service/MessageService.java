@@ -50,11 +50,9 @@ public class MessageService implements MessageServiceInterface {
 		return messageRepository.findOneBySubject(message_subject);
 	}
 
-//	@Override
-//	public void removeAttachments(Attachment attachment) {
-//		messageRepository.
-//		
-//	}
-
+	@Override
+	public Message findOneByAccountUsername(String from) {
+		return messageRepository.findOneByAccountUsername(from);
+	}
 
 }

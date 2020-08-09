@@ -3,6 +3,7 @@ package ues.projekat.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.regexp.recompile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
-import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.model.User;
 import ues.projekat.dto.MessageDTO;
@@ -107,98 +107,48 @@ public class MessageController {
 //		System.out.println("username : "+ account.getUsername());
 //		return new ResponseEntity<List<MessageDTO>>(messageDTOs, HttpStatus.OK);
 //	}
-//	
 	
-	
-	
-	
-	
-//	@PostMapping(value = "/send/{username}", consumes="application/json")
-//	public ResponseEntity<Void> send(@RequestBody MessageDTO messageDTO, @PathVariable("username") String accountUsername){
-//		
-//		Account account = accountServiceInterface.findByUsername(accountUsername + ".com");
-//		
-//		if (account == null) {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
+	//izmena poruke na osnovu subject-a
+	@PostMapping(value = "/updateMessage")
+	public ResponseEntity<Void> updateMessage(@RequestParam String message_subject, @RequestParam String to, 
+			@RequestParam String cc, @RequestParam String bcc, @RequestParam String subject, @RequestParam String content){
 		
-//		User user = account.getUser();
-//		Folder folder = folderServiceInterface.findByNameAndAccount("Sent", account);
-//		if (folder == null) {
-//			Rule rule = new Rule(ConditionDTO.SUBJECT, "Sent", OperationDTO.MOVE, null);
-//			Set<Rule> rules = new HashSet<Rule>();
-//			rules.add(rule);
-//			folder = new Folder("Sent", account, rules, new HashSet<Message>(), null, null);
-//			rule.setDestination(folder);
-//		}
-//		Message message = null;
-//		/*if (messageService.findOne(messageDTO.getId()) != null) {
-//			message = messageService.findOne(messageDTO.getId());
-//		}
-//		
-//		if (message != null && message.getFolder().getName().equals("Drafts")) {
-//			messageService.remove(message.getId());
-//		} else {
-//			message = new Message();
-//		}*/
-//		message = new Message();
-//		getToCCBccToString(messageDTO, message);
-//		message.setAccount(account);
-//		account.addMessage(message);
-//		
-//		
-//		if (messageDTO.getAttachments() != null) {			
-//			for (AttachmentDTO itAttachmentDTO : messageDTO.getAttachments()) {
-//				Attachment attachment = new Attachment();
-//				System.out.println(itAttachmentDTO.getName());
-//				attachment.setData(itAttachmentDTO.getData().toString());
-//				attachment.setMessage(message);
-//				attachment.setMimeType(itAttachmentDTO.getType());
-//				attachment.setName(itAttachmentDTO.getName());
-//				
-//				message.addAttachment(attachment);
-//			}
-//		}
-//		message.setDate(messageDTO.getDateTime());
-//		folder.addMessage(message);
-//		message.setFrom(messageDTO.getFrom());
-//		message.setSubject(messageDTO.getSubject());
-//		message.setContent(messageDTO.getContent());
-//		Tag tag = new Tag();
-//		if (messageDTO.getTags() != null) {
-//			for (TagDTO itTagDTO : messageDTO.getTags()) {
-//				tag.setId(itTagDTO.getId());
-//				tag.setName(itTagDTO.getName());
-//				//tag.set(user);
-//				message.getMessageTags().add(tag);
-//			}
-//		}
-//		message.setUnread(messageDTO.isUnread());
-//		message.setSubject(messageDTO.getSubject());
-//		
-//		folder = folderServiceInterface.save(folder);
-//		
-//		EmailSender mailSender = new EmailSender(messageServiceInterface);
-//		mailSender.sendEmail(message);
-//		System.out.println(message.toString());
+		//Message message = messageServiceInterface.findOneByAccountUsername(from);
 		
-//		Message message = new Message(55, account.getUsername(), "", "", "", dateTime, subject, content, unread, account, folder, attachments, tags)
+		Message message = messageServiceInterface.findOneBySubject(message_subject);
 		
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//	}
-//	
-//	@DeleteMapping(value="/{id}")
-//	public ResponseEntity<Void> deleteMessage(@PathVariable("id") Long id){
-//		Message message = messageServiceInterface.findOne(id);
-//		if (message != null){
-//			messageServiceInterface.remove(id);
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		} else {		
-//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-//		}
-//	}
+	//	Message message = messageServiceInterface.findOne(Long.parseLong(id));
+		
+		if(message != null) {
+			
+			
+			message.setFrom(message.getFrom());
+			message.setTo(to);
+			message.setCc(cc);
+			message.setBcc(bcc);
+			message.setDateTime(message.getDateTime());
+			message.setSubject(subject);
+			message.setContent(content);
+			message.setUnread(message.isUnread());
+			message.setFolder(message.getFolder());
+			message.setAccount(message.getAccount());
+			message.setMessageTags(message.getMessageTags());
+			message.setMessageAttachments(message.getMessageAttachments());
+			
+			
+			message = messageServiceInterface.save(message);
+			
+			System.out.println("Izmena poruke");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
+	
+
+	//brisanje mejla na osnovu message subject-a
 	@PostMapping(value = "/deleteMessage")
 	public ResponseEntity<Void> deleteMessage(@RequestParam String message_subject) {
 		
