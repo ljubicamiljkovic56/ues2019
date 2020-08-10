@@ -149,6 +149,56 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);		
 	}
 	
+	
+	//izmena lozinke 
+	@PostMapping(value = "/updatePassword")
+	public ResponseEntity<Void> updatePassword(@RequestParam String username, @RequestParam String password, @RequestParam String new_password) {
+		
+		User user = userServiceInterface.findByUsernameAndPassword(username,password);
+		
+		if(user != null) {
+			user.setUsername(user.getUsername());
+			user.setPassword(new_password);
+			user.setFirstname(user.getFirstname());
+			user.setLastname(user.getLastname());
+			
+			user = userServiceInterface.save(user);
+			
+			System.out.println("Izmena lozinke");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	//izmena korisnika na usnovu username-a
+	@PostMapping(value = "/updateUser")
+	public ResponseEntity<Void> updateUser(@RequestParam String username,@RequestParam String new_username,
+			 @RequestParam String firstname, @RequestParam String lastname){
+		
+		User user = userServiceInterface.findByUsername(username);
+		
+		if(user != null) {
+			user.setUsername(new_username);
+			user.setPassword(user.getPassword());
+			user.setFirstname(firstname);
+			user.setLastname(lastname);
+			
+			user = userServiceInterface.save(user);
+			
+			System.out.print("Izmena korisnikovih podataka");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	//brisanje korisnika na osnovu username-a
 	@PostMapping(value = "/deleteUser")
 	public ResponseEntity<Void> deleteUser(@RequestParam String user_username){
 		

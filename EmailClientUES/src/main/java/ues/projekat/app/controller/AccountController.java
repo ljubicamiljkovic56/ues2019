@@ -114,6 +114,7 @@ public class AccountController {
 //		return new ResponseEntity<AccountDTO>(new AccountDTO(account), HttpStatus.OK);	
 //	}
 	
+	//izmena naloga po username-u
 	@PostMapping(value = "/updateAccount")
 	public ResponseEntity<Void> updateAccount(@RequestParam String username, @RequestParam String new_username, 
 			@RequestParam String password, @RequestParam String displayname){
