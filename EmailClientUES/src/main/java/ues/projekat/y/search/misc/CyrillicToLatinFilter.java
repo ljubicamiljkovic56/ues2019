@@ -19,7 +19,6 @@ public class CyrillicToLatinFilter extends TokenFilter {
 	public boolean incrementToken()throws IOException {
         if (input.incrementToken()) {
         	String text = termAttribute.toString();
-        	//System.out.println("Sta je text u ovom slucaju " + text);
         	termAttribute.setEmpty();
         	termAttribute.append(CyrillicLatinConverter.cir2lat(text));
         	

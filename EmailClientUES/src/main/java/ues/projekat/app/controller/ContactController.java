@@ -44,7 +44,7 @@ public class ContactController {
 		}
 		
 		WriteTextFileContacts.write();
-		LuceneStart.startPoint();
+	//	LuceneStart.startPoint();
 		
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}
