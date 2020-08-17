@@ -31,9 +31,9 @@ public class WriteTextFileContacts {
                         String note = rs.getString("note");
                         String photo_id = rs.getString("photo_id");
                         String user_id = rs.getString("user_id");
-                        data.add("Contact id: "  + id + " " + "Displayname: " + displayname + " " + "Email: " + 
-                        email + " " + "Firstname: " + firstname + " " + "Lastname: " + lastname + " " + "Note: " + note + " " +
-                        		"Photo id: " + photo_id + " " + "User id: "+ user_id);
+                        data.add("Contact id: "  + id + "\n" + "Displayname: " + displayname + "\n" + "Email: " + 
+                        email + "\n" + "Firstname: " + firstname + "\n" + "Lastname: " + lastname + "\n" + "Note: " + note + "\n" +
+                        		"Photo id: " + photo_id + "\n" + "User id: "+ user_id + "\n");
 
                 }
                 writeToFile(data, "contacts.txt");
