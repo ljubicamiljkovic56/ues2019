@@ -10,7 +10,7 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
 
 import ues.projekat.y.search.indexing.Indexer;
-import ues.projekat.y.search.model.ResultRetriever;
+import ues.projekat.y.search.model.ResultRetrieverContact;
 
 public class TermSearcher {
 	
@@ -42,7 +42,7 @@ public class TermSearcher {
 		}else{
 			Term t=new Term(polje,termin);
 			Query query=new TermQuery(t);
-			ResultRetriever rr=new ResultRetriever();
+			ResultRetrieverContact rr=new ResultRetrieverContact();
 			rr.printSearchResults(query, indexDir);
 		}
 	}

@@ -3,7 +3,6 @@ package ues.projekat.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.regexp.recompile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,7 @@ import ues.projekat.service.intrfc.AccountServiceInterface;
 import ues.projekat.service.intrfc.FolderServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
+import ues.projekat.y.search.misc.WriteTextFileMessage;
 
 @RestController
 @RequestMapping(value = "api/messages")
@@ -53,6 +53,9 @@ public class MessageController {
 		for (Message m : messages) {
 			messagesDTO.add(new MessageDTO(m));
 		}
+		
+		WriteTextFileMessage.write();
+		
 		return new ResponseEntity<List<MessageDTO>>(messagesDTO, HttpStatus.OK);
 	}
 	

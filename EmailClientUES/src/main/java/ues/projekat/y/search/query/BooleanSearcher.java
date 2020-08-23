@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
 import ues.projekat.y.search.indexing.Indexer;
-import ues.projekat.y.search.model.ResultRetriever;
+import ues.projekat.y.search.model.ResultRetrieverContact;
 
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanClause;
@@ -77,7 +77,7 @@ public class BooleanSearcher {
 		}
 		
 		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
-		ResultRetriever rr=new ResultRetriever();
+		ResultRetrieverContact rr=new ResultRetrieverContact();
 		rr.printSearchResults(bq, indexDir);		
 	}
 }

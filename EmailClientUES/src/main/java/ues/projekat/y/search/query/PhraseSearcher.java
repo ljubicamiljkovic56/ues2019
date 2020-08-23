@@ -11,7 +11,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.PhraseQuery;
 
 import ues.projekat.y.search.indexing.Indexer;
-import ues.projekat.y.search.model.ResultRetriever;
+import ues.projekat.y.search.model.ResultRetrieverContact;
 
 public class PhraseSearcher {
 	
@@ -55,7 +55,7 @@ public class PhraseSearcher {
 		}
 		
 		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
-		ResultRetriever rr=new ResultRetriever();
+		ResultRetrieverContact rr=new ResultRetrieverContact();
 		rr.printSearchResults(query, indexDir);
 	}
 }
