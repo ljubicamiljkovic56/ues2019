@@ -14,17 +14,18 @@ import ues.projekat.y.search.model.ResultRetrieverMessage;
 
 public class SearcherMessage {
 	
+	//sve isto kao u klasi Searcher
 	public static void main(String[] args) throws Exception {
-		InputStreamReader ir=new InputStreamReader(System.in, "UTF8");
-		BufferedReader in=new BufferedReader(ir);
+		InputStreamReader ir = new InputStreamReader(System.in, "UTF8");
+		BufferedReader in = new BufferedReader(ir);
 		File indexDirMessages;
 		String q;
 		if (args.length != 2) {
 			try{
-				ResourceBundle rb=ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
-				indexDirMessages=new File(rb.getString("indexDirMessages"));
+				ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+				indexDirMessages = new File(rb.getString("indexDirMessages"));
 				System.out.println("unesite izraz za pretragu:");
-				q=in.readLine();
+				q = in.readLine();
 			}catch(Exception e1){
 				e1.printStackTrace();
 				for(String arg :args)
@@ -43,9 +44,9 @@ public class SearcherMessage {
 	
 	public static void search(File indexDir, String q)throws Exception {
 		
-		QueryParser qp=new QueryParser(Version.LUCENE_40,"sadrzaj_fajla", new SerbianAnalyzer());
+		QueryParser qp = new QueryParser(Version.LUCENE_40,"sadrzaj_fajla", new SerbianAnalyzer());
 		
-		Query query=qp.parse(q);
+		Query query = qp.parse(q);
 		System.out.println(query);
 		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
 		ResultRetrieverMessage rr=new ResultRetrieverMessage();

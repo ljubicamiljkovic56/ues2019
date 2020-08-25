@@ -66,8 +66,11 @@ public class Indexer {
 			//izbaci ovaj exception ako ne postoji directory
 			throw new IOException(dataDir + " does not exist or is not a directory");
 		}
+		//IndexWriterConfig objekat kreiramo, i postavimo verziju lucene i analyzer
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new ues.projekat.y.search.misc.SerbianAnalyzer()); // pozvati 
+		//postavljamo openMode na CREATE_OR_APPEND (ako ne postoji index, kreira ga, ako postoji, koristi ga)
 		iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+		//IndexWriter kreira i upravlja indexom
 		IndexWriter writer = new IndexWriter(indexDir, iwc);
 		indexDirectory(writer, dataDir);
 		int numIndexed = writer.numDocs();
@@ -81,7 +84,7 @@ public class Indexer {
 		for (int i = 0; i < files.length; i++) {
 			File f = files[i];
 			if (f.isDirectory()) {
-				//
+				//pozivamo indexDirectory
 				indexDirectory(writer, f);
 			} else if (f.getName().endsWith(".txt")) {
 				//ako je u pitanju txt fajl radi indeksiranje tog fajla
@@ -106,7 +109,7 @@ public class Indexer {
 		//BufferedReader cita redove txt fajla
 		BufferedReader br= new BufferedReader(ir);
 
-		
+		//metoda koja prolazi kroz fajl, cita red po red, i redove kao TextField smesta u document
 		String readLine = null;
 		while ((readLine = br.readLine()) != null) {
 				readLine = readLine.trim();
@@ -158,10 +161,6 @@ public class Indexer {
 //			doc.add(new TextField("filedate",modificationDate,Store.YES));
 //			writer.addDocument(doc);
 //		}
-
-		
-
-
 		
 		System.out.println("Zapisao u doc");
 		writer.addDocument(doc);

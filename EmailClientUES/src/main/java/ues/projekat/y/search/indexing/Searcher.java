@@ -17,16 +17,23 @@ import ues.projekat.y.search.model.ResultRetrieverContact;
 public class Searcher {
 	
 	public static void main(String[] args) throws Exception {
-		InputStreamReader ir=new InputStreamReader(System.in, "UTF8");
-		BufferedReader in=new BufferedReader(ir);
+		//Kreiranje InputStreamReader-a (za decode karaktera)
+		InputStreamReader ir = new InputStreamReader(System.in, "UTF8");
+		//BufferedReader cita redove 
+		BufferedReader in = new BufferedReader(ir);
+		//indexDir folder
 		File indexDir;
+		//string koji mi prosledjujemo
 		String q;
 		if (args.length != 2) {
 			try{
-				ResourceBundle rb=ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
-				indexDir=new File(rb.getString("indexDir"));
+				//ResourseBundle trazi gde se nalazi putanja indexDir
+				ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+				indexDir = new File(rb.getString("indexDir"));
 				System.out.println("unesite izraz za pretragu:");
-				q=in.readLine();
+				q = in.readLine();
+				
+				//ako taj folder ne postoji, ide exception
 			}catch(Exception e1){
 				e1.printStackTrace();
 				for(String arg :args)
@@ -43,14 +50,21 @@ public class Searcher {
 		search(indexDir, q);
 	}
 	
+	//pretraga, indexDir i prosledjeni string
 	public static void search(File indexDir, String q)throws Exception {
 		
-		QueryParser qp=new QueryParser(Version.LUCENE_40,"sadrzaj_fajla", new SerbianAnalyzer());
+		//novi QueryParser objekat, dodeljujemo mu verziju lucene, sadrzaj i analyzer
+		QueryParser qp = new QueryParser(Version.LUCENE_40,"sadrzaj_fajla", new SerbianAnalyzer());
 		
-		Query query=qp.parse(q);
+		//napravimo objekat query i krece sa parsiranjem prosledjenog stringa
+		Query query = qp.parse(q);
+		
+		//ispis upita
 		System.out.println(query);
+		
 		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
 		ResultRetrieverContact rr=new ResultRetrieverContact();
+		//metoda koju pozivamo iz ResultRetrieverContact nad upitom i indexDir folderom
 		rr.printSearchResults(query, indexDir);
 	}
 }
