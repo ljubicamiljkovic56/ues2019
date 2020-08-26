@@ -15,7 +15,7 @@ import ues.projekat.y.search.model.ResultRetrieverContact;
 public class TermSearcher {
 	
 	public static void main(String[] args) throws Exception{
-		BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		File indexDir;
 		String termin;
 		String polje;
@@ -47,5 +47,28 @@ public class TermSearcher {
 		}
 	}
 	
+	
+	public static void searchTerm() throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		File indexDir;
+		String termin;
+		String polje;
+		
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDir = new File(rb.getString("indexDir"));
+		System.out.println("unesite polje za pretragu:");
+		polje = in.readLine();
+		System.out.println("unesite izraz za pretragu:");
+		termin = in.readLine();
+		
+		if (!indexDir.exists() || !indexDir.isDirectory()) {
+			throw new Exception(indexDir +" does not exist or is not a directory.");
+		}else{
+			Term t = new Term(polje,termin);
+			Query query = new TermQuery(t);
+			ResultRetrieverContact rr = new ResultRetrieverContact();
+			rr.printSearchResults(query, indexDir);
+		}
+	}
 }
 

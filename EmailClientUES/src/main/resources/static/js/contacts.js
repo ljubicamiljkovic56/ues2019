@@ -8,7 +8,7 @@ var sortNoteSmer = 1;
 var sortUserSmer = 1;
 var sortPhotoSmer = 1;
 
-
+var contactsDTO = [];
 $(document).ready(function(){
 	var contactsTable = $('#contactsTable');
 	
@@ -57,43 +57,7 @@ $(document).ready(function(){
 	};
 	
 
-	searchFuzzyButtonContacts.on('click',function(event){
-		
-	var term1 = $('#fuzzySearchDropdownContacts option:selected').val();
-	var searchField1 = $('#searchFuzzyInputContacts').val();
-
-	var jsonData = {
-			'term1' : term1,
-			'searchField1' : searchField1
-		}
-	alert('Dugme kliknuto');
-//	
-
-		$.ajax({
-			url : "http://localhost:8080/api/search/contacts/fuzzy",
-			type : "POST",
-			contentType : 'application/json',
-			data : JSON.stringify(jsonData),
-			//headers:{"Authorization" : "Bearer " + localStorage.getItem("token")},
-			success: function(contacts) {
-				console.log(contacts);
-				if (resultFuzzyContacts.text().length == 0) {
-					for(contact  of contacts) {
-						resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
-					}
-				}else {
-					resultFuzzyContacts.empty();
-					for(contact  of contacts) {
-						resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
-					}
-
-				}
-			},error:function(response) {
-				console.log(response);
-			}
-		})
-		event.preventDefault();
-	});
+	
 	
 	$('#sortFirstname').on('click', function(event){
 		alert('Sortiram...');
@@ -257,23 +221,47 @@ $(document).ready(function(){
 		populateTable(sortedContacts);
 	};		
 	
-//	$.post("http://localhost:8080/api/searchcontacts/contacts/fuzzy", function (data) {
-//		
-//		alert("Usao u funkciju");
-//		
-//		if (resultFuzzyContacts.text().length == 0) {
-//			for(contact  of contacts) {
-//				resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
-//			}
-//		}else {
-//			resultFuzzyContacts.empty();
-//			for(contact  of contacts) {
-//				resultFuzzyContacts.append(contact.firstName + " " + contact.lastName + " " + contact.email);
-//			}
-//
-//		}
-//		
-//	})
+	var regularSearchInput = $("#regularSearchInput")
+	
+	$('#searchRegularButtonContacts').on('click', function(event){
+		var regularSearch = regularSearchInput.val();
+
+		console.log('regularSearch: ' + regularSearch);
+
+		
+		var params = {
+			'regularSearch': regularSearch
+		}
+		$.post("http://localhost:8080/search/regular/contact", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			
+			function showResult(contactsDTO) {
+				if (resultRegularSearchContacts.text().length == 0) {
+			for(contact  of contactsDTO) {
+				resultRegularSearchContacts.append(contactsDTO.firstname + " " + contactsDTO.lastname + " " + contactsDTO.email);
+			}
+		}else {
+			resultRegularSearchContacts.empty();
+			for(contact  of contactsDTO) {
+				resultRegularSearchContacts.append(contactDTO.firstname + " " + contactsDTO.lastname + " " + contactsDTO.email);
+			}
+
+	}
+	}
+
+			showResult(contactsDTO);
+			
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+
 	
 	getContacts();
 	console.log('dobavljene poruke?');

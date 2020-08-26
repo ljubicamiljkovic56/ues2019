@@ -1,8 +1,13 @@
 package ues.projekat.app.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.SimpleFSDirectory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +24,7 @@ import ues.projekat.app.model.User;
 import ues.projekat.dto.ContactDTO;
 import ues.projekat.service.intrfc.ContactServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
+import ues.projekat.y.search.indexing.Indexer;
 import ues.projekat.y.search.misc.WriteTextFileContacts;
 
 @RestController
@@ -35,14 +41,20 @@ public class ContactController {
 	//poziv u contacts.js
 	//localhost:8080/api/contacts/getallcontacts
 	@GetMapping(value = "/getallcontacts")
-	public ResponseEntity<List<ContactDTO>> getContacts() {
+	public ResponseEntity<List<ContactDTO>> getContacts() throws IOException {
 		List<Contact> contacts = contactServiceInterface.findAll();
 		List<ContactDTO> contactsDTO = new ArrayList<ContactDTO>();
 		for (Contact c : contacts) {
 			contactsDTO.add(new ContactDTO(c));
 		}
 		
+		
 		WriteTextFileContacts.write();
+		Directory indexDir;
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDir = new SimpleFSDirectory(new File(rb.getString("indexDir")));
+		File dataDir = new File(rb.getString("dataDir"));
+		Indexer.index(indexDir, dataDir);
 		
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
 	}

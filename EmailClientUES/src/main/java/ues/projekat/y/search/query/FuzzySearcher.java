@@ -14,18 +14,18 @@ import ues.projekat.y.search.model.ResultRetrieverContact;
 public class FuzzySearcher {
 	
 	public static void main(String[] args) throws Exception{
-		BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		File indexDir;
 		String termin;
 		String polje;
 		if (args.length != 3) {
 			try{
-				ResourceBundle rb=ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
-				indexDir=new File(rb.getString("indexDir"));
+				ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+				indexDir = new File(rb.getString("indexDir"));
 				System.out.println("unesite polje za pretragu:");
-				polje=in.readLine();
+				polje = in.readLine();
 				System.out.println("unesite izraz za pretragu:");
-				termin=in.readLine();
+				termin = in.readLine();
 			}catch(Exception e1){
 				for(String arg :args)
 					System.out.println(arg);
@@ -41,15 +41,45 @@ public class FuzzySearcher {
 		}
 		
 		//kreirati term za pretragu
-		Term t=new Term(polje,termin);
+		Term t = new Term(polje,termin);
 		//postaviti meru slicnosti
-		int editDis=2;
+		int editDis = 2;
 		//kreirati FuzzyQuery
-		FuzzyQuery query=new FuzzyQuery(t,editDis);
+		FuzzyQuery query = new FuzzyQuery(t,editDis);
 		
 		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
-		ResultRetrieverContact rr=new ResultRetrieverContact();
+		ResultRetrieverContact rr = new ResultRetrieverContact();
 		rr.printSearchResults(query, indexDir);
 		
+	}
+	
+	public static void searchFuzzy() throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		File indexDir;
+		String termin;
+		String polje;
+		
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDir = new File(rb.getString("indexDir"));
+		System.out.println("unesite polje za pretragu:");
+		polje = in.readLine();
+		System.out.println("unesite izraz za pretragu:");
+		termin = in.readLine();
+		
+		
+		if (!indexDir.exists() || !indexDir.isDirectory()) {
+			throw new Exception(indexDir +" does not exist or is not a directory.");
+		}
+		
+		//kreirati term za pretragu
+		Term t = new Term(polje,termin);
+		//postaviti meru slicnosti
+		int editDis = 2;
+		//kreirati FuzzyQuery
+		FuzzyQuery query = new FuzzyQuery(t,editDis);
+		
+		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
+		ResultRetrieverContact rr = new ResultRetrieverContact();
+		rr.printSearchResults(query, indexDir);
 	}
 }

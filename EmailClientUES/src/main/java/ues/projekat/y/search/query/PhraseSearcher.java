@@ -16,18 +16,18 @@ import ues.projekat.y.search.model.ResultRetrieverContact;
 public class PhraseSearcher {
 	
 	public static void main(String[] args) throws Exception{
-		BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		File indexDir;
 		String termin;
 		String polje;
 		if (args.length != 3) {
 			try{
-				ResourceBundle rb=ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
-				indexDir=new File(rb.getString("indexDir"));
+				ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+				indexDir = new File(rb.getString("indexDir"));
 				System.out.println("unesite polje za pretragu:");
-				polje=in.readLine();
+				polje = in.readLine();
 				System.out.println("unesite izraz za pretragu:");
-				termin=in.readLine();
+				termin = in.readLine();
 			}catch(Exception e1){
 				for(String arg :args)
 					System.out.println(arg);
@@ -38,6 +38,40 @@ public class PhraseSearcher {
 			polje = args[1];
 		 	termin = args[2];
 		}
+		if (!indexDir.exists() || !indexDir.isDirectory()) {
+			throw new Exception(indexDir +" does not exist or is not a directory.");
+		}
+		
+		//uvek se inicijalno kreira prazan PhraseSearch
+		PhraseQuery query=new PhraseQuery();
+		
+		//postaviti razmak
+		query.setSlop(1);
+		
+		//tokenizerom postaviti termove fraze
+		StringTokenizer st = new StringTokenizer(termin);
+		while(st.hasMoreTokens()){
+			query.add(new Term(polje,st.nextToken()));
+		}
+		
+		//poslacemo ga u nasu klasu za izvrsavanje pretrazivanja i print rezultata
+		ResultRetrieverContact rr=new ResultRetrieverContact();
+		rr.printSearchResults(query, indexDir);
+	}
+	
+	public static void searchPhrase() throws Exception {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		File indexDir;
+		String termin;
+		String polje;
+		
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDir = new File(rb.getString("indexDir"));
+		System.out.println("unesite polje za pretragu:");
+		polje = in.readLine();
+		System.out.println("unesite izraz za pretragu:");
+		termin = in.readLine();
+		
 		if (!indexDir.exists() || !indexDir.isDirectory()) {
 			throw new Exception(indexDir +" does not exist or is not a directory.");
 		}
