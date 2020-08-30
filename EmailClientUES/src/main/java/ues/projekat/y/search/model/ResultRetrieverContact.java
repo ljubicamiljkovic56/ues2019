@@ -42,9 +42,13 @@ private TopScoreDocCollector collector;
 			for (int i = 0; i < collector.getTotalHits(); i++) {
 				int docId = hits[i].doc;
 				Document doc = is.doc(docId);
-				System.out.println("\t" + doc.get("contact_id"));
-				System.out.println("\t" + doc.get("displayname"));
-				System.out.println("\t" + " (" + doc.get("filedate") + ")");
+				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
+				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
+				System.out.println("\t" + "Email: " + doc.get("email"));
+				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
+				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
+				System.out.println("\t" + "Note: " + doc.get("note"));
+				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 			}
 		}catch(IOException ioe){

@@ -29,11 +29,10 @@ public class WriteTextFileContacts {
                         String firstname = rs.getString("firstname");
                         String lastname = rs.getString("lastname");
                         String note = rs.getString("note");
-                        String photo_id = rs.getString("photo_id");
-                        String user_id = rs.getString("user_id");
-                        data.add("Contact id: "  + id + "\n" + "Displayname: " + displayname + "\n" + "Email: " + 
-                        email + "\n" + "Firstname: " + firstname + "\n" + "Lastname: " + lastname + "\n" + "Note: " + note + "\n" +
-                        		"Photo id: " + photo_id + "\n" + "User id: "+ user_id + "\n");
+                      //  String photo_id = rs.getString("photo_id");
+                      //  String user_id = rs.getString("user_id");
+                        data.add(id + "\n" + displayname + "\n"  + 
+                        email + "\n" + firstname + "\n" + lastname + "\n" + note + "\n");
 
                 }
                 writeToFile(data, "contacts.txt");

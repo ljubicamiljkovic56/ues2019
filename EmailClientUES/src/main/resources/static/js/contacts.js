@@ -8,7 +8,7 @@ var sortNoteSmer = 1;
 var sortUserSmer = 1;
 var sortPhotoSmer = 1;
 
-var contactsDTO = [];
+
 $(document).ready(function(){
 	var contactsTable = $('#contactsTable');
 	
@@ -239,29 +239,13 @@ $(document).ready(function(){
 			alert('Searching..')
 			
 			
-			function showResult(contactsDTO) {
-				if (resultRegularSearchContacts.text().length == 0) {
-			for(contact  of contactsDTO) {
-				resultRegularSearchContacts.append(contactsDTO.firstname + " " + contactsDTO.lastname + " " + contactsDTO.email);
-			}
-		}else {
-			resultRegularSearchContacts.empty();
-			for(contact  of contactsDTO) {
-				resultRegularSearchContacts.append(contactDTO.firstname + " " + contactsDTO.lastname + " " + contactsDTO.email);
-			}
-
-	}
-	}
-
-			showResult(contactsDTO);
-			
-			
 		});
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
 	});
-
+	
+	
 	
 	getContacts();
 	console.log('dobavljene poruke?');

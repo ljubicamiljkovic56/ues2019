@@ -2,6 +2,7 @@ package ues.projekat.y.search.indexing;
 
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +20,6 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
-
 public class Indexer {
 	
 	//main metoda odakle se poziva index metoda
@@ -107,63 +107,78 @@ public class Indexer {
 		//novi FileInputStream (input bytes for a file) za taj fajl i charset
 		InputStreamReader ir = new InputStreamReader(new FileInputStream(f),"UTF-8");
 		//BufferedReader cita redove txt fajla
-		BufferedReader br= new BufferedReader(ir);
-
-		//metoda koja prolazi kroz fajl, cita red po red, i redove kao TextField smesta u document
-		String readLine = null;
-		while ((readLine = br.readLine()) != null) {
-				readLine = readLine.trim();
-				System.out.println(readLine);
-				System.out.println("Usao u funkciju");
-				//String contact_id = br.readLine();
-				doc.add(new TextField("contact_id", readLine, Store.YES));
-				//String displayname = br.readLine();
-				doc.add(new TextField("displayname", readLine, Store.YES));
-				//String email = br.readLine();
-				doc.add(new TextField("email", readLine, Store.YES));
-				//String firstname = readLine;
-				doc.add(new TextField("firstname", readLine, Store.YES));
-				//String lastname = readLine;
-				doc.add(new TextField("lastname", readLine, Store.YES));
-				//String note = readLine;
-				doc.add(new TextField("note", readLine, Store.YES));
-				//String photo = readLine;
-				doc.add(new TextField("photo", readLine, Store.YES));
-				//String user = readLine;
-				doc.add(new TextField("user", readLine, Store.YES));
-			
-			String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
-			doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
-			doc.add(new TextField("filedate",modificationDate,Store.YES));
-			
-		}
-//		for(int i = 0; i < f.length(); i ++) {
-//			String contact_id = br.readLine();
-//			System.out.println("Contact id: "+ contact_id);
-//			doc.add(new TextField("contact_id", contact_id, Store.YES));
-//			String displayname = br.readLine();
-//			System.out.println("Displayname: " + displayname);
-//			doc.add(new TextField("displayname", displayname, Store.YES));
-//			String email = br.readLine();
-//			doc.add(new TextField("email", email, Store.YES));
-//			String firstname = br.readLine();
-//			doc.add(new TextField("firstname", firstname, Store.YES));
-//			String lastname = br.readLine();
-//			doc.add(new TextField("lastname", lastname, Store.YES));
-//			String note = br.readLine();
-//			doc.add(new TextField("note", note, Store.YES));
-//			String photo = br.readLine();
-//			doc.add(new TextField("photo", photo, Store.YES));
-//			String user = br.readLine();
-//			doc.add(new TextField("user", user, Store.YES));
-//			String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
-//			doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
-//			doc.add(new TextField("filedate",modificationDate,Store.YES));
-//			writer.addDocument(doc);
-//		}
+		BufferedReader br = new BufferedReader(ir);
 		
-		System.out.println("Zapisao u doc");
-		writer.addDocument(doc);
-		br.close();
+		//metoda koja prolazi kroz fajl, cita red po red, i redove kao TextField smesta u document
+		
+		try {
+			String readLine = null;
+			while ((readLine = br.readLine()) != null) {
+					readLine = readLine.trim();
+					System.out.println(readLine);
+					System.out.println("Usao u funkciju");
+					//String contact_id = br.readLine();
+					doc.add(new TextField("contact_id", readLine, Store.YES));
+					//String displayname = br.readLine();
+					doc.add(new TextField("displayname", readLine, Store.YES));
+					//String email = br.readLine();
+					doc.add(new TextField("email", readLine, Store.YES));
+					//String firstname = br.readLine();
+					doc.add(new TextField("firstname", readLine, Store.YES));
+					//String lastname = readLine;
+					//lastname = br.readLine();
+					doc.add(new TextField("lastname", readLine, Store.YES));
+					//String note = br.readLine();
+					doc.add(new TextField("note", readLine, Store.YES));
+					//String photo = br.readLine();
+					//doc.add(new TextField("photo", readLine, Store.YES));
+					//String user = br.readLine();
+					//doc.add(new TextField("user", readline, Store.YES));
+				
+				String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
+				doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
+				doc.add(new TextField("filedate",modificationDate,Store.YES));
+				
+			}
+		} catch (IllegalArgumentException | EOFException e) {
+			e.printStackTrace();
+		}
+	
+		
+		
+//	try {
+//	for(int i = 0; i < f.length(); i ++) {
+//		String contact_id = br.readLine();
+//		System.out.println("Contact id: "+ contact_id);
+//		doc.add(new TextField("contact_id", contact_id, Store.YES));
+//		String displayname = br.readLine();
+//		System.out.println("Displayname: " + displayname);
+//		doc.add(new TextField("displayname", displayname, Store.YES));
+//		String email = br.readLine();
+//		System.out.println("email " + email);
+//		doc.add(new TextField("email", email, Store.YES));
+//		String firstname = br.readLine();
+//		doc.add(new TextField("firstname", firstname, Store.YES));
+//		String lastname = br.readLine();
+//		doc.add(new TextField("lastname", lastname, Store.YES));
+//		String note = br.readLine();
+//		doc.add(new TextField("note", note, Store.YES));
+//		String photo = br.readLine();
+//		doc.add(new TextField("photo", photo, Store.YES));
+//		String user = br.readLine();
+//		doc.add(new TextField("user", user, Store.YES));
+//		String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
+//		doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
+//		doc.add(new TextField("filedate",modificationDate,Store.YES));
+//		writer.addDocument(doc);
+//	}
+//}catch (IllegalArgumentException | EOFException e) {
+//	e.printStackTrace();
+//}
+//
+//	
+	System.out.println("Zapisao u doc");
+	writer.addDocument(doc);
+	br.close();
 	}
 }
