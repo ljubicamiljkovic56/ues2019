@@ -32,7 +32,7 @@ public class WriteTextFileContacts {
                       //  String photo_id = rs.getString("photo_id");
                       //  String user_id = rs.getString("user_id");
                         data.add(id + "\n" + displayname + "\n"  + 
-                        email + "\n" + firstname + "\n" + lastname + "\n" + note + "\n");
+                        email + "\n" + firstname + "\n" + lastname + "\n" + note + ",");
 
                 }
                 writeToFile(data, "contacts.txt");

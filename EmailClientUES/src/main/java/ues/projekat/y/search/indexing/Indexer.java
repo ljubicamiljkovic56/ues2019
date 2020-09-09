@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.lucene.document.DateTools;
@@ -20,6 +22,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
+
+import ues.projekat.y.search.misc.CountParagraphContacts;
 public class Indexer {
 	
 	//main metoda odakle se poziva index metoda
@@ -99,86 +103,96 @@ public class Indexer {
 		if (f.isHidden() || !f.exists() || !f.canRead()) {
 			return;
 		}
+		
 		//Ispis sta indeksuje
 		System.out.println("Indexing " + f.getCanonicalPath());
-		//Kreiranje novog Document objekta
-		Document doc = new Document();
-		//Kreiranje InputStreamReader-a (za decode karaktera), zato kao parametar prosledjuemo 
-		//novi FileInputStream (input bytes for a file) za taj fajl i charset
-		InputStreamReader ir = new InputStreamReader(new FileInputStream(f),"UTF-8");
-		//BufferedReader cita redove txt fajla
-		BufferedReader br = new BufferedReader(ir);
 		
-		//metoda koja prolazi kroz fajl, cita red po red, i redove kao TextField smesta u document
-		
-		try {
+		int numOfparagraph = CountParagraphContacts.getParagraphCount();
+		int numberOfDocs = 0;
+		for (int i = 1; i <= numOfparagraph; i++ ) {
+			System.out.println("ispis ovoga");
+			System.out.println(i);
+			System.out.println("kreiramo dokument");
+			numberOfDocs = i;
+			//Kreiranje novog Document objekta
+			Document doc = new Document();
+			System.out.println("num of docs: " + numberOfDocs);
+			//Kreiranje InputStreamReader-a (za decode karaktera), zato kao parametar prosledjuemo 
+			//novi FileInputStream (input bytes for a file) za taj fajl i charset
+			/*
+			 * InputStreamReader ir = new InputStreamReader(new FileInputStream(f),"UTF-8");
+			 * //BufferedReader cita redove txt fajla BufferedReader br = new
+			 * BufferedReader(ir); String readLine = br.readLine(); doc.add(new
+			 * TextField("contact_id", readLine, Store.YES)); doc.add(new
+			 * TextField("displayname", br.readLine(), Store.YES)); doc.add(new
+			 * TextField("email", br.readLine(), Store.YES)); doc.add(new
+			 * TextField("firstname", br.readLine(), Store.YES)); doc.add(new
+			 * TextField("lastname", br.readLine(), Store.YES)); doc.add(new
+			 * TextField("note", br.readLine(), Store.YES));
+			 * System.out.println("Zapisao u doc"); writer.addDocument(doc); br.readLine();
+			 * br.close();
+			 */
+//			if ((readLine = br.readLine()) != null) {
+//				doc.add(new TextField("contact_id", readLine, Store.YES));
+//				doc.add(new TextField("displayname", br.readLine(), Store.YES));
+//				doc.add(new TextField("email", br.readLine(), Store.YES));
+//				doc.add(new TextField("firstname", br.readLine(), Store.YES));
+//				doc.add(new TextField("lastname", br.readLine(), Store.YES));
+//				doc.add(new TextField("note", br.readLine(), Store.YES));
+//				System.out.println("Zapisao u doc");
+//				writer.addDocument(doc);
+//				br.readLine();
+//				br.close();
+//			}
+			System.out.println("Kreirano: " + i + " dokumenta");
+		}			
+//			//Kreiranje InputStreamReader-a (za decode karaktera), zato kao parametar prosledjuemo 
+//			//novi FileInputStream (input bytes for a file) za taj fajl i charset
+			InputStreamReader ir = new InputStreamReader(new FileInputStream(f),"UTF-8");
+//			//BufferedReader cita redove txt fajla
+			BufferedReader br = new BufferedReader(ir);
+			List<String> fileData = new ArrayList<String>();
+			try {
 			String readLine = null;
 			while ((readLine = br.readLine()) != null) {
 					readLine = readLine.trim();
 					System.out.println(readLine);
 					System.out.println("Usao u funkciju");
-					//String contact_id = br.readLine();
-					doc.add(new TextField("contact_id", readLine, Store.YES));
-					//String displayname = br.readLine();
-					doc.add(new TextField("displayname", readLine, Store.YES));
-					//String email = br.readLine();
-					doc.add(new TextField("email", readLine, Store.YES));
-					//String firstname = br.readLine();
-					doc.add(new TextField("firstname", readLine, Store.YES));
-					//String lastname = readLine;
-					//lastname = br.readLine();
-					doc.add(new TextField("lastname", readLine, Store.YES));
-					//String note = br.readLine();
-					doc.add(new TextField("note", readLine, Store.YES));
-					//String photo = br.readLine();
-					//doc.add(new TextField("photo", readLine, Store.YES));
-					//String user = br.readLine();
-					//doc.add(new TextField("user", readline, Store.YES));
-				
-				String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
-				doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
-				doc.add(new TextField("filedate",modificationDate,Store.YES));
-				
+					fileData.add(readLine);
+//					//String contact_id = br.readLine();
+//					doc.add(new TextField("contact_id", readLine, Store.YES));
+//					//String displayname = br.readLine();
+//					doc.add(new TextField("displayname", readLine, Store.YES));
+//					//String email = br.readLine();
+//					doc.add(new TextField("email", readLine, Store.YES));
+//					//String firstname = br.readLine();
+//					doc.add(new TextField("firstname", readLine, Store.YES));
+//					//String lastname = readLine;
+//					//lastname = br.readLine();
+//					doc.add(new TextField("lastname", readLine, Store.YES));
+//					//String note = br.readLine();
+//					doc.add(new TextField("note", readLine, Store.YES));
+//				
+//				String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
+//				doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
+//				doc.add(new TextField("filedate",modificationDate,Store.YES));
+//				
 			}
 		} catch (IllegalArgumentException | EOFException e) {
 			e.printStackTrace();
 		}
+		
+		for(int i = 0; i < fileData.size(); i++) {
+			System.out.println(fileData.get(i));
+		}
+			
+		
+//			System.out.println("Zapisao u doc");
+//			writer.addDocument(doc);
+//			br.close();
+//			
+//		}
 	
-		
-		
-//	try {
-//	for(int i = 0; i < f.length(); i ++) {
-//		String contact_id = br.readLine();
-//		System.out.println("Contact id: "+ contact_id);
-//		doc.add(new TextField("contact_id", contact_id, Store.YES));
-//		String displayname = br.readLine();
-//		System.out.println("Displayname: " + displayname);
-//		doc.add(new TextField("displayname", displayname, Store.YES));
-//		String email = br.readLine();
-//		System.out.println("email " + email);
-//		doc.add(new TextField("email", email, Store.YES));
-//		String firstname = br.readLine();
-//		doc.add(new TextField("firstname", firstname, Store.YES));
-//		String lastname = br.readLine();
-//		doc.add(new TextField("lastname", lastname, Store.YES));
-//		String note = br.readLine();
-//		doc.add(new TextField("note", note, Store.YES));
-//		String photo = br.readLine();
-//		doc.add(new TextField("photo", photo, Store.YES));
-//		String user = br.readLine();
-//		doc.add(new TextField("user", user, Store.YES));
-//		String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
-//		doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
-//		doc.add(new TextField("filedate",modificationDate,Store.YES));
-//		writer.addDocument(doc);
-//	}
-//}catch (IllegalArgumentException | EOFException e) {
-//	e.printStackTrace();
-//}
-//
-//	
-	System.out.println("Zapisao u doc");
-	writer.addDocument(doc);
-	br.close();
 	}
+	
 }
