@@ -14,30 +14,26 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 import org.apache.pdfbox.lucene.LucenePDFDocument;
 
+import ues.projekat.y.search.misc.PDFHandler;
 import ues.projekat.y.search.misc.SerbianAnalyzer;
 
 
 public class PDFIndexer {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Directory indexDir;
-		File dataDir;
+		Directory indexDirPdf;
+		File dataDirPdf;
 		
 		try{
 			if (args.length != 2) {
-				ResourceBundle rb=ResourceBundle.getBundle("lucene.test.luceneindex");
-				indexDir=new SimpleFSDirectory(new File(rb.getString("indexDir")));
-				dataDir=new File(rb.getString("dataDir"));
+				ResourceBundle rb = ResourceBundle.getBundle("lucene.test.luceneindex");
+				indexDirPdf = new SimpleFSDirectory(new File(rb.getString("indexDirPdf")));
+				dataDirPdf = new File(rb.getString("dataDirPdf"));
 			}else{
-				indexDir = new SimpleFSDirectory(new File(args[0]));
-				dataDir = new File(args[1]);
+				indexDirPdf = new SimpleFSDirectory(new File(args[0]));
+				dataDirPdf = new File(args[1]);
 			}
 			long start = new Date().getTime();
-			int numIndexed = index(indexDir, dataDir);
+			int numIndexed = index(indexDirPdf, dataDirPdf);
 			long end = new Date().getTime();
 			System.out.println("Indexing " + numIndexed + " files took "+ (end - start) + " milliseconds");
 		}catch(IOException ioe){
@@ -48,14 +44,14 @@ public class PDFIndexer {
 	
 	// open an index and start file directory traversal
 	
-	public static int index(Directory indexDir, File dataDir) throws IOException {
-		if (!dataDir.exists() || !dataDir.isDirectory()) {
-			throw new IOException(dataDir + " does not exist or is not a directory");
+	public static int index(Directory indexDirPdf, File dataDirPdf) throws IOException {
+		if (!dataDirPdf.exists() || !dataDirPdf.isDirectory()) {
+			throw new IOException(dataDirPdf + " does not exist or is not a directory");
 		}
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new SerbianAnalyzer());
 		iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
-		IndexWriter writer = new IndexWriter(indexDir, iwc);
-		indexDirectory(writer, dataDir);
+		IndexWriter writer = new IndexWriter(indexDirPdf, iwc);
+		indexDirectory(writer, dataDirPdf);
 		int numIndexed = writer.numDocs();
 		writer.close();
 		return numIndexed;
@@ -83,5 +79,6 @@ public class PDFIndexer {
 		writer.addDocument(doc);
 		
 		//pozvati PDFHandler  koji sami pravimo
+		PDFHandler pdfHandler = new PDFHandler();
 	}
 }

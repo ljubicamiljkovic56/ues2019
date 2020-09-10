@@ -1,5 +1,6 @@
 package ues.projekat.app.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.mail.Flags;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.Part;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
@@ -36,6 +38,7 @@ import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Tag;
 import ues.projekat.service.intrfc.AccountServiceInterface;
+import ues.projekat.service.intrfc.AttachmentServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 
 @RestController
@@ -46,6 +49,11 @@ public class EmailController {
 	
 	@Autowired
 	private AccountServiceInterface accountServiceInterface;
+	
+	@Autowired
+	private AttachmentServiceInterface attachmentServiceInterface;
+	
+	private static String saveDirectory = "C://Users//Ljubica//Downloads//attachs";
 	
 	//slanje mejla
 	@RequestMapping(value = "/sendemail")
@@ -144,7 +152,7 @@ public class EmailController {
 		Properties properties = new Properties();
 		properties.setProperty("mail.store.protocol", "imaps");
 		
-		Session session = Session.getDefaultInstance(properties, 
+		Session session = Session.getInstance(properties, 
 				new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
@@ -181,8 +189,41 @@ public class EmailController {
 			    for ( Message message : messages ) {
 			    	Address[] froms = message.getFrom();
 			      System.out.println( "from: " + froms[0].toString() + 
-					" sendDate: " + message.getSentDate()
+					" sendDate: " + message.getSentDate().toString()
 			          + " subject: " + message.getSubject() + " content: " + message.getContent() + " content type: " + message.getContentType());
+			      
+			     
+			     // store attachment file name, separated by comma
+				String attachFiles = "";
+				String messageContent = "";
+				if (message.getContentType().contains("multipart")) {
+				// content may contain attachments
+					Multipart multiPart = (Multipart) message.getContent();
+					int numberOfParts = multiPart.getCount();
+						for (int partCount = 0; partCount < numberOfParts; partCount++) {
+							MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+								if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition())) {
+								// this part is attachment
+								String fileName = part.getFileName();
+								attachFiles += fileName + ", ";
+								part.saveFile(saveDirectory + File.separator + fileName);
+							} else {
+								// this part may be the message content
+								messageContent = part.getContent().toString();
+							}
+						}
+
+						if (attachFiles.length() > 1) {
+							attachFiles = attachFiles.substring(0, attachFiles.length() - 2);
+						}
+					} else if (message.getContentType().contains("text/plain") || message.getContentType().contains("text/html")) {
+						Object content = message.getContent();
+						if (content != null) {
+							messageContent = content.toString();
+						}
+					}
+			      
+				System.out.println("Attachments: " + attachFiles);
 			      
 			      ues.projekat.app.model.Folder folder1 = new ues.projekat.app.model.Folder();
 			      folder1.setName("primljeni mejlovi");
@@ -200,10 +241,25 @@ public class EmailController {
 			      message1.setUnread(true);
 			      message1.setAccount(account);
 			      message1.setMessageTags(new ArrayList<Tag>());
-			     // message1.setMessageAttachments(message.getMessageAttachments()); 
+			      
+			      
+			 //    new ArrayList<Attachment>().add(attachment);
+			      
+			      message1.setMessageTags(message1.getMessageTags());
+			      //iz nekog razloga uporno trazi boolean iako toga nema u Message
+			   //   message1.setMessageAttachments(message1.getMessageAttachments().add(attachment)); 
 			      message1.setFolder(folder1);
+			      message1.setUnread(true);
 			      
 			      messageServiceInterface.save(message1);
+			      
+			      Attachment attachment = new Attachment();
+			      attachment.setMessage(message1);
+			      attachment.setMimeType(message.getContentType().toString());
+			      attachment.setName(attachFiles);
+			      attachment.setPath("C://Users//Ljubica//Downloads//attachs");
+			      
+			      attachmentServiceInterface.save(attachment);
 			      
 			      System.out.println("Dobijeni mejl je dodat u bazu");
 			    }

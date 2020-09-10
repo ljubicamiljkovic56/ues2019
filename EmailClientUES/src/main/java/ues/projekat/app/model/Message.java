@@ -184,11 +184,13 @@ public class Message implements Serializable {
 		return messageAttachments;
 	}
 
-	public void setMessageAttachments(ArrayList<Attachment> messageAttachments) {
+	
+
+	public void setMessageAttachments(List<Attachment> messageAttachments) {
 		this.messageAttachments = messageAttachments;
 	}
-	
-	
+
+
 
 	public Folder getFolder() {
 		return folder;
@@ -209,12 +211,6 @@ public class Message implements Serializable {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-
-
-	public void setMessageAttachments(List<Attachment> messageAttachments) {
-		this.messageAttachments = messageAttachments;
-	}
-
 
 
 	@Override
