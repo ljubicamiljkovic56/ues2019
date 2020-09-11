@@ -51,6 +51,8 @@ public class AccountDTO implements Serializable {
 		this.smtpAddress = account.getSmtpAddress();
 		this.smtpPort = account.getSmtpPort();
 		this.inserverType = account.getInServerType();
+		this.inserverAddress = account.getInServerAddress();
+		this.inserverPort = account.getInServerPort();
 		this.username = account.getUsername();
 		this.password = account.getPassword();
 		this.displayname = account.getDisplayname();

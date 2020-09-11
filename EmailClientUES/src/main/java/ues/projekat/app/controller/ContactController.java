@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Contact;
 import ues.projekat.app.model.User;
+import ues.projekat.dto.AccountDTO;
 import ues.projekat.dto.ContactDTO;
 import ues.projekat.service.intrfc.ContactServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
@@ -88,6 +89,19 @@ public class ContactController {
 			}
 		}
 		return new ResponseEntity<List<ContactDTO>>(contactsDTO, HttpStatus.OK);
+	}
+	
+	//prikaz jednog kontakta na osnovu displayname-a
+	@PostMapping(value = "/getContactByDisplayname")
+	public ResponseEntity<ContactDTO> getContactByDisplayname(@RequestParam String displayname) {
+		
+		Contact contact = contactServiceInterface.findContactByDisplayname(displayname);
+		
+		if (contact == null) {
+			return new ResponseEntity<ContactDTO>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<ContactDTO>(new ContactDTO(contact), HttpStatus.OK);
+		}
 	}
 	
 	//dodavanje novog kontakta na osnovu user username-a

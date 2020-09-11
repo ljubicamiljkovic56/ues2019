@@ -15,6 +15,8 @@ public interface AccountServiceInterface {
 	List<Account> findAll();
 	
 	Account findByUsernameAndPassword(String username, String password);
+	
+	Account findByDisplayname(String displayname);
 
 	void remove(Long id);
 

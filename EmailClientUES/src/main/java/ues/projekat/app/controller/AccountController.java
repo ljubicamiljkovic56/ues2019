@@ -84,6 +84,20 @@ public class AccountController {
 	}
 	
 	
+	//prikaz jednog accounta na osnovu displayname-a
+	@PostMapping(value = "/getAccountByDisplayname")
+	public ResponseEntity<AccountDTO> getAccountByDisplayname(@RequestParam String displayname) {
+		
+		Account account = accountServiceInterface.findByDisplayname(displayname);
+		
+		if (account == null) {
+			return new ResponseEntity<AccountDTO>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<AccountDTO>(new AccountDTO(account), HttpStatus.OK);
+		}
+	}
+	
+	
 	//prikaz accounta na osnovu id-a
 	//recimo localhost:8080/api/accounts/1, 2, 3
 	@GetMapping(value="/{id}")

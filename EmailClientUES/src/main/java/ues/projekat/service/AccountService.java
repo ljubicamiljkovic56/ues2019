@@ -46,4 +46,9 @@ public class AccountService implements AccountServiceInterface {
 		accountRepository.delete(id);
 
 	}
+
+	@Override
+	public Account findByDisplayname(String displayname) {
+		return accountRepository.findByDisplayname(displayname);
+	}
 }
