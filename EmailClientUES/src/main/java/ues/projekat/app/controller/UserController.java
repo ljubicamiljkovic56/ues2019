@@ -10,19 +10,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
-import ues.projekat.app.model.Contact;
 import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.model.Tag;
 import ues.projekat.app.model.User;
-import ues.projekat.dto.AccountDTO;
 import ues.projekat.dto.UserDTO;
 import ues.projekat.service.UserService;
 import ues.projekat.service.intrfc.AccountServiceInterface;
@@ -70,8 +66,8 @@ public class UserController {
 	
 
 	
-	@GetMapping(value = "/getUser")
-	public ResponseEntity<UserDTO> getUser(@RequestParam("username") String username, @RequestParam("password") String password){
+	@GetMapping(value = "/getUser/{username}/{password}")
+	public ResponseEntity<UserDTO> getUser(@PathVariable("username") String username, @PathVariable("password") String password){
 		User user = userServiceInterface.findByUsernameAndPassword(username, password);
 		
 		if (user == null) {
@@ -80,6 +76,19 @@ public class UserController {
 		}
 		
 		return new ResponseEntity<UserDTO>(new UserDTO(user) ,HttpStatus.OK);
+	}
+	
+	//prikaz korisnika na osnovu username-a
+	@PostMapping(value = "/getUserByUsername")
+	public ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username) {
+		
+		User user = userServiceInterface.findByUsername(username);
+		
+		if (user == null) {
+			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<UserDTO>(new UserDTO(user), HttpStatus.OK);
+		}
 	}
 	
 	//registracija korisnika
@@ -100,7 +109,7 @@ public class UserController {
 			user.setFirstname(firstname);
 			user.setLastname(lastname);
 			user.setUserAccounts(new ArrayList<Account>());
-			user.setUserContacts(new ArrayList<Contact>());
+			//user.setUserContacts(new ArrayList<Contact>());
 			user.setUserTags(new ArrayList<Tag>());
 			userService.addUser(user);
 			

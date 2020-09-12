@@ -1,12 +1,12 @@
 package ues.projekat.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import ues.projekat.app.model.Attachment;
+import ues.projekat.app.model.Folder;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.model.Tag;
 
@@ -23,6 +23,7 @@ public class MessageDTO implements Serializable {
 	private String subject;
 	private String content;
 	private boolean unread;
+	private Folder folder;
 	private List<Tag> messageTags;
 	private List<Attachment> messageAttachments;
 	
@@ -31,7 +32,7 @@ public class MessageDTO implements Serializable {
 	}
 	
 	public MessageDTO(Long id, String from, String to, String cc, String bcc, Timestamp dateTime, String subject,
-			String content, boolean unread, List<Tag> messageTags, List<Attachment> messageAttachments) {
+			String content, boolean unread, Folder folder, List<Tag> messageTags, List<Attachment> messageAttachments) {
 		super();
 		this.id = id;
 		this.from = from;
@@ -42,6 +43,7 @@ public class MessageDTO implements Serializable {
 		this.subject = subject;
 		this.content = content;
 		this.unread = unread;
+		this.folder = folder;
 		this.messageTags = messageTags;
 		this.messageAttachments = messageAttachments;
 	}
@@ -53,11 +55,12 @@ public class MessageDTO implements Serializable {
 		this.cc = message.getCc();
 		this.bcc = message.getBcc();
 		this.dateTime = message.getDateTime();
-		this.subject = message.getSubject();
-		this.content = message.getContent();
-		this.unread = false;
+		this.subject = message.getSubject().toString();
+		this.content = message.getContent().toString();
+		this.unread = message.isUnread();
+		this.folder = message.getFolder();
 		this.messageTags = message.getMessageTags();
-		this.messageAttachments = message.getMessageAttachments();
+		this.messageAttachments = (List<Attachment>) message.getMessageAttachments();
 	}
 	
 	public Long getId() {

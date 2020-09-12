@@ -59,7 +59,7 @@ public class UserService implements UserServiceInterface {
     	user1.setFirstname(user.getFirstname());
     	user1.setLastname(user.getLastname());
     	user1.setUserAccounts((ArrayList<Account>) user.getUserAccounts());
-    	user1.setUserContacts((ArrayList<Contact>) user1.getUserContacts());
+    //	user1.setUserContacts((ArrayList<Contact>) user1.getUserContacts());
     	user1.setUserTags((ArrayList<Tag>) user1.getUserTags());
     	userRepository.save(user);
 		return user1;

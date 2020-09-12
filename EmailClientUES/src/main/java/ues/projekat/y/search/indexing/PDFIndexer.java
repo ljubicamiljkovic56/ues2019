@@ -25,7 +25,7 @@ public class PDFIndexer {
 		
 		try{
 			if (args.length != 2) {
-				ResourceBundle rb = ResourceBundle.getBundle("lucene.test.luceneindex");
+				ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 				indexDirPdf = new SimpleFSDirectory(new File(rb.getString("indexDirPdf")));
 				dataDirPdf = new File(rb.getString("dataDirPdf"));
 			}else{

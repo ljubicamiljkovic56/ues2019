@@ -89,6 +89,20 @@ public class MessageController {
 		return new ResponseEntity<List<MessageDTO>>(messages, HttpStatus.OK);
 	}
 	
+	//prikaz poruke na osnovu subject-a
+	@PostMapping(value = "/getMessageBySubject") 
+	public ResponseEntity<MessageDTO> getMessageBySubject(@RequestParam String subject) {
+			
+		Message message = messageServiceInterface.findOneBySubject(subject);
+			
+		if(message == null) {
+			return new ResponseEntity<MessageDTO>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<MessageDTO>(new MessageDTO(message), HttpStatus.OK);
+		}
+	}
+	
+	
 //	@GetMapping(value = "/emails/{accountId}")
 //	public ResponseEntity<List<MessageDTO>> getAllMessagesFromUser(@PathVariable("account_id") Long id){
 //		//EmailReceiver emailReceiver = new EmailReceiver(messageServiceInterface, folderServiceInterface);

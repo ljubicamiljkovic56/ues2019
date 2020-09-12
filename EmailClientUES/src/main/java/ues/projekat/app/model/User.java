@@ -36,9 +36,9 @@ public class User implements Serializable {
 	@Column(name = "lastname")
 	private String lastname;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
-	//@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
-	private List<Contact> userContacts = new ArrayList<Contact>();
+//	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
+//	//@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
+//	private List<Contact> userContacts = new ArrayList<Contact>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "user_tags", referencedColumnName = "tag_id", nullable = true)
@@ -60,10 +60,11 @@ public class User implements Serializable {
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.userContacts = userContacts;
+		//this.userContacts = userContacts;
 		this.userTags = userTags;
 		this.userAccounts = userAccounts;
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -105,13 +106,13 @@ public class User implements Serializable {
 		this.lastname = lastname;
 	}
 
-	public List<Contact> getUserContacts() {
-		return userContacts;
-	}
-
-	public void setUserContacts(ArrayList<Contact> userContacts) {
-		this.userContacts = userContacts;
-	}
+//	public List<Contact> getUserContacts() {
+//		return userContacts;
+//	}
+//
+//	public void setUserContacts(ArrayList<Contact> userContacts) {
+//		this.userContacts = userContacts;
+//	}
 
 	public List<Tag> getUserTags() {
 		return userTags;
@@ -132,7 +133,8 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", userContacts=" + userContacts + ", userTags=" + userTags
-				+ ", userAccounts=" + userAccounts + "]";
-	}	
+				+ ", lastname=" + lastname + ", userTags=" + userTags + ", userAccounts=" + userAccounts + "]";
+	}
+
+	
 }

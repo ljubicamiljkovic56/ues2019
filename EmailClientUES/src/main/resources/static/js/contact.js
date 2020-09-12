@@ -17,13 +17,13 @@ $(document).ready(function() {
 		console.log('displayname: ' + displayname);
 		
 		var params = {
-			'displayname': displayname, 
+			'displayname': displayname
 		}
 		$.post("http://localhost:8080/api/contacts/getContactByDisplayname", params, function(data) {
 			console.log('ispis...')
 			console.log(data);
 			
-			alert('Detalji naloga...')
+			alert('Detalji kontakta...')
 			
 			contact = data;
 			

@@ -42,7 +42,7 @@ public class UserDTO implements Serializable {
 		this.password = user.getPassword();
 		this.firstname = user.getFirstname();
 		this.lastname = user.getLastname();
-		this.userContacts = user.getUserContacts();
+		//this.userContacts = user.getUserContacts();
 		this.userTags = user.getUserTags();
 	}
 

@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -89,6 +87,19 @@ public class FolderController {
 		return new ResponseEntity<FolderDTO>(accountFolder, HttpStatus.OK);
 	}
 	
+	
+	//prikaz foldera na osnovu imena
+	@PostMapping(value = "/getFolder")
+	public ResponseEntity<FolderDTO> getFolder(@RequestParam String name) {
+		
+		Folder folder = folderServiceInterface.findByName(name);
+		
+		if(folder == null) {
+			return new ResponseEntity<FolderDTO>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<FolderDTO>(new FolderDTO(folder), HttpStatus.OK);
+		}
+	}
 	
 	//dodavanje novog foldera na osnovu ukucanog account username-a
 	//poziva se u add_folder.js

@@ -9,18 +9,20 @@
 </head>
 <body>
 <h3>Message</h3>
+
+<label>Message's subject: </label><br><input type="text" id="subjectInput"/><input type="submit" value="Show" id="subjectSubmit">
 <form id="messageForm">
 		<table>
-			<tr><td align="right">ID:</td><td><input type="hidden" id="idCell"/></td></tr>
 			<tr><td align="right">From:</td><td><input type="text" id="fromCell"/></td></tr>
 			<tr><td align="right">To:</td><td><input type="text" id="toCell"/></td></tr>
 			<tr><td align="right">Cc:</td><td><input type="text" id="ccCell"/></td></tr>
 			<tr><td align="right">Bcc:</td><td><input type="text" id="bccCell"/></td></tr>
-			<tr><td align="right">Date and time:</td><td><input type="hidden" id="dateTimeCell"/></td></tr>
+			<tr><td align="right">Date and time:</td><td><input type="text" id="dateTimeCell"/></td></tr>
 			<tr><td align="right">Subject:</td><td><input type="text" id="subjectCell"/></td></tr>
-			<tr><td align="right">Content:</td><td><input type="password" id="contentCell"/></td></tr>
-			<tr><td align="right">Tags:</td><td><input type="text" id="tagsCell"/></td></tr>
-			<tr><td align="right">Attachments:</td><td><input type="text" id="attachmentsCell"/></td></tr>
+			<tr><td align="right">Content:</td><td><input type="text" id="contentCell"/></td></tr>
+			<tr><td align="right">Unread:</td><td><input type="text" id="unreadCell"/></td></tr>
+<!-- 			<tr><td align="right">Tags:</td><td><input type="text" id="tagsCell"/></td></tr> -->
+<!-- 			<tr><td align="right">Attachments:</td><td><input type="text" id="attachmentsCell"/></td></tr> -->
 		</table>
 	</form>
 
