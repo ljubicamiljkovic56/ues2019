@@ -21,12 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Contact;
 import ues.projekat.app.model.User;
-import ues.projekat.dto.AccountDTO;
 import ues.projekat.dto.ContactDTO;
 import ues.projekat.service.intrfc.ContactServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
 import ues.projekat.y.search.indexing.Indexer;
-import ues.projekat.y.search.misc.WriteTextFileContacts;
 
 @RestController
 @RequestMapping(value="api/contacts")
@@ -50,7 +48,7 @@ public class ContactController {
 		}
 		
 		
-		WriteTextFileContacts.write();
+	//	WriteTextFileContacts.write();
 		Directory indexDir;
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDir = new SimpleFSDirectory(new File(rb.getString("indexDir")));

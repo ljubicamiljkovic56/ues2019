@@ -33,9 +33,11 @@ public class MessageController {
 	@Autowired
 	private MessageServiceInterface messageServiceInterface;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private AccountServiceInterface accountServiceInterface;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private FolderServiceInterface folderServiceInterface;
 	

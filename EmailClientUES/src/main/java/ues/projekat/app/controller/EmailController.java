@@ -144,6 +144,7 @@ public class EmailController {
 	}
 	
 	//primanje mejla
+	//@SuppressWarnings("unused")
 	@RequestMapping(value = "/receivemail")
 	private void receivemail(@RequestParam String username, @RequestParam String password) {
 		

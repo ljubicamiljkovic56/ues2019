@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ues.projekat.app.model.Account;
-import ues.projekat.app.model.Contact;
 import ues.projekat.app.model.Tag;
 import ues.projekat.app.model.User;
 import ues.projekat.app.repository.UserRepository;

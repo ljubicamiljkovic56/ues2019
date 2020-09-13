@@ -51,6 +51,7 @@ public class Searcher {
 	}
 	
 	//pretraga, indexDir i prosledjeni string
+	@SuppressWarnings("deprecation")
 	public static void search(File indexDir, String q)throws Exception {
 		
 		//novi QueryParser objekat, dodeljujemo mu verziju lucene, sadrzaj i analyzer

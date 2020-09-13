@@ -1,14 +1,12 @@
 package ues.projekat.y.search.model;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -20,6 +18,7 @@ import org.apache.lucene.util.Version;
 public class IndexingDatabase {
 	
 	
+	@SuppressWarnings({ "deprecation", "resource" })
 	public static void dtabase() throws IOException {
 		Directory indexDir = null;
 		IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_40, new ues.projekat.y.search.misc.SerbianAnalyzer());

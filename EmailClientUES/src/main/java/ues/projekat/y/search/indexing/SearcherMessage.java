@@ -42,6 +42,7 @@ public class SearcherMessage {
 		search(indexDirMessages, q);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void search(File indexDir, String q)throws Exception {
 		
 		QueryParser qp = new QueryParser(Version.LUCENE_40,"sadrzaj_fajla", new SerbianAnalyzer());

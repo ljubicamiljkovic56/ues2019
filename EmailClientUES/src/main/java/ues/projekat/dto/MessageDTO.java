@@ -129,5 +129,21 @@ public class MessageDTO implements Serializable {
 	public void setMessageAttachments(ArrayList<Attachment> messageAttachments) {
 		this.messageAttachments = messageAttachments;
 	}
+
+	public Folder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
+
+	public void setMessageTags(List<Tag> messageTags) {
+		this.messageTags = messageTags;
+	}
+
+	public void setMessageAttachments(List<Attachment> messageAttachments) {
+		this.messageAttachments = messageAttachments;
+	}
 	
 }

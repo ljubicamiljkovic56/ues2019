@@ -44,6 +44,7 @@ public class PDFIndexer {
 	
 	// open an index and start file directory traversal
 	
+	@SuppressWarnings("deprecation")
 	public static int index(Directory indexDirPdf, File dataDirPdf) throws IOException {
 		if (!dataDirPdf.exists() || !dataDirPdf.isDirectory()) {
 			throw new IOException(dataDirPdf + " does not exist or is not a directory");
@@ -79,6 +80,7 @@ public class PDFIndexer {
 		writer.addDocument(doc);
 		
 		//pozvati PDFHandler  koji sami pravimo
+		@SuppressWarnings("unused")
 		PDFHandler pdfHandler = new PDFHandler();
 	}
 }
