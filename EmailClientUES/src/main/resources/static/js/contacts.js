@@ -415,6 +415,61 @@ $(document).ready(function(){
 		
 	});
 	
+	var foundContactDiv5 = $('#foundContactDiv5');
+	
+	$('#searchBooleanButtonContacts').on('click', function(event) {
+		
+		var field1 = $('#boolDropContacts1 option:selected').val();
+		var term1 = $('#boolInput1').val();
+		var field2 = $('#boolDropContacts2 option:selected').val();
+		var term2 = $('#boolInput2').val();
+		var op = $('#op option:selected').val();
+		
+		
+		console.log('field1: ' + field1 + 'term1: ' + term1);
+		console.log('field2: ' + field2 + 'term2: ' + term2);
+		console.log('op: ' + op);
+		
+		var params = {
+			'field1': field1,
+			'term1': term1,
+			'field2': field2,
+			'term2': term2,
+			'op': op
+		}
+		$.post('http://localhost:8080/search/boolean/contact', params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundcontact = data;
+			
+			console.log(foundcontact);
+			
+			if(foundContactDiv5.text().length == 0) {
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv5.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " +
+							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+				}
+			}else {
+				foundContactDiv5.empty();
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv5.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " + 
+							"Displayname: " + foundcontact[c].displayname + " " 
+							+ "Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
+				}
+			}
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+	
 	getContacts();
 	console.log('dobavljene poruke?');
 });
