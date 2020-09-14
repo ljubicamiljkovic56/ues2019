@@ -1,5 +1,7 @@
 var contacts = []
 
+var foundcontact = []
+
 var sortFirstnameSmer = 1;
 var sortLastnameSmer = 1;
 var sortDisplaynameSmer = 1;
@@ -222,6 +224,9 @@ $(document).ready(function(){
 	};		
 	
 	var regularSearchInput = $("#regularSearchInput")
+
+    var foundContactDiv = $('#foundContactDiv')
+	
 	
 	$('#searchRegularButtonContacts').on('click', function(event){
 		var regularSearch = regularSearchInput.val();
@@ -238,6 +243,26 @@ $(document).ready(function(){
 			
 			alert('Searching..')
 			
+			foundcontact = data;
+			
+			console.log(foundcontact);
+			
+			if(foundContactDiv.text().length == 0) {
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " +
+							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+				}
+			}else {
+				foundContactDiv.empty();
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " +  foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " 
+							+ "Email: " + foundcontact[c].email + " " + "Note:" + foundcontact[c].note + " ")
+				}
+			}
 			
 		});
 		console.log('slanje poruke');
@@ -245,7 +270,150 @@ $(document).ready(function(){
 		return false;
 	});
 	
+
 	
+	var foundContactDiv2 = $('#foundContactDiv2')
+	
+	$('#searchFuzzyButtonContacts').on('click', function(event) {
+		
+		var field = $('#fuzzyDropContacts option:selected').val();
+		var word = $('#fuzzySearchInput').val();
+		
+		console.log('field: ' + field + " " + 'word: ' + word);
+		
+		var params = {
+				'field':field,
+				'word':word
+		}
+		$.post("http://localhost:8080/search/fuzzy/contact", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundcontact = data;
+			
+			console.log(foundcontact);
+			
+			if(foundContactDiv2.text().length == 0) {
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv2.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " +
+							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+				}
+			}else {
+				foundContactDiv2.empty();
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv2.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " + 
+							"Displayname: " + foundcontact[c].displayname + " " 
+							+ "Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
+				}
+			}
+			
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+	});
+	 
+	var foundContactDiv3 = $('#foundContactDiv3');
+	
+	$('#searchPhraseButtonContacts').on('click', function(event) {
+		
+		var field1 = $('#phraseDropContacts option:selected').val();
+		var term1 = $('#phraseInput').val();
+		
+		console.log('field1: ' + field1 + 'term1: ' + term1);
+		
+		var params = {
+			'field1': field1,
+			'term1': term1
+		}
+		$.post("http://localhost:8080/search/phrase/contact", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundcontact = data;
+			
+			console.log(foundcontact);
+			
+			if(foundContactDiv3.text().length == 0) {
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv3.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " +
+							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+				}
+			}else {
+				foundContactDiv3.empty();
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv3.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " + 
+							"Displayname: " + foundcontact[c].displayname + " " 
+							+ "Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
+				}
+			}
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+	});
+	
+	var foundContactDiv4 = $('#foundContactDiv4');
+	
+	$('#searchTermButtonContacts').on('click', function(event) {
+		
+		var field1 = $('#termDropContacts option:selected').val();
+		var term1 = $('#termInput').val();
+		
+		console.log('field1: ' + field1 + 'term1: ' + term1);
+		
+		var params = {
+			'field1': field1,
+			'term1': term1
+		}
+		$.post('http://localhost:8080/search/term/contact', params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundcontact = data;
+			
+			console.log(foundcontact);
+			
+			if(foundContactDiv4.text().length == 0) {
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv4.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
+							+ "Displayname: " + foundcontact[c].displayname + " " +
+							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+				}
+			}else {
+				foundContactDiv4.empty();
+				for(c in foundcontact) {
+					console.log(c);
+					foundContactDiv4.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " + 
+							"Displayname: " + foundcontact[c].displayname + " " 
+							+ "Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
+				}
+			}
+			
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+	});
 	
 	getContacts();
 	console.log('dobavljene poruke?');

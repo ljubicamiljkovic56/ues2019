@@ -1,7 +1,5 @@
 package ues.projekat.y.search.indexing;
 
-
-
 import java.io.File;
 
 import java.io.IOException;
@@ -24,8 +22,6 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
-
-import ues.projekat.y.search.misc.CountParagraphContacts;
 public class Indexer {
 	
 	//main metoda odakle se poziva index metoda
@@ -110,9 +106,9 @@ public class Indexer {
 		System.out.println("Indexing " + f.getCanonicalPath());
 		
 		//poziv metode koja broji koliko ima paragrafa u contacts.txt
-		int numOfparagraph = CountParagraphContacts.getParagraphCount();
+		//int numOfparagraph = CountParagraphContacts.getParagraphCount();
 		
-		System.out.println("Number of paragraphs in contacts.txt: " + numOfparagraph);
+		//System.out.println("Number of paragraphs in contacts.txt: " + numOfparagraph);
 		
 		try {
 			Connection con = null;

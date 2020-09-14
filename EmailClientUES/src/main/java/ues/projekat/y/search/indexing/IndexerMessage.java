@@ -1,10 +1,11 @@
 package ues.projekat.y.search.indexing;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -95,44 +96,36 @@ public class IndexerMessage {
 			if (f.isHidden() || !f.exists() || !f.canRead()) {
 				return;
 			}
+			
 			//Ispis sta indeksuje
 			System.out.println("Indexing " + f.getCanonicalPath());
-			//Kreiranje novog Document objekta
-			Document doc = new Document();
-			//Kreiranje InputStreamReader-a (za decode karaktera), zato kao parametar prosledjuemo 
-			//novi FileInputStream (input bytes for a file) za taj fajl i charset
-			InputStreamReader ir = new InputStreamReader(new FileInputStream(f),"UTF-8");
-			//BufferedReader cita redove txt fajla
-			BufferedReader br= new BufferedReader(ir);
-
 			
-			String readLine = null;
-			while ((readLine = br.readLine()) != null) {
-					readLine = readLine.trim();
-					System.out.println(readLine);
-					System.out.println("Usao u funkciju");
-					//String message_id = br.readLine();
-					doc.add(new TextField("message_id", readLine, Store.YES));
-					//String from = br.readLine();
-					doc.add(new TextField("message_from", readLine, Store.YES));
-					//String to = br.readLine();
-					doc.add(new TextField("message_to", readLine, Store.YES));
-					//String cc = readLine;
-					doc.add(new TextField("cc", readLine, Store.YES));
-					//String bcc = readLine;
-					doc.add(new TextField("bcc", readLine, Store.YES));
-					//String subject = readLine;
-					doc.add(new TextField("message_subject", readLine, Store.YES));
-					//String content = readLine;
-					doc.add(new TextField("content", readLine, Store.YES));
+			try {
+				Connection con = null;
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ues", "root", "root");
+				Statement stmt = con.createStatement();
+				String sql = "select message_id, message_from, message_to, cc, bcc, message_subject, content from messages";
+				ResultSet rs = stmt.executeQuery(sql);
 				
-				String modificationDate = DateTools.dateToString(new Date(f.lastModified()),DateTools.Resolution.DAY);
-				doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
-				doc.add(new TextField("filedate",modificationDate,Store.YES));
+				while(rs.next()) {
+					Document doc = new Document();
+					doc.add(new TextField("message_id", rs.getString("message_id"), Store.YES));
+					doc.add(new TextField("from", rs.getString("message_from"), Store.YES));
+					doc.add(new TextField("to", rs.getString("message_to"), Store.YES));
+					doc.add(new TextField("cc", rs.getString("cc"), Store.YES));
+					doc.add(new TextField("bcc", rs.getString("bcc"), Store.YES));
+					doc.add(new TextField("subject", rs.getString("message_subject"), Store.YES));
+					doc.add(new TextField("content", rs.getString("content"), Store.YES));
+					String modificationDate = DateTools.dateToString(new Date(f.lastModified()), DateTools.Resolution.DAY);
+					doc.add(new StringField("filename", f.getCanonicalPath(), Store.YES));
+					doc.add(new TextField("filedate", modificationDate,Store.YES));
+					
+					writer.addDocument(doc);
+				}
 				
-			}			
-			System.out.println("Zapisao u doc");
-			writer.addDocument(doc);
-			br.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 }

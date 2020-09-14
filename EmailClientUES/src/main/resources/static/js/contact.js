@@ -27,6 +27,7 @@ $(document).ready(function() {
 			
 			contact = data;
 			
+			
 			$('#firstnameCell').val(contact.firstname);
 			$('#lastnameCell').val(contact.lastname);
 			$('#displaynameCell').val(contact.displayname);

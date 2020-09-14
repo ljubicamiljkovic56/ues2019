@@ -1,8 +1,13 @@
 package ues.projekat.app.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.SimpleFSDirectory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +29,7 @@ import ues.projekat.service.intrfc.AccountServiceInterface;
 import ues.projekat.service.intrfc.FolderServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
-import ues.projekat.y.search.misc.WriteTextFileMessage;
+import ues.projekat.y.search.indexing.IndexerMessage;
 
 @RestController
 @RequestMapping(value = "api/messages")
@@ -49,14 +54,20 @@ public class MessageController {
 	//gadja se u messages.js fajlu da bi imali prikaz u messages.html
 	//localhost:8080/api/messages/getallmessages
 	@GetMapping(value = "/getallmessages")
-	public ResponseEntity<List<MessageDTO>> getAllMessages() {
+	public ResponseEntity<List<MessageDTO>> getAllMessages() throws IOException {
 		List<Message> messages = messageServiceInterface.findAll();
 		List<MessageDTO> messagesDTO = new ArrayList<MessageDTO>();
 		for (Message m : messages) {
 			messagesDTO.add(new MessageDTO(m));
 		}
 		
-		WriteTextFileMessage.write();
+		//WriteTextFileMessage.write();
+		Directory indexDirMessages;
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDirMessages = new SimpleFSDirectory(new File(rb.getString("indexDirMessages")));
+		File dataDirMessages = new File(rb.getString("dataDirMessages"));
+		IndexerMessage.index(indexDirMessages, dataDirMessages);
+		
 		
 		return new ResponseEntity<List<MessageDTO>>(messagesDTO, HttpStatus.OK);
 	}

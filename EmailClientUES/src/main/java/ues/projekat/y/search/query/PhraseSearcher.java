@@ -77,7 +77,7 @@ public class PhraseSearcher {
 		}
 		
 		//uvek se inicijalno kreira prazan PhraseSearch
-		PhraseQuery query=new PhraseQuery();
+		PhraseQuery query = new PhraseQuery();
 		
 		//postaviti razmak
 		query.setSlop(1);

@@ -8,6 +8,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
@@ -34,10 +35,13 @@ private TopScoreDocCollector collector;
 			//search nad zadatim upitom i kolektorom
 			is.search(query, collector);
 			
+			
 			//lista pogodaka
 			ScoreDoc[] hits = collector.topDocs().scoreDocs;
 			//prikaz broja pronadjenih podataka
 			System.err.println("Found " + hits.length + " document(s) that matched query '" + query + "':");
+			
+			
 			//prikaz svih prondajenih podataka
 			for (int i = 0; i < collector.getTotalHits(); i++) {
 				int docId = hits[i].doc;

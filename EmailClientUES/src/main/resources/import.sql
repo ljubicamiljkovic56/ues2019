@@ -37,6 +37,7 @@ INSERT INTO photos(photo_id,path) VALUES (3, 'C:/Pictures/oasis.jpg')
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Antic', 'Ana', 'ana@gmail.com', 'note1', 1, null);
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Aca', 'Acic', 'Aca', 'aca@yahoo.com', 'note2', 1, null);
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Mile', 'Milic', 'Mile', 'mile@gmail.com', 'note3', 2, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Mitic', 'AMitic', 'mitic.ana@gmail.com', 'miticeva', 2, null);
 
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 1', null, 1);
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 2', null, 3);

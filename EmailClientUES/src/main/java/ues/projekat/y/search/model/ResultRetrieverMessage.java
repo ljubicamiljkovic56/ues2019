@@ -34,7 +34,12 @@ public class ResultRetrieverMessage {
 				int docId = hits[i].doc;
 				Document doc = is.doc(docId);
 				System.out.println("\t" + doc.get("message_id"));
-				System.out.println("\t" + doc.get("message_from"));
+				System.out.println("\t" + doc.get("from"));
+				System.out.println("\t" + doc.get("to"));
+				System.out.println("\t" + doc.get("cc"));
+				System.out.println("\t" + doc.get("bcc"));
+				System.out.println("\t" + doc.get("subject"));
+				System.out.println("\t" + doc.get("content"));
 				System.out.println("\t" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 			}

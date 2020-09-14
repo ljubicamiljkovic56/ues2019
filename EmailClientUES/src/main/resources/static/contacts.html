@@ -32,16 +32,18 @@
 <h3>Regular Search</h3>
 <input type="text" id="regularSearchInput">
 <button id="searchRegularButtonContacts">search</button>
-<div id="resultRegularSearchContacts"></div>
+<div id="foundContactDiv"></div>
 
 <h3>Search FuzzyQuery</h3>
-<select id="fuzzySearchDropdownContacts">
-<option value="firstName">First Name</option>
-<option value="lastName">Last Name</option>
+<select id="fuzzyDropContacts">
+<option value="firstname">First name</option>
+<option value="lastname">Last name</option>
+<option value="displayname">Display name</option>
+<option value="email">Email</option>
 <option value="note">Note</option>
-</select><input type="text" id="searchFuzzyInputContacts">
+</select><input type="text" id="fuzzySearchInput">
 <button id="searchFuzzyButtonContacts">search</button>
-<div id="resultFuzzyContacts"></div>
+<div id="foundContactDiv2"></div>
 
 <h3>Search BooleanQuery</h3>
 <select id="booleanSearchDropdownContacts1">
@@ -64,13 +66,26 @@
 <div id="resultBooleanContacts"></div>
 
 <h3>Search PhraseQuery</h3>
-<select id="phraseSearchDropdownContacts">
-<option value="firstName">First Name</option>
-<option value="lastName">Last Name</option>
+<select id="phraseDropContacts">
+<option value="firstname">First name</option>
+<option value="lastname">Last name</option>
+<option value="displayname">Display name</option>
+<option value="email">Email</option>
 <option value="note">Note</option>
-</select><input type="text" id="searchPhraseInputContacts">
+</select><input type="text" id="phraseInput">
 <button id="searchPhraseButtonContacts">search</button>
-<div id="resultPhraseContacts"></div>
+<div id="foundContactDiv3"></div>
+
+<h3>Search TermQuery</h3>
+<select id="termDropContacts">
+<option value="firstname">First name</option>
+<option value="lastname">Last name</option>
+<option value="displayname">Display name</option>
+<option value="email">Email</option>
+<option value="note">Note</option>
+</select><input type="text" id="termInput">
+<button id="searchTermButtonContacts">search</button>
+<div id="foundContactDiv4"></div>
 
 <p><a href="add_contact.html">Add new contact</a></p>
 <p><a href="edit_contact.html">Edit contact</a></p>
