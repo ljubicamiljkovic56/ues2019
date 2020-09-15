@@ -23,9 +23,9 @@ $(document).ready(function(){
 				'<tr>' + 
 					'<td>' + it.smtpAddress + '</td>' +
 					'<td>' + it.smtpPort + '</td>' + 
-					'<td>' + new String(it.inServerType) + '</td>' +
-					'<td>' + it.inServerAddress + '</td>' +
-					'<td>' + it.inServerPort + '</td>' +
+					'<td>' + it.inserverType + '</td>' +
+					'<td>' + it.inserverAddress + '</td>' +
+					'<td>' + it.inserverPort + '</td>' +
 					'<td>' + it.username + '</td>' +
 					'<td>' + it.password + '</td>' +
 					'<td>' + it.displayname + '</td>' +

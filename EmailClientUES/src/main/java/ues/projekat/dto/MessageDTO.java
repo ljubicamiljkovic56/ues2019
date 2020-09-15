@@ -55,8 +55,8 @@ public class MessageDTO implements Serializable {
 		this.cc = message.getCc();
 		this.bcc = message.getBcc();
 		this.dateTime = message.getDateTime();
-		this.subject = message.getSubject().toString();
-		this.content = message.getContent().toString();
+		this.subject = message.getSubject();
+		this.content = message.getContent();
 		this.unread = message.isUnread();
 		this.folder = message.getFolder();
 		this.messageTags = message.getMessageTags();
@@ -130,13 +130,13 @@ public class MessageDTO implements Serializable {
 		this.messageAttachments = messageAttachments;
 	}
 
-	public Folder getFolder() {
-		return folder;
-	}
-
-	public void setFolder(Folder folder) {
-		this.folder = folder;
-	}
+//	public Folder getFolder() {
+//		return folder;
+//	}
+//
+//	public void setFolder(Folder folder) {
+//		this.folder = folder;
+//	}
 
 	public void setMessageTags(List<Tag> messageTags) {
 		this.messageTags = messageTags;

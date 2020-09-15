@@ -8,6 +8,7 @@ public class FoundContact {
 	private String displayname;
 	private String email;
 	private String note;
+	
 	public String getId() {
 		return id;
 	}

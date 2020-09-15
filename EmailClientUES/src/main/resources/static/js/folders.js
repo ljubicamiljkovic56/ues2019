@@ -17,12 +17,14 @@ $(document).ready(function(){
 	function populateTable(foldersForTable){
 		console.log('tabela?')
 		
+	//	let rules = it.rules.map(rule => rule.id)
+		
 		for(it of foldersForTable){
 			foldersTable.append(
 				'<tr>' + 
 					'<td>' + it.name + '</td>' +
-					'<td>' + it.parent_folder + '</td>' + 
-					'<td>' + it.account_id + '</td>' + 
+					'<td>' + it.rules.map(rule => rule.id) + '</td>' + 
+					'<td>' + it.folderMessages.map(folderMessage => folderMessage.id) + '</td>' + 
 					'<td>' +
 //					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" folderID="' + it.id + '">' + 
 //				'</form>' 
@@ -33,6 +35,8 @@ $(document).ready(function(){
 			)
 		}
 	};
+	
+	
 	
 //	foldersTable.on('click', 'input.deleteSubmit', function(event){
 //		alert('Brisem...');

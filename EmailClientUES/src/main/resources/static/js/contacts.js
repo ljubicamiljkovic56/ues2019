@@ -14,13 +14,6 @@ var sortPhotoSmer = 1;
 $(document).ready(function(){
 	var contactsTable = $('#contactsTable');
 	
-	var searchFuzzyButtonContacts = $('#searchFuzzyButtonContacts'); 
-	var resultFuzzyContacts = $('#resultFuzzyContacts');
-	var searchPhraseButtonContacts = $('#searchPhraseButtonContacts');
-	var resultPhraseContacts = $('#resultPhraseContacts');
-	var searchBooleanButtonContacts = $('#searchBooleanButtonContacts');
-	var resultBooleanContacts = $('#resultBooleanContacts');
-	
 	function getContacts(){
 	$.get("http://localhost:8080/api/contacts/getallcontacts", function(data){
 			console.log(data);
@@ -45,8 +38,8 @@ $(document).ready(function(){
 					'<td>' + it.displayname + '</td>' +
 					'<td>' + it.email + '</td>' +
 					'<td>' + it.note + '</td>' + 
-					'<td>' + it.userID + '</td>' +
-					'<td>' + it.photo + '</td>' +
+//					'<td>' + it.userID + '</td>' +
+					'<td>' + it.contactPhoto + '</td>' +
 					'<td>' +
 //					'<form>' + '<input type="submit" value="Obrisi" class="deleteSubmit" messageID="' + it.id + '">' + 
 //				'</form>' +
@@ -252,7 +245,7 @@ $(document).ready(function(){
 					console.log(c);
 					foundContactDiv.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
 							+ "Displayname: " + foundcontact[c].displayname + " " +
-							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+							"Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
 				}
 			}else {
 				foundContactDiv.empty();
@@ -300,7 +293,7 @@ $(document).ready(function(){
 					console.log(c);
 					foundContactDiv2.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
 							+ "Displayname: " + foundcontact[c].displayname + " " +
-							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+							"Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
 				}
 			}else {
 				foundContactDiv2.empty();
@@ -348,7 +341,7 @@ $(document).ready(function(){
 					console.log(c);
 					foundContactDiv3.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
 							+ "Displayname: " + foundcontact[c].displayname + " " +
-							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+							"Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
 				}
 			}else {
 				foundContactDiv3.empty();
@@ -395,7 +388,7 @@ $(document).ready(function(){
 					console.log(c);
 					foundContactDiv4.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
 							+ "Displayname: " + foundcontact[c].displayname + " " +
-							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+							"Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
 				}
 			}else {
 				foundContactDiv4.empty();
@@ -452,7 +445,7 @@ $(document).ready(function(){
 					console.log(c);
 					foundContactDiv5.append("Firstname: " + foundcontact[c].firstname + " " + "Lastname: " + foundcontact[c].lastname + " " 
 							+ "Displayname: " + foundcontact[c].displayname + " " +
-							"Email: " + foundcontact[c].email + " " + "Note: " +foundcontact[c].note + " ")
+							"Email: " + foundcontact[c].email + " " + "Note: " + foundcontact[c].note + " ")
 				}
 			}else {
 				foundContactDiv5.empty();

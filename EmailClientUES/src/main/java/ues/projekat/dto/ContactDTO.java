@@ -14,6 +14,7 @@ public class ContactDTO implements Serializable {
 	private String displayname;
 	private String email;
 	private String note;
+	//private User user;
 	private Photo contactPhoto;
 	
 	public ContactDTO() {
@@ -29,6 +30,7 @@ public class ContactDTO implements Serializable {
 		this.displayname = displayname;
 		this.email = email;
 		this.note = note;
+		//this.user = user;
 		this.contactPhoto = contactPhoto;
 	}
 	
@@ -39,6 +41,7 @@ public class ContactDTO implements Serializable {
 		this.displayname = contact.getDisplayname();
 		this.email = contact.getEmail();
 		this.note = contact.getNote();
+		//this.user = contact.getUser();
 		this.contactPhoto = contact.getContactPhoto();
 	}
 
@@ -97,5 +100,13 @@ public class ContactDTO implements Serializable {
 	public void setContactPhoto(Photo contactPhoto) {
 		this.contactPhoto = contactPhoto;
 	}
+
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 	
 }

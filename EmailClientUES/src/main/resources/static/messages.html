@@ -19,82 +19,82 @@
 			<th><a>Subject</a></th>
 			<th><a>Content</a></th>
 			<th><a>Unread</a></th>
-			<th><a>Account</a></th>
-			<th><a>Folder</a></th>
+<!-- 			<th><a>Account</a></th> -->
+<!-- 			<th><a>Folder</a></th> -->
 			<th><a>Tags</a></th>
 			<th><a>Attachments</a></th>
 			<th/>
 		</tr>
 	</table>
-	
-	<h3>Search Messages</h3>
-	<div id="search">
-	<input class="form-control" type="text" id="searchInput">
-	<button id="searchButton">Search</button>
-	<br>
-	</div>
-	<div id="messages"></div>
-	
-	
-	<h3>FuzzyQuery Search</h3>
-	<select class="custom-select" id="fuzzySearchDropdown">
-		<option value="messageFrom">From</option>
-		<option value="messageTo">To</option>
-		<option value="messageBcc">Bcc</option>
-		<option value="content">Content</option>
-		<option value="subject">Subject</option>
-		<option value="folder">Folder</option>
-		<option value="accounts">Email account</option>
-		</select> <input class="form-control" type="text" id="searchFuzzyInput">
-	<button class="btn btn-dark" id="searchFuzzyButton">Search</button>
-					
-	<div id="resultFuzzyMessages"></div>
-	
 
-	<h3>BooleanQuery</h3>
-	<select class="custom-select" id="booleanSearchDropdown1">
-		<option value="messageFrom">From</option>
-		<option value="messageTo">To</option>
-		<option value="messageBcc">Bcc</option>
-		<option value="content">Content</option>
-		<option value="subject">Subject</option>
-		<option value="folder">Folder</option>
-		<option value="accounts">Email account</option>
-		</select> <input class="form-control" type="text" id="searchBooleanInput1">
-		<br> <select class="custom-select" id="booleanSearchOption">
-		<option value="AND">AND</option>
-		<option value="OR">OR</option>
-		</select> 
-		<br> <br> 
-		<select class="custom-select"id="booleanSearchDropdown2">
-			<option value="messageFrom">From</option>
-			<option value="messageTo">To</option>
-			<option value="messageBcc">Bcc</option>
-			<option value="content">Content</option>
-			<option value="subject">Subject</option>
-			<option value="folder">Folder</option>
-			<option value="accounts">Email account</option>
-			</select> <input class="form-control" type="text" id="searchBooleanInput2">
-			<button class="btn btn-dark" id="searchBooleanButton">Search</button>
-			
-		<div id="resultBooleanMessages"></div>
-	
-	
-		
-		<h3>Phrase Query</h3>
-		<select class="custom-select" id="phraseSearchDropdown">
-		<option value="messageFrom">From</option>
-		<option value="messageTo">To</option>
-		<option value="messageBcc">Bcc</option>
-		<option value="content">Content</option>
-		<option value="subject">Subject</option>
-		<option value="folder">Folder</option>
-		<option value="accounts">Email account</option>
-		</select> <input class="form-control" type="text" id="searchPhraseInput">
-		<button class="btn btn-dark" id="searchPhraseButton">Search</button>
-		
-		<div id="resultPhraseMessages"></div>
-	
+
+<h3>Regular Search</h3>
+<input type="text" id="regularSearchInput">
+<button id="searchRegularButtonMessages">search</button>
+<div id="foundMessageDiv"></div>
+
+<h3>Search FuzzyQuery</h3>
+<select id="fuzzyDropMessages">
+<option value="from">From</option>
+<option value="to">To</option>
+<option value="cc">CC</option>
+<option value="bcc">BCC</option>
+<option value="subject">Subject</option>
+<option value="content">Content</option>
+</select><input type="text" id="fuzzySearchInput">
+<button id="searchFuzzyButtonMessages">search</button>
+<div id="foundMessageDiv2"></div>
+
+<h3>Search BooleanQuery</h3>
+<select id="boolDropMessages1">
+<option value="from">From</option>
+<option value="to">To</option>
+<option value="cc">CC</option>
+<option value="bcc">BCC</option>
+<option value="subject">Subject</option>
+<option value="content">Content</option>
+</select><input type="text" id="boolInput1">
+<br></br>
+<br></br>
+<select id="boolDropMessages2">
+<option value="from">From</option>
+<option value="to">To</option>
+<option value="cc">CC</option>
+<option value="bcc">BCC</option>
+<option value="subject">Subject</option>
+<option value="content">Content</option>
+</select><input type="text" id="boolInput2">
+<select id="op">
+<option value="AND">AND</option>
+<option value="OR">OR</option>
+<option value="NOT">NOT</option>
+</select>
+<button id="searchBooleanButtonMessages">search</button>
+<div id="foundMessageDiv5"></div>
+
+<h3>Search PhraseQuery</h3>
+<select id="phraseDropMessages">
+<option value="from">From</option>
+<option value="to">To</option>
+<option value="cc">CC</option>
+<option value="bcc">BCC</option>
+<option value="subject">Subject</option>
+<option value="content">Content</option>
+</select><input type="text" id="phraseInput">
+<button id="searchPhraseButtonMessages">search</button>
+<div id="foundMessageDiv3"></div>
+
+<h3>Search TermQuery</h3>
+<select id="termDropMessages">
+<option value="from">From</option>
+<option value="to">To</option>
+<option value="cc">CC</option>
+<option value="bcc">BCC</option>
+<option value="subject">Subject</option>
+<option value="content">Content</option>
+</select><input type="text" id="termInput">
+<button id="searchTermButtonMessages">search</button>
+<div id="foundMessageDiv4"></div>	
 	
 	<p><a href="add_message.html">Create new message</a></p>
 	<p><a href="edit_message.html">Edit message</a></p>

@@ -68,6 +68,7 @@ public class MessageController {
 		File dataDirMessages = new File(rb.getString("dataDirMessages"));
 		IndexerMessage.index(indexDirMessages, dataDirMessages);
 		
+		System.out.println(messagesDTO);
 		
 		return new ResponseEntity<List<MessageDTO>>(messagesDTO, HttpStatus.OK);
 	}

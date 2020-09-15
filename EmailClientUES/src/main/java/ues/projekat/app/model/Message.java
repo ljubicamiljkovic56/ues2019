@@ -99,90 +99,106 @@ public class Message implements Serializable {
 		return id;
 	}
 
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+
 
 	public String getFrom() {
 		return from;
 	}
 
+
+
 	public void setFrom(String from) {
 		this.from = from;
 	}
+
+
 
 	public String getTo() {
 		return to;
 	}
 
+
+
 	public void setTo(String to) {
 		this.to = to;
 	}
+
+
 
 	public String getCc() {
 		return cc;
 	}
 
+
+
 	public void setCc(String cc) {
 		this.cc = cc;
 	}
+
+
 
 	public String getBcc() {
 		return bcc;
 	}
 
+
+
 	public void setBcc(String bcc) {
 		this.bcc = bcc;
 	}
+
+
 
 	public Timestamp getDateTime() {
 		return dateTime;
 	}
 
+
+
 	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
+
+
 
 	public String getSubject() {
 		return subject;
 	}
 
+
+
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+
+
 
 	public String getContent() {
 		return content;
 	}
 
+
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+
 
 	public boolean isUnread() {
 		return unread;
 	}
 
+
+
 	public void setUnread(boolean unread) {
 		this.unread = unread;
-	}
-
-	public List<Tag> getMessageTags() {
-		return messageTags;
-	}
-
-	public void setMessageTags(List<Tag> messageTags) {
-		this.messageTags = messageTags;
-	}
-
-	public List<Attachment> getMessageAttachments() {
-		return messageAttachments;
-	}
-
-	
-
-	public void setMessageAttachments(List<Attachment> messageAttachments) {
-		this.messageAttachments = messageAttachments;
 	}
 
 
@@ -190,6 +206,7 @@ public class Message implements Serializable {
 	public Folder getFolder() {
 		return folder;
 	}
+
 
 
 	public void setFolder(Folder folder) {
@@ -203,9 +220,35 @@ public class Message implements Serializable {
 	}
 
 
+
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
+
+
+	public List<Tag> getMessageTags() {
+		return messageTags;
+	}
+
+
+
+	public void setMessageTags(List<Tag> messageTags) {
+		this.messageTags = messageTags;
+	}
+
+
+
+	public List<Attachment> getMessageAttachments() {
+		return messageAttachments;
+	}
+
+
+
+	public void setMessageAttachments(List<Attachment> messageAttachments) {
+		this.messageAttachments = messageAttachments;
+	}
+
 
 
 	@Override

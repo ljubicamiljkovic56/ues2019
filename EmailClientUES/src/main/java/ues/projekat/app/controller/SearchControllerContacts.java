@@ -86,16 +86,22 @@ public class SearchControllerContacts {
 				Document doc = is.doc(docId);
 				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
 				foundContactobj.setId(doc.get("contact_id"));
+				
 				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
 				foundContactobj.setDisplayname(doc.get("displayname"));
+				
 				System.out.println("\t" + "Email: " + doc.get("email"));
 				foundContactobj.setEmail(doc.get("email"));
+				
 				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
 				foundContactobj.setFirstname(doc.get("firstname"));
+				
 				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
 				foundContactobj.setLastname(doc.get("lastname"));
+				
 				System.out.println("\t" + "Note: " + doc.get("note"));
 				foundContactobj.setNote(doc.get("note"));
+				
 				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 				foundContact.add(foundContactobj);
@@ -165,18 +171,25 @@ public class SearchControllerContacts {
 			for (int i = 0; i < collector.getTotalHits(); i++) {
 				int docId = hits[i].doc;
 				Document doc = is.doc(docId);
+				
 				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
 				foundContactobj.setId(doc.get("contact_id"));
+				
 				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
 				foundContactobj.setDisplayname(doc.get("displayname"));
+				
 				System.out.println("\t" + "Email: " + doc.get("email"));
 				foundContactobj.setEmail(doc.get("email"));
+				
 				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
 				foundContactobj.setFirstname(doc.get("firstname"));
+				
 				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
 				foundContactobj.setLastname(doc.get("lastname"));
+				
 				System.out.println("\t" + "Note: " + doc.get("note"));
 				foundContactobj.setNote(doc.get("note"));
+				
 				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 				foundContact.add(foundContactobj);
@@ -230,16 +243,22 @@ public class SearchControllerContacts {
 				Document doc = is.doc(docId);
 				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
 				foundContactobj.setId(doc.get("contact_id"));
+				
 				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
 				foundContactobj.setDisplayname(doc.get("displayname"));
+				
 				System.out.println("\t" + "Email: " + doc.get("email"));
 				foundContactobj.setEmail(doc.get("email"));
+				
 				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
 				foundContactobj.setFirstname(doc.get("firstname"));
+				
 				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
 				foundContactobj.setLastname(doc.get("lastname"));
+				
 				System.out.println("\t" + "Note: " + doc.get("note"));
 				foundContactobj.setNote(doc.get("note"));
+				
 				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 				foundContact.add(foundContactobj);
@@ -296,16 +315,22 @@ public class SearchControllerContacts {
 				Document doc = is.doc(docId);
 				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
 				foundContactobj.setId(doc.get("contact_id"));
+				
 				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
 				foundContactobj.setDisplayname(doc.get("displayname"));
+				
 				System.out.println("\t" + "Email: " + doc.get("email"));
 				foundContactobj.setEmail(doc.get("email"));
+				
 				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
 				foundContactobj.setFirstname(doc.get("firstname"));
+				
 				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
 				foundContactobj.setLastname(doc.get("lastname"));
+				
 				System.out.println("\t" + "Note: " + doc.get("note"));
 				foundContactobj.setNote(doc.get("note"));
+				
 				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 				foundContact.add(foundContactobj);
@@ -365,16 +390,22 @@ public class SearchControllerContacts {
 				Document doc = is.doc(docId);
 				System.out.println("\t" + "Contact id: " + doc.get("contact_id"));
 				foundContactobj.setId(doc.get("contact_id"));
+				
 				System.out.println("\t" + "Displayname: " + doc.get("displayname"));
 				foundContactobj.setDisplayname(doc.get("displayname"));
+				
 				System.out.println("\t" + "Email: " + doc.get("email"));
 				foundContactobj.setEmail(doc.get("email"));
+				
 				System.out.println("\t" + "Firstname: " + doc.get("firstname"));
 				foundContactobj.setFirstname(doc.get("firstname"));
+				
 				System.out.println("\t" + "Lastname: " + doc.get("lastname"));
 				foundContactobj.setLastname(doc.get("lastname"));
+				
 				System.out.println("\t" + "Note: " + doc.get("note"));
 				foundContactobj.setNote(doc.get("note"));
+				
 				System.out.println("\t" + "Datum:" + " (" + doc.get("filedate") + ")");
 				System.out.println("\t" + doc.get("filename") + "\n");
 				foundContact.add(foundContactobj);
