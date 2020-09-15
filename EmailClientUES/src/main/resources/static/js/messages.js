@@ -217,7 +217,105 @@ $(document).ready(function(){
 		event.preventDefault();
 		return false;
 	});
-
+	
+	var foundMessageDiv2 = $('#foundMessageDiv2');
+	
+	$('#searchFuzzyButtonMessages').on('click', function(event) {
+		var field = $('#fuzzyDropMessages option:selected').val();
+		var word = $('#fuzzySearchInput').val();
+		
+		console.log('field: ' + field + " " + 'word: ' + word);
+		
+		var params = {
+				'field':field,
+				'word':word
+		}
+		$.post('http://localhost:8080/searchm/fuzzy/message', params, function(data) {
+			
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundmessage = data;
+			
+			console.log(foundmessage);
+			
+			if(foundMessageDiv2.text().length == 0) {
+				for(m in foundmessage) {
+					console.log(m);
+					foundMessageDiv2.append("From: " + foundmessage[m].from + " " + "To: " + foundmessage[m].to + " " +
+							"Cc: " + foundmessage[m].cc + " " + "Bcc: " + foundmessage[m].bcc + " " + "Subject: " +
+							foundmessage[m].subject + " " + "Content: " + foundmessage[m].content + " ");
+				}
+				
+			} else {
+				foundMessageDiv2.empty();
+				for(m in foundmessage) {
+					console.log(m);
+					foundMessageDiv2.append("From: " + foundmessage[m].from + " " + "To: " + foundmessage[m].to + " " +
+							"Cc: " + foundmessage[m].cc + " " + "Bcc: " + foundmessage[m].bcc + " " + "Subject: " +
+							foundmessage[m].subject + " " + "Content: " + foundmessage[m].content + " ");
+				}
+				
+			}
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+	
+	var foundMessageDiv3 = $('#foundMessageDiv3');
+	
+	$('#searchPhraseButtonMessages').on('click', function(event) {
+		
+		var field1 = $('#phraseDropMessages option:selected').val();
+		var term1 = $('#phraseInput').val();
+		
+		console.log('field1: ' + field1 + 'term1: ' + term1);
+		
+		var params = {
+			'field1': field1,
+			'term1': term1
+		}
+		$.post('http://localhost:8080/searchm/phrase/message', params, function(data) {
+			
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Searching..')
+			
+			foundmessage = data;
+			
+			console.log(foundmessage);
+			
+			if(foundMessageDiv3.text().length == 0) {
+				for(m in foundmessage) {
+					console.log(m);
+					foundMessageDiv3.append("From: " + foundmessage[m].from + " " + "To: " + foundmessage[m].to + " " +
+							"Cc: " + foundmessage[m].cc + " " + "Bcc: " + foundmessage[m].bcc + " " + "Subject: " +
+							foundmessage[m].subject + " " + "Content: " + foundmessage[m].content + " ");
+				}
+				
+			} else {
+				foundMessageDiv3.empty();
+				for(m in foundmessage) {
+					console.log(m);
+					foundMessageDiv3.append("From: " + foundmessage[m].from + " " + "To: " + foundmessage[m].to + " " +
+							"Cc: " + foundmessage[m].cc + " " + "Bcc: " + foundmessage[m].bcc + " " + "Subject: " +
+							foundmessage[m].subject + " " + "Content: " + foundmessage[m].content + " ");
+				}
+				
+			}
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+	});
+	
 	getMessages();
 	console.log('dobavljene poruke?');
 });

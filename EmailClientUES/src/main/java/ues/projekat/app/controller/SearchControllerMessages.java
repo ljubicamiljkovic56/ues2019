@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -12,7 +13,9 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
@@ -245,4 +248,139 @@ public class SearchControllerMessages {
 		
 		return new ResponseEntity<List<FoundMessage>>(foundMessage, HttpStatus.OK);
 	}
+	
+	//fuzzy pretraga
+	@PostMapping(value = "/fuzzy/message")
+	public ResponseEntity<List<FoundMessage>> fuzzySearchMessage(@RequestParam String field, @RequestParam String word) throws Exception {
+		
+		List<FoundMessage> foundMessage = new ArrayList<FoundMessage>();
+		
+		File indexDirMessages;
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDirMessages = new File(rb.getString("indexDirMessages"));
+		
+		Term t = new Term(field, word);
+		int editDis = 2;
+		FuzzyQuery query = new FuzzyQuery(t,editDis);
+		
+		System.out.println(query);
+		
+		collector = TopScoreDocCollector.create(10,true);
+		
+		try{
+			Directory fsDir = new SimpleFSDirectory(indexDirMessages);
+			DirectoryReader ireader = DirectoryReader.open(fsDir);
+			IndexSearcher is = new IndexSearcher(ireader);
+			is.search(query, collector);
+			
+			ScoreDoc[] hits = collector.topDocs().scoreDocs;
+			System.err.println("Found " + hits.length + " document(s) that matched query '" + query + "':");
+			
+			FoundMessage foundMessageobj = new FoundMessage();
+			
+			for (int i = 0; i < collector.getTotalHits(); i++) {
+				int docId = hits[i].doc;
+				Document doc = is.doc(docId);
+				System.out.println("\t" + "Message id: " + doc.get("message_id"));
+				foundMessageobj.setId(doc.get("message_id"));
+				
+				System.out.println("\t" + "From: " + doc.get("from"));
+				foundMessageobj.setFrom(doc.get("from"));
+				
+				System.out.println("\t" + "To: " + doc.get("to"));
+				foundMessageobj.setTo(doc.get("to"));
+				
+				System.out.println("\t" + "CC: " + doc.get("cc"));
+				foundMessageobj.setCc(doc.get("cc"));
+				
+				System.out.println("\t" + "BCC: " + doc.get("bcc"));
+				foundMessageobj.setBcc(doc.get("bcc"));
+				
+				System.out.println("\t" + "Subject: " + doc.get("subject"));
+				foundMessageobj.setSubject(doc.get("subject"));
+				
+				System.out.println("\t" + "Content: " + doc.get("content"));
+				foundMessageobj.setContent(doc.get("content"));
+				
+				System.out.println("\t" + "Datum: " + " (" + doc.get("filedate") + ")");
+				System.out.println("\t" + doc.get("filename") + "\n");
+				foundMessage.add(foundMessageobj);
+			}
+		}catch(IOException ioe){
+			System.out.println(ioe.getMessage());
+		}
+		
+		return new ResponseEntity<List<FoundMessage>>(foundMessage,HttpStatus.OK);
+		
+	}
+	
+	//phrase pretraga
+	@PostMapping(value = "/phrase/message")
+	public ResponseEntity<List<FoundMessage>> phraseSearchMessage(@RequestParam String field1, @RequestParam String term1) throws Exception {
+		
+		List<FoundMessage> foundMessage = new ArrayList<FoundMessage>();
+		
+		File indexDirMessages;
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDirMessages = new File(rb.getString("indexDirMessages"));
+		
+		PhraseQuery query = new PhraseQuery();
+		
+		query.setSlop(1);
+		
+		StringTokenizer st = new StringTokenizer(term1);
+		while(st.hasMoreTokens()){
+			query.add(new Term(field1,st.nextToken()));
+		}
+		
+		System.out.println(query);
+		
+		collector = TopScoreDocCollector.create(10,true);
+		
+		try{
+			Directory fsDir = new SimpleFSDirectory(indexDirMessages);
+			DirectoryReader ireader = DirectoryReader.open(fsDir);
+			IndexSearcher is = new IndexSearcher(ireader);
+			is.search(query, collector);
+			
+			ScoreDoc[] hits = collector.topDocs().scoreDocs;
+			System.err.println("Found " + hits.length + " document(s) that matched query '" + query + "':");
+			
+			FoundMessage foundMessageobj = new FoundMessage();
+			
+			for (int i = 0; i < collector.getTotalHits(); i++) {
+				int docId = hits[i].doc;
+				Document doc = is.doc(docId);
+				System.out.println("\t" + "Message id: " + doc.get("message_id"));
+				foundMessageobj.setId(doc.get("message_id"));
+				
+				System.out.println("\t" + "From: " + doc.get("from"));
+				foundMessageobj.setFrom(doc.get("from"));
+				
+				System.out.println("\t" + "To: " + doc.get("to"));
+				foundMessageobj.setTo(doc.get("to"));
+				
+				System.out.println("\t" + "CC: " + doc.get("cc"));
+				foundMessageobj.setCc(doc.get("cc"));
+				
+				System.out.println("\t" + "BCC: " + doc.get("bcc"));
+				foundMessageobj.setBcc(doc.get("bcc"));
+				
+				System.out.println("\t" + "Subject: " + doc.get("subject"));
+				foundMessageobj.setSubject(doc.get("subject"));
+				
+				System.out.println("\t" + "Content: " + doc.get("content"));
+				foundMessageobj.setContent(doc.get("content"));
+				
+				System.out.println("\t" + "Datum: " + " (" + doc.get("filedate") + ")");
+				System.out.println("\t" + doc.get("filename") + "\n");
+				foundMessage.add(foundMessageobj);
+			}
+		}catch(IOException ioe){
+			System.out.println(ioe.getMessage());
+		}
+		
+		return new ResponseEntity<List<FoundMessage>>(foundMessage,HttpStatus.OK);
+	}
+	
 }
