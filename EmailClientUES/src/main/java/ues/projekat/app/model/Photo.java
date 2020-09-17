@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -27,7 +28,7 @@ public class Photo implements Serializable {
 	@Column(name = "path")
 	private String path;
 	
-	 @ManyToOne
+	 @OneToOne
 	 @JoinColumn(name="contact_id", referencedColumnName="contact_id", nullable=true)
 	 private Contact contact;
 	

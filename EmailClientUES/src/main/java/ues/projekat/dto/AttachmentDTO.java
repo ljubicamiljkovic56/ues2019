@@ -3,6 +3,7 @@ package ues.projekat.dto;
 import java.io.Serializable;
 
 import ues.projekat.app.model.Attachment;
+import ues.projekat.app.model.Message;
 
 @SuppressWarnings("serial")
 public class AttachmentDTO implements Serializable {
@@ -11,17 +12,19 @@ public class AttachmentDTO implements Serializable {
 	private String path;
 	private String mimeType;
 	private String name;
+	private Message message_id;
 	
 	public AttachmentDTO() {
 		super();
 	}
 	
-	public AttachmentDTO(Long id, String path, String mimeType, String name) {
+	public AttachmentDTO(Long id, String path, String mimeType, String name, Message message_id) {
 		super();
 		this.id = id;
 		this.path = path;
 		this.mimeType = mimeType;
 		this.name = name;
+		this.message_id = message_id;
 	}
 	
 	public AttachmentDTO(Attachment attachment) {
@@ -29,6 +32,7 @@ public class AttachmentDTO implements Serializable {
 		this.path = attachment.getPath();
 		this.mimeType = attachment.getMimeType();
 		this.name = attachment.getName();
+		this.message_id = attachment.getMessage();
 	}
 	
 	
@@ -56,5 +60,21 @@ public class AttachmentDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+//	public String getMessage_id() {
+//		return message_id;
+//	}
+//
+//	public void setMessage_id(String message_id) {
+//		this.message_id = message_id;
+//	}
+
+//	public Message getMessage_id() {
+//		return message_id;
+//	}
+//
+//	public void setMessage_id(Message message_id) {
+//		this.message_id = message_id;
+//	}
 	
 }

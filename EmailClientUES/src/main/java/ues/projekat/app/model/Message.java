@@ -60,7 +60,7 @@ public class Message implements Serializable {
 	 private Account account;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//@JoinColumn(name = "message_tags", referencedColumnName = "tag_id", nullable = true)
+	//@JoinColumn(name = "tag_id", referencedColumnName = "tag_id", nullable = true)
 	private List<Tag> messageTags;
 	
 	

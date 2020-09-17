@@ -21,14 +21,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ues.projekat.app.model.Account;
+import ues.projekat.app.model.Attachment;
 import ues.projekat.app.model.Message;
 import ues.projekat.app.model.User;
+import ues.projekat.dto.AttachmentDTO;
 import ues.projekat.dto.MessageDTO;
 import ues.projekat.service.intrfc.AccountServiceInterface;
-
+import ues.projekat.service.intrfc.AttachmentServiceInterface;
 import ues.projekat.service.intrfc.FolderServiceInterface;
 import ues.projekat.service.intrfc.MessageServiceInterface;
 import ues.projekat.service.intrfc.UserServiceInterface;
+import ues.projekat.y.search.indexing.IndexerAttachments;
 import ues.projekat.y.search.indexing.IndexerMessage;
 
 @RestController
@@ -200,6 +203,30 @@ public class MessageController {
 
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}		
+		
+	}
+	
+	@Autowired
+	private AttachmentServiceInterface attachmentServiceInterface;
+	
+	@GetMapping(value = "/getattach")
+	public ResponseEntity<List<AttachmentDTO>> getAttachments() throws IOException {
+		List<Attachment> attachments = attachmentServiceInterface.findAll();
+		
+		if(attachments == null) {
+			return new ResponseEntity<List<AttachmentDTO>>(HttpStatus.NOT_FOUND);
+		}
+		List<AttachmentDTO> attachDTO = new ArrayList<AttachmentDTO>();
+		for(Attachment a : attachments) {
+			attachDTO.add(new AttachmentDTO(a));
+		}
+		
+		Directory indexDirAttach;
+		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+		indexDirAttach = new SimpleFSDirectory(new File(rb.getString("indexDirAttach")));
+		File dataDirAttach = new File(rb.getString("dataDirAttach"));
+		IndexerAttachments.index(indexDirAttach, dataDirAttach);
+		return new ResponseEntity<List<AttachmentDTO>>(attachDTO, HttpStatus.OK);
 		
 	}
 }

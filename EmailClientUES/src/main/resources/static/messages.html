@@ -84,18 +84,25 @@
 <button id="searchPhraseButtonMessages">search</button>
 <div id="foundMessageDiv3"></div>
 
-<h3>Search TermQuery</h3>
-<select id="termDropMessages">
-<option value="from">From</option>
-<option value="to">To</option>
-<option value="cc">CC</option>
-<option value="bcc">BCC</option>
-<option value="subject">Subject</option>
-<option value="content">Content</option>
-</select><input type="text" id="termInput">
-<button id="searchTermButtonMessages">search</button>
-<div id="foundMessageDiv4"></div>	
-	
+<br> 
+<h3>Attachments</h3>
+<table border="1" id="attachsTable">
+	<tr bgcolor="lightblue">
+		<th>Mime type</th>
+		<th>Name</th>
+		<th>Path</th>
+		<th>Message_id</th>
+	</tr>
+</table>
+
+<h3>Search Attachments TermQuery</h3>
+<select id="termDropAttachs">
+<option value="mime_type">Mime Type</option>
+<option value="name">Name</option>
+</select><input type="text" id="termAttachInput">
+<button id="searchTermButtonAttachs">search</button>
+<div id="foundAttachDiv"></div>	
+
 	<p><a href="add_message.html">Create new message</a></p>
 	<p><a href="edit_message.html">Edit message</a></p>
 	<p><a href="message.html">Message details</a></p>

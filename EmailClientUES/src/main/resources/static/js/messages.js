@@ -2,6 +2,10 @@ var messages = []
 
 var foundmessage = []
 
+var attach = []
+
+var foundattach = []
+
 $(document).ready(function(){
 	var messagesTable = $('#messagesTable');
 	
@@ -315,7 +319,88 @@ $(document).ready(function(){
 		return false;
 		
 	});
+	var attachsTable = $('#attachsTable');
+	
+	
+	function getAttachments(){
+		$.get("http://localhost:8080/api/attachments/getattach", function(data){
+				console.log(data);
+				
+				attach = data;
+				
+				populateTableAttach(attach);	
+
+			});
+		}
+		
+		function populateTableAttach(attachsForTable){
+			
+			console.log('tabela attachmenti?')
+			
+			for(it of attachsForTable){
+				console.log(attachsForTable)
+				attachsTable.append(
+					'<tr>' + 
+						'<td>' + it.mimeType + '</td>' +
+						'<td>' + it.name + '</td>' + 
+						'<td>' + it.path + '</td>' +
+						'<td>' + it.message_id + '</td>' +
+						'<td>' +
+					'</td>' + 
+						'<td>' +
+						'</td>' + 
+					'</tr>'
+				)
+			}
+		};
+		
+		var foundAttachDiv = $('#foundAttachDiv');
+		
+		$('#searchTermButtonAttachs').on('click', function(event) {
+			var field1 = $('#termDropAttachs option:selected').val();
+			var term1 = $('#termAttachInput').val();
+			
+			console.log('field1: ' + field1 + 'term1: ' + term1);
+			
+			var params = {
+				'field1': field1,
+				'term1': term1
+			}
+			$.post('http://localhost:8080/searchattach/term/attach', params, function(data) {
+				
+				console.log('ispis...')
+				console.log(data);
+				
+				alert('Searching..')
+				
+				foundattach = data;
+				
+				console.log(foundattach);
+				
+				if(foundAttachDiv.text().length == 0) {
+					for(a in foundattach) {
+						console.log(a);
+						foundAttachDiv.append("Attach id: " + foundattach[a].id + " " + 
+								"Mime type: " + foundattach[a].mimetype + " " + 
+								"Name: " + foundattach[a].name + " " + "Path: " + foundattach[a].path + " ");
+					}
+					
+				} else {
+					foundAttachDiv.empty();
+					for(a in foundattach) {
+						console.log(a);
+						foundAttachDiv.append("Attach id: " + foundattach[a].id + " " + 
+								"Mime type: " + foundattach[a].mimetype + " " + 
+								"Name: " + foundattach[a].name + " " + "Path: " + foundattach[a].path + " ");
+					}
+					
+				}
+				
+			});
+			
+		});
 	
 	getMessages();
+	getAttachments();
 	console.log('dobavljene poruke?');
 });

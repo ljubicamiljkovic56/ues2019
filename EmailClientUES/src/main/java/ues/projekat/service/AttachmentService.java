@@ -1,5 +1,7 @@
 package ues.projekat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class AttachmentService implements AttachmentServiceInterface {
 	@Override
 	public Attachment save(Attachment attachment) {
 		return attachmentRepository.save(attachment);
+	}
+
+	@Override
+	public List<Attachment> findAll() {
+		return attachmentRepository.findAll();
 	}
 
 }
