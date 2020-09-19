@@ -33,10 +33,10 @@ INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, i
 INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress4', 33, 44, 'inserverAddress4', 127, 'ana@gmail.com', 'ana', 'ana@gmail.com', 3);
 
 
-INSERT INTO photos(photo_id,path,contact_id) VALUES (1, 'C:/Pictures/oasis.jpg', 4);
-INSERT INTO photos(photo_id,path,contact_id) VALUES (2, 'C:/Pictures/cat.jpg', 5);
-INSERT INTO photos(photo_id,path,contact_id) VALUES (3, 'C:/Pictures/sea.jpg', 6);
-INSERT INTO photos(photo_id,path,contact_id) VALUES (4, 'C:/Pictures/blue wave.jpg', 1);
+INSERT INTO photos(photo_id,path,contact_id) VALUES (1, 'C:\\Pictures\\oasis.jpg', 4);
+INSERT INTO photos(photo_id,path,contact_id) VALUES (2, 'C:\\Pictures\\cat.jpg', 5);
+INSERT INTO photos(photo_id,path,contact_id) VALUES (3, 'C:\\Pictures\\sea.jpg', 6);
+INSERT INTO photos(photo_id,path,contact_id) VALUES (4, 'C:\\Pictures\\blue wave.jpg', 1);
 
 
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Antić', 'Ana', 'ana@gmail.com', 'anticeva', 1, 1);
@@ -73,9 +73,9 @@ INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_su
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'verica@ptt.rs', ' ', ' ', '2020-09-14 11:30:00', 'text fajl', 'importsql.txt', true, 4, 3);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'milos.zikic@yahoo.com', 'pera@gmail.com', ' ', '2020-09-15 16:50:12', 'cat', 'cat.jpg', false, 6, 3);
 
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs','text', 'Zadatak', 2);
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs/oasis.jpg','jpg', 'Slika', 3);
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs/OSSSIT Raspored casova','pdf', 'Raspored', 4);
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs/importsql.txt','text', 'importsql text file', 5);
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs/cat.jpg','jpg', 'Cat', 6);
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:/Users/Ljubica/Downloads/attachs/blue wave.jpg','jpg', 'Wave', 3);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs','text', 'Zadatak', 2);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\oasis.jpg','jpg', 'Slika', 3);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\OSSSIT Raspored casova','pdf', 'Raspored', 4);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\importsql.txt','text', 'importsql text file', 5);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\cat.jpg','jpg', 'Cat', 6);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\blue wave.jpg','jpg', 'Wave', 3);

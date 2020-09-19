@@ -6,6 +6,8 @@ var attach = []
 
 var foundattach = []
 
+var foundpdf =[]
+
 $(document).ready(function(){
 	var messagesTable = $('#messagesTable');
 	
@@ -397,9 +399,60 @@ $(document).ready(function(){
 				}
 				
 			});
+			console.log('slanje poruke');
+			event.preventDefault();
+			return false;
+			
 			
 		});
 	
+		var regularSearchPdfInput = $('#regularSearchPdfInput');
+		
+		var foundPdfDiv = $('#foundPdfDiv');
+		
+		$('#searchRegularButtonPdf').on('click', function(event) {
+			var regularSearchPdf = regularSearchPdfInput.val();
+
+			console.log('regularSearchPdf: ' + regularSearchPdf);
+
+			
+			var params = {
+				'regularSearchPdf': regularSearchPdf
+			}
+			$.post('http://localhost:8080/searchattach/regular/pdf', params, function(data) {
+				console.log('ispis...')
+				console.log(data);
+				
+				alert('Searching..')
+				
+				foundpdf = data;
+				
+				console.log(foundpdf);
+				
+				if(foundPdfDiv.text().length == 0) {
+					for(p in foundpdf) {
+						console.log(p);
+						foundPdfDiv.append("Name: " + foundpdf[p].name + " ");
+					}
+					
+				} else {
+					foundPdfDiv.empty();
+					for(p in foundpdf) {
+						console.log(p);
+						foundPdfDiv.append("Name: " + foundpdf[p].name + " ");
+					}
+					
+				}
+				
+				
+			});
+			console.log('slanje poruke');
+			event.preventDefault();
+			return false;
+			
+		});
+		
+		
 	getMessages();
 	getAttachments();
 	console.log('dobavljene poruke?');

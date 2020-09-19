@@ -119,8 +119,8 @@ public class EmailController {
 		attachment.setPath("C:\\Users\\Ljubica\\git\\ues2019\\EmailClientUES\\attach\\oasis.jpg");
 		attachment.setMimeType(".jpg");
 		
-		ArrayList<Attachment> messsageAttach = new ArrayList<Attachment>() ;
-		messsageAttach.add(attachment);
+		ArrayList<Attachment> messageAttach = new ArrayList<Attachment>() ;
+		messageAttach.add(attachment);
 		
 		
 		message.setFrom(username);
@@ -138,6 +138,7 @@ public class EmailController {
 		
 		
 		messageServiceInterface.save(message);
+		attachmentServiceInterface.save(attachment);
 		
 		System.out.println("Dodat je mejl u bazu.");
 		
@@ -258,7 +259,7 @@ public class EmailController {
 			      attachment.setMessage(message1);
 			      attachment.setMimeType(message.getContentType().toString());
 			      attachment.setName(attachFiles);
-			      attachment.setPath("C://Users//Ljubica//Downloads//attachs");
+			      attachment.setPath("C:\\Users\\Ljubica\\Downloads\\attachs");
 			      
 			      attachmentServiceInterface.save(attachment);
 			      

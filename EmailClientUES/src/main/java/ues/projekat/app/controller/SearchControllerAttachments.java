@@ -6,16 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.SimpleFSDirectory;
+import org.apache.lucene.util.Version;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ues.projekat.y.search.indexing.SearcherForPdf;
+import ues.projekat.y.search.misc.SerbianAnalyzer;
 import ues.projekat.y.search.model.FoundAttachment;
+import ues.projekat.y.search.model.FoundPdfFile;
 
 @RestController
 @RequestMapping("/searchattach")
@@ -94,4 +105,50 @@ public class SearchControllerAttachments {
 		return new ResponseEntity<List<FoundAttachment>>(foundAttachment,HttpStatus.OK);
 	}
 
+	//pretraga indeksiranih pdf fajlova
+	@SuppressWarnings("deprecation")
+	@PostMapping(value = "/regular/pdf")
+	public ResponseEntity<List<FoundPdfFile>> searchPdf(@RequestParam String regularSearchPdf) throws Exception {
+		
+		List<FoundPdfFile> foundPdf = new ArrayList<FoundPdfFile>();
+		
+		File indexDirPdf;
+		try {
+        	ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
+            indexDirPdf = new File(rb.getString("indexDirPdf"));
+            Directory index = FSDirectory.open(indexDirPdf);
+            IndexReader reader = DirectoryReader.open(index);
+            IndexSearcher searcher = new IndexSearcher(reader);
+            Analyzer analyzer1 = new StandardAnalyzer(Version.LUCENE_40);
+            QueryParser queryParser = new QueryParser(Version.LUCENE_40, "content", analyzer1);
+            QueryParser queryParserfilename = new QueryParser(Version.LUCENE_40, "fullpath", analyzer1);
+            Query query = queryParser.parse(regularSearchPdf);//to search in the content
+            Query queryfilename = queryParserfilename.parse(regularSearchPdf);//to search the file name only        
+            TopDocs hits = searcher.search(query, 1000); //for 
+            ScoreDoc[] document = hits.scoreDocs;
+            System.out.println("Total no of hits for content: " + hits.totalHits);
+
+            FoundPdfFile foundPdfObj = new FoundPdfFile();
+            
+            for (int i = 0; i < document.length; i++) {
+                Document doc = searcher.doc(document[i].doc);
+                String filePath = doc.get("fullpath");
+                foundPdfObj.setName(doc.get("fullpath"));
+                System.out.println(filePath);
+                foundPdf.add(foundPdfObj);
+            }
+
+            TopDocs hitfilename = searcher.search(queryfilename, 100);//for filename      
+            System.out.println("Total no of hits according to file name: " + hitfilename.totalHits);
+            ScoreDoc[] documentfilename = hitfilename.scoreDocs;
+            for (int i = 0; i < documentfilename.length; i++) {
+                Document doc = searcher.doc(documentfilename[i].doc);
+                String filePath = doc.get("fullpath");
+                System.out.println(filePath);
+            }
+        } catch (Exception e) {
+        }
+		
+		return new ResponseEntity<List<FoundPdfFile>>(foundPdf,HttpStatus.OK);
+	}
 }

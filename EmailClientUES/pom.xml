@@ -157,7 +157,28 @@
 		    <artifactId>pdfbox</artifactId>
 		    <version>1.7.1</version>
 		</dependency>
+		
+	<dependency>
+    	<groupId>org.apache.pdfbox</groupId>
+    	<artifactId>fontbox</artifactId>
+    	<version>1.7.1</version>
+	</dependency>
+		
+		
+<!-- 	<dependency> -->
+<!--     	<groupId>org.apache.pdfbox</groupId> -->
+<!--     	<artifactId>pdfbox</artifactId> -->
+<!--     	<version>0.8.0-incubating</version> -->
+<!-- 	</dependency> -->
+	
+<!-- 	<dependency> -->
+<!--   		<groupId>com.snowtide</groupId> -->
+<!--   		<artifactId>lucene-pdf</artifactId> -->
+<!--   		<version>3.0.0</version> -->
+<!-- 	</dependency> -->
+	
 	</dependencies>
+
 	
 	        
 	<build>
