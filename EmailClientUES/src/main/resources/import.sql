@@ -39,12 +39,12 @@ INSERT INTO photos(photo_id,path,contact_id) VALUES (3, 'C:\\Pictures\\sea.jpg',
 INSERT INTO photos(photo_id,path,contact_id) VALUES (4, 'C:\\Pictures\\blue wave.jpg', 1);
 
 
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Antić', 'Ana', 'ana@gmail.com', 'anticeva', 1, 1);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Antić', 'Ana', 'ana@gmail.com', 'anticeva', 1, null);
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Aca', 'Acić', 'Aca', 'aca@yahoo.com', 'aca', 1, null);
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Mile', 'Milić', 'Mile', 'mile@gmail.com', 'mile skolski', 2, null);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Mitić', 'AMitić', 'mitic.ana@gmail.com', 'miticeva', 2, 1);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Верица','Крстић', 'В.Крстић', 'verica@ptt.rs', 'verica 2.mejl', 3, 2);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Милош','Жикић', 'Милош Ж.', 'milos.zikic@yahoo.com', 'милош миша жикић', 3, 3);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Mitić', 'AMitić', 'mitic.ana@gmail.com', 'miticeva', 2, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Верица','Крстић', 'В.Крстић', 'verica@ptt.rs', 'verica 2.mejl', 3, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Милош','Жикић', 'Милош Ж.', 'milos.zikic@yahoo.com', 'милош миша жикић', 3, null);
 
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 1', null, 1);
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 2', 1, 3);

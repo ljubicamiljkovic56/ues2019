@@ -7,6 +7,8 @@ import ues.projekat.app.model.Attachment;
 public interface AttachmentServiceInterface {
 
 	Attachment save(Attachment attachment);
-
+	
+	
+	
 	List<Attachment> findAll();
 }

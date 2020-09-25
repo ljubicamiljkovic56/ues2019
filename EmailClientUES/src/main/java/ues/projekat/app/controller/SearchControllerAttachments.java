@@ -12,7 +12,6 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -32,8 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ues.projekat.y.search.indexing.SearcherForPdf;
-import ues.projekat.y.search.misc.SerbianAnalyzer;
 import ues.projekat.y.search.model.FoundAttachment;
 import ues.projekat.y.search.model.FoundPdfFile;
 
@@ -85,8 +82,8 @@ public class SearchControllerAttachments {
 				System.out.println("\t" + "Attachment id: " + doc.get("attachment_id"));
 				foundAttachmentobj.setId(doc.get("attachment_id"));
 				
-				System.out.println("\t" + "Mime type: " + doc.get("mimetype"));
-				foundAttachmentobj.setMimetype(doc.get("mimetype"));
+				System.out.println("\t" + "Mime type: " + doc.get("mime_type"));
+				foundAttachmentobj.setMimetype(doc.get("mime_type"));
 				
 				System.out.println("\t" + "Name: " + doc.get("name"));
 				foundAttachmentobj.setName(doc.get("name"));

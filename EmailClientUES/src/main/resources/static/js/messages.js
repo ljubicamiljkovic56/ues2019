@@ -51,23 +51,6 @@ $(document).ready(function(){
 		}
 	};
 	
-//	messagesTable.on('click', 'input.deleteSubmit', function(event){
-//		alert('Brisem...');
-//		var messageID = $(this).attr('messageID');
-//		console.log('messageID: ' + messageID);		
-//		params = {
-//				'id': messageID
-//		};
-//		console.log(params);
-//		$.post("http://localhost:8080/api/messages/{id}", params,function(data){
-//		
-//			alert('Obrisana poruka')
-//			window.location.replace('messages.html');
-//			
-//		});
-//		event.preventDefault();
-//		return false;
-//	});
 	
 	var regularSearchInput = $('#regularSearchInput');
 	

@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -39,6 +41,10 @@ public class User implements Serializable {
 //	@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "user")
 //	//@JoinColumn(name = "user_contacts", referencedColumnName = "contact_id", nullable = true)
 //	private List<Contact> userContacts = new ArrayList<Contact>();
+	
+//	@OneToOne
+//	@JoinColumn(name="contact_id", referencedColumnName="contact_id", nullable=false)
+//	private Contact contact;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "user_tags", referencedColumnName = "tag_id", nullable = true)

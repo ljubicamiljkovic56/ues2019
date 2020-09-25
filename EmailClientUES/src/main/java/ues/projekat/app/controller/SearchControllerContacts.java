@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import ues.projekat.y.search.misc.SerbianAnalyzer;
 import ues.projekat.y.search.model.FoundContact;
@@ -116,13 +116,16 @@ public class SearchControllerContacts {
 	//boolean pretraga (and, or, not)
 	@PostMapping(value = "/boolean/contact")
 	public ResponseEntity<List<FoundContact>> booleanSearchContact(@RequestParam String field1, @RequestParam String term1, 
-			@RequestParam String field2, @RequestParam String term2, @RequestParam String op) throws IOException {
+			@RequestParam String field2, @RequestParam String term2, @RequestParam String op) throws IOException, ParseException {
 		
 		List<FoundContact> foundContact = new ArrayList<FoundContact>();
 		
 		File indexDir;
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDir = new File(rb.getString("indexDir"));
+		
+		//CyrillicLatinConverter converter = new CyrillicLatinConverter();
+		
 		
 		TermQuery query1 = new TermQuery(new Term(field1,term1));
 		TermQuery query2 =  new TermQuery(new Term(field2,term2));

@@ -119,7 +119,7 @@ public class IndexerAttachments {
 			while (rs.next()) {
 				Document doc = new Document();
 				doc.add(new TextField("attachment_id", rs.getString("attachment_id"), Store.YES));
-				doc.add(new TextField("mimetype", rs.getString("mime_type"), Store.YES));
+				doc.add(new TextField("mime_type", rs.getString("mime_type"), Store.YES));
 				doc.add(new TextField("name", rs.getString("name"), Store.YES));
 				doc.add(new TextField("path", rs.getString("path"), Store.YES)); 
 				String modificationDate = DateTools.dateToString(new Date(f.lastModified()), DateTools.Resolution.DAY);

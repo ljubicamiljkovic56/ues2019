@@ -1,5 +1,6 @@
 package ues.projekat.y.search.misc;
 
+
 public class CyrillicLatinConverter {
 	
 	public static String cir2lat(String text) {

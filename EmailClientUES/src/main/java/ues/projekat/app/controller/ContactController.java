@@ -116,7 +116,7 @@ public class ContactController {
 		System.out.println("Display name: " + displayname);
 		System.out.println("Email: " + email);
 		System.out.println("Note: " + note);
-		//System.out.println("Photo: " + photo);
+		//System.out.println("Photo: " + );
 		
 		Contact contact = new Contact();
 		contact.setFirstname(firstname);
@@ -124,8 +124,9 @@ public class ContactController {
 		contact.setDisplayname(displayname);
 		contact.setEmail(email);
 		contact.setNote(note);
-		contact.setContactPhoto(null);
 		contact.setUser(user);
+		contact.setContactPhoto(null);
+		
 		
 		contactServiceInterface.save(contact);
 		

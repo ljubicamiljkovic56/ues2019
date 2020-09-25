@@ -214,7 +214,7 @@ public class MessageController {
 	
 		
 		if (message != null) {
-	
+			
 			
 			messageServiceInterface.remove(message.getId());
 			

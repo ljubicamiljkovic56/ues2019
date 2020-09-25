@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import ues.projekat.app.model.Contact;
 import ues.projekat.app.model.Photo;
+import ues.projekat.app.model.User;
 
 @SuppressWarnings("serial")
 public class ContactDTO implements Serializable {
@@ -14,7 +15,7 @@ public class ContactDTO implements Serializable {
 	private String displayname;
 	private String email;
 	private String note;
-	//private User user;
+	private User user;
 	private Photo contactPhoto;
 	
 	public ContactDTO() {
@@ -108,5 +109,5 @@ public class ContactDTO implements Serializable {
 //	public void setUser(User user) {
 //		this.user = user;
 //	}
-	
+//	
 }
