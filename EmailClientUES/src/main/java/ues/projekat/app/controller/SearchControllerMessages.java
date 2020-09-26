@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ues.projekat.y.search.misc.CyrillicLatinConverter;
 import ues.projekat.y.search.misc.SerbianAnalyzer;
 import ues.projekat.y.search.model.FoundMessage;
 
@@ -119,8 +120,8 @@ public class SearchControllerMessages {
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDirMessages = new File(rb.getString("indexDirMessages"));
 		
-		TermQuery query1 = new TermQuery(new Term(field1,term1));
-		TermQuery query2 = new TermQuery(new Term(field2,term2));
+		TermQuery query1 = new TermQuery(new Term(field1,CyrillicLatinConverter.cir2lat(term1).toLowerCase()));
+		TermQuery query2 = new TermQuery(new Term(field2,CyrillicLatinConverter.cir2lat(term2).toLowerCase()));
 
 		BooleanQuery bq = new BooleanQuery();
 		if(op.equalsIgnoreCase("AND")){
@@ -196,7 +197,7 @@ public class SearchControllerMessages {
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDirMessages = new File(rb.getString("indexDirMessages"));
 		
-		Term t = new Term(field1,term1);
+		Term t = new Term(field1,CyrillicLatinConverter.cir2lat(term1).toLowerCase());
 		Query query = new TermQuery(t);
 		
 		System.out.println(query);
@@ -259,7 +260,7 @@ public class SearchControllerMessages {
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDirMessages = new File(rb.getString("indexDirMessages"));
 		
-		Term t = new Term(field, word);
+		Term t = new Term(field, CyrillicLatinConverter.cir2lat(word).toLowerCase());
 		int editDis = 2;
 		FuzzyQuery query = new FuzzyQuery(t,editDis);
 		
@@ -328,7 +329,7 @@ public class SearchControllerMessages {
 		
 		query.setSlop(1);
 		
-		StringTokenizer st = new StringTokenizer(term1);
+		StringTokenizer st = new StringTokenizer(CyrillicLatinConverter.cir2lat(term1).toLowerCase());
 		while(st.hasMoreTokens()){
 			query.add(new Term(field1,st.nextToken()));
 		}

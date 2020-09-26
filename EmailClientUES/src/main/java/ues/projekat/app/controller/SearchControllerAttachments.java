@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ues.projekat.y.search.misc.CyrillicLatinConverter;
+import ues.projekat.y.search.misc.SerbianAnalyzer;
 import ues.projekat.y.search.model.FoundAttachment;
 import ues.projekat.y.search.model.FoundPdfFile;
 
@@ -50,7 +52,7 @@ public class SearchControllerAttachments {
 		ResourceBundle rb = ResourceBundle.getBundle("ues.projekat.y.search.indexing.luceneindex");
 		indexDirAttach = new File(rb.getString("indexDirAttach"));
 		
-		Term t = new Term(field1, term1);
+		Term t = new Term(field1, CyrillicLatinConverter.cir2lat(term1).toLowerCase());
 		Query query = new TermQuery(t);
 		
 		System.out.println(query);
@@ -116,7 +118,7 @@ public class SearchControllerAttachments {
             Directory index = FSDirectory.open(indexDirPdf);
             IndexReader reader = DirectoryReader.open(index);
             IndexSearcher searcher = new IndexSearcher(reader);
-            Analyzer analyzer1 = new StandardAnalyzer(Version.LUCENE_40);
+            SerbianAnalyzer analyzer1 = new SerbianAnalyzer();
             QueryParser queryParser = new QueryParser(Version.LUCENE_40, "content", analyzer1);
             QueryParser queryParserfilename = new QueryParser(Version.LUCENE_40, "fullpath", analyzer1);
             Query query = queryParser.parse(regularSearchPdf);//to search in the content

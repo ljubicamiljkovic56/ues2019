@@ -66,10 +66,10 @@ INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destinati
 INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destination) VALUES (5, 1, 'sent', 3, 5);
 INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destination) VALUES (6, 3, 'archive', 1, 6);
 
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'pera@gmail.com', ' ', 'pera@gmail.com', '2020-04-20 09:10:56', 'Zanimljivosti', 'Evo novih zanimljivosti', false, 1, 1);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'ana@gmail.com', 'miki@gmail.com', 'ana@gmail.com', '2020-04-20 12:10:30', 'Zadatak', 'Domaci zadatak', true, 2, 2);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'pera@gmail.com', ' ', 'pera@gmail.com', '2020-04-20 09:10:56', 'Занимљивости', 'Ево нових занимљивости', false, 1, 1);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'ana@gmail.com', 'miki@gmail.com', 'ana@gmail.com', '2020-04-20 12:10:30', 'Zadatak', 'Domaći zadatak', true, 2, 2);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('pera@gmail.com', 'mile@gmail.com', ' ', 'miki@gmail.com', '2020-08-29 18:30:10', 'Slika', 'Slika', true, 5, 3);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('pera@gmail.com', 'mitic.ana@gmail.com', 'mile@gmail.com', ' ', '2020-09-10 14:20:22', 'Raspored', 'Raspored casova', true, 5, 3);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('pera@gmail.com', 'mitic.ana@gmail.com', 'mile@gmail.com', ' ', '2020-09-10 14:20:22', 'Распоред', 'Распоред часова', true, 5, 3);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'verica@ptt.rs', ' ', ' ', '2020-09-14 11:30:00', 'text fajl', 'importsql.txt', true, 4, 3);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'milos.zikic@yahoo.com', 'pera@gmail.com', ' ', '2020-09-15 16:50:12', 'cat', 'cat.jpg', false, 6, 3);
 
