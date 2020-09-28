@@ -98,7 +98,7 @@ public class IndexerMessage {
 			}
 			
 			//Ispis sta indeksuje
-			System.out.println("Indexing " + f.getCanonicalPath());
+			System.out.println("Indexing....");
 			
 			try {
 				Connection con = null;

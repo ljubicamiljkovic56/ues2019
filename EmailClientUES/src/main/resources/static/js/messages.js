@@ -329,7 +329,6 @@ $(document).ready(function(){
 						'<td>' + it.mimeType + '</td>' +
 						'<td>' + it.name + '</td>' + 
 						'<td>' + it.path + '</td>' +
-						'<td>' + it.message_id + '</td>' +
 						'<td>' +
 					'</td>' + 
 						'<td>' +

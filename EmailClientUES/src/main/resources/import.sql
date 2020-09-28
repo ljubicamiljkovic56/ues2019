@@ -26,9 +26,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO users(username, password, firstname, lastname) VALUES ('miki123', 'miki123', 'Miki', 'Mikic');
 INSERT INTO users(username, password, firstname, lastname) VALUES ('pera', 'pera', 'Pera', 'Peric');
 INSERT INTO users(username, password, firstname, lastname) VALUES ('ana', 'ana', 'Ana', 'Antić');
+INSERT INTO users(username, password, firstname, lastname) VALUES ('mile', 'mile', 'Mile', 'Milić');
+
 
 INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress1', 21, 56, 'inserverAddress1', 80, 'miki@gmail.com', 'miki123', 'miki@gmail.com', 1);
-INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress2', 11, 77, 'inserverAddress2', 122, 'miki@icloud.com', 'miki23', 'miki@icloud.com', 1);
+INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress2', 11, 77, 'inserverAddress2', 122, 'micko23@icloud.com', 'miki23', 'micko23@icloud.com', 1);
 INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress3', 12, 78, 'inserverAddress3', 125, 'pera@gmail.com', 'pera', 'pera@gmail.com', 2);
 INSERT INTO accounts(smtp_address, smtp_port, inserver_type, inserver_address, inserver_port, username, password, displayname, user_id) VALUES ('smtpAddress4', 33, 44, 'inserverAddress4', 127, 'ana@gmail.com', 'ana', 'ana@gmail.com', 3);
 
@@ -41,10 +43,10 @@ INSERT INTO photos(photo_id,path,contact_id) VALUES (4, 'C:\\Pictures\\blue wave
 
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Antić', 'Ana', 'ana@gmail.com', 'anticeva', 1, null);
 INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Aca', 'Acić', 'Aca', 'aca@yahoo.com', 'aca', 1, null);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Mile', 'Milić', 'Mile', 'mile@gmail.com', 'mile skolski', 2, null);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Mitić', 'AMitić', 'mitic.ana@gmail.com', 'miticeva', 2, null);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Верица','Крстић', 'В.Крстић', 'verica@ptt.rs', 'verica 2.mejl', 3, null);
-INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Милош','Жикић', 'Милош Ж.', 'milos.zikic@yahoo.com', 'милош миша жикић', 3, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Mile', 'Milić', 'Mile', 'mile@gmail.com', 'mile školski', 2, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Ana', 'Mitić', 'AMitić', 'mitic.ana@gmail.com', 'mitićeva', 2, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Верица','Крстић', 'В.Крстић', 'verica@ptt.rs', 'verica 2mejl', 3, null);
+INSERT INTO contacts(firstname, lastname, displayname, email, note, user_id, photo_id) VALUES ('Милош','Жикић', 'МилошЖикић', 'milos.zikic@yahoo.com', 'милош миша', 3, null);
 
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 1', null, 1);
 INSERT INTO folders (name, parent_folder, account_id) VALUES ('Folder 2', 1, 3);
@@ -67,13 +69,13 @@ INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destinati
 INSERT INTO rules(rule_id, rule_condition, rule_value, rule_operation, destination) VALUES (6, 3, 'archive', 1, 6);
 
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'pera@gmail.com', ' ', 'pera@gmail.com', '2020-04-20 09:10:56', 'Занимљивости', 'Ево нових занимљивости', false, 1, 1);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('miki@gmail.com', 'ana@gmail.com', 'miki@gmail.com', 'ana@gmail.com', '2020-04-20 12:10:30', 'Zadatak', 'Domaći zadatak', true, 2, 2);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('micko23@icloud.com', 'ana@gmail.com', 'miki@gmail.com', 'ana@gmail.com', '2020-04-20 12:10:30', 'Zadatak', 'Domaći zadatak', true, 2, 2);
 INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('pera@gmail.com', 'mile@gmail.com', ' ', 'miki@gmail.com', '2020-08-29 18:30:10', 'Slika', 'Slika', true, 5, 3);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('pera@gmail.com', 'mitic.ana@gmail.com', 'mile@gmail.com', ' ', '2020-09-10 14:20:22', 'Распоред', 'Распоред часова', true, 5, 3);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'verica@ptt.rs', ' ', ' ', '2020-09-14 11:30:00', 'text fajl', 'importsql.txt', true, 4, 3);
-INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'milos.zikic@yahoo.com', 'pera@gmail.com', ' ', '2020-09-15 16:50:12', 'cat', 'cat.jpg', false, 6, 3);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('mile@gmail.com', 'mitic.ana@gmail.com', 'mile@gmail.com', ' ', '2020-09-10 14:20:22', 'Распоред', 'Распоред часова', true, 5, 3);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('ana@gmail.com', 'verica@ptt.rs', ' ', ' ', '2020-09-14 11:30:00', 'tekst fajl', 'importsql.txt', true, 4, 3);
+INSERT INTO messages(message_from, message_to, cc, bcc, message_date, message_subject, content, unread, folder_id, account_id) VALUES ('milos.zikic@yahoo.com','miki@gmail.com', 'pera@gmail.com', ' ', '2020-09-15 16:50:12', 'cat', 'cat.jpg', false, 6, 3);
 
-INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs','text', 'Zadatak', 2);
+INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\zadatak.txt','text', 'Zadatak', 2);
 INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\oasis.jpg','jpg', 'Slika', 3);
 INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\OSSSIT Raspored casova','pdf', 'Raspored', 4);
 INSERT INTO attachments(path, mime_type, name, message_id) VALUES ('C:\\Users\\Ljubica\\Downloads\\attachs\\importsql.txt','text', 'importsql text file', 5);

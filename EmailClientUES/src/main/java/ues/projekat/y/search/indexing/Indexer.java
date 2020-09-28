@@ -103,7 +103,7 @@ public class Indexer {
 		}
 		
 		//Ispis sta indeksuje
-		System.out.println("Indexing " + f.getCanonicalPath());
+		System.out.println("Indexing....");
 		
 		//poziv metode koja broji koliko ima paragrafa u contacts.txt
 		//int numOfparagraph = CountParagraphContacts.getParagraphCount();
